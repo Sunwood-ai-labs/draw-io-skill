@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Reusable draw.io skill assets and SVG lint tooling for Codex-style agent workflows.",
+  "description": "Best-of-both-worlds draw.io skill assets for Codex and Claude Code, with export helpers and SVG lint tooling.",
   "scripts": {
     "check:node": "node --check scripts/check-drawio-svg-overlaps.mjs",
+    "check:export-node": "node --check scripts/export-drawio.mjs",
     "check:fixture": "node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg",
-    "check": "npm run check:node && npm run check:fixture"
+    "check": "npm run check:node && npm run check:export-node && npm run check:fixture"
   }
 }

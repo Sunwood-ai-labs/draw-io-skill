@@ -14,23 +14,81 @@
 </p>
 
 <p align="center">
-  draw.io 図の XML 編集、PNG 出力、SVG の重なり検知、文字はみ出し検知をまとめた再利用可能なスキルです。
+  Codex と Claude Code の両方で使いやすい、全部のいいところどりを目指した draw.io スキルです。
 </p>
 
-## ✨ 概要
+## 概要
 
-`draw-io-skill` は、エージェントが draw.io 図を扱うときに必要な実務フローをまとめたリポジトリです。
+`draw-io-skill` は、3つの良さを1つにまとめたスキルリポジトリです。
 
-- `.drawio` XML を直接編集するためのガイド
-- 透明背景の PNG / SVG 出力
-- 矢印重なり、箱貫通、文字 overflow の lint
-- AWS アイコン探索とレイアウト指針
+- Claude Code 系で使いやすい native `.drawio` 生成 / export フロー
+- 実務で使いやすい XML 編集とレイアウト指針
+- リポジトリ運用向けの SVG lint による重なり / 箱貫通 / 文字はみ出し検知
 
-## 🚀 クイックスタート
+図を作る、整える、書き出す、崩れを見つける、までを一続きで扱えるようにしています。
 
-### Codex 系スキルディレクトリへ導入
+## ベストプラクティスの流れ
 
-まずこのリポジトリを任意の作業ディレクトリへ clone してから、スキルディレクトリへ接続します。
+1. native な `.drawio` を作成または編集する
+2. リポジトリ運用では `.drawio` を編集用ソースとして残す
+3. PNG / SVG / PDF が必要なら、埋め込み XML 付きで export する
+4. 線のルーティングやラベル密度が高い図は、SVG export 後に lint する
+5. lint が通っても最後は見た目を確認する
+
+これで、公式寄りの生成フローと、実務で必要な編集・QA の両方をカバーできます。
+
+## このスキルに入っているもの
+
+### 1. native draw.io ワークフロー
+
+- mxGraphModel XML をそのまま扱う
+- `.drawio`、`.drawio.png`、`.drawio.svg`、`.drawio.pdf` を一貫した命名で扱う
+- `png` / `svg` / `pdf` では埋め込み XML により draw.io で再編集しやすくする
+
+### 2. cross-platform export helper
+
+draw.io CLI の細かいフラグを毎回覚えなくてよいように、export helper を同梱しています。
+
+```bash
+node scripts/export-drawio.mjs architecture.drawio --format png --open
+node scripts/export-drawio.mjs architecture.drawio --format svg
+node scripts/export-drawio.mjs architecture.drawio --output architecture.drawio.pdf
+```
+
+この helper は次をやります。
+
+- Windows / macOS / Linux で draw.io CLI を探す
+- `png` / `svg` / `pdf` では埋め込み XML を有効にする
+- PNG は透明背景 + 2x scale をデフォルトにする
+- 明示されたときだけ `--delete-source` で source を消す
+
+### 3. SVG lint
+
+[scripts/check-drawio-svg-overlaps.mjs](./scripts/check-drawio-svg-overlaps.mjs) は次を検知します。
+
+- `edge-edge`: 線どうしの交差や重なり
+- `edge-rect`: 線が箱の中を通るケース
+- `text-overflow(width)` / `text-overflow(height)`: `.drawio` を見ながら推定する文字はみ出し
+
+実行例:
+
+```bash
+node scripts/export-drawio.mjs architecture.drawio --format svg
+node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
+```
+
+### 4. レイアウトと編集ガイド
+
+- 箱、線、コンテナの間隔ルール
+- 日本語テキスト幅の考え方
+- グループ枠や swimlane の内側余白ルール
+- AWS アイコン探索とレイアウト参照
+
+## インストール
+
+### Codex
+
+任意の安定した場所に clone してから、Codex の skills ディレクトリへ接続します。
 
 #### Windows ジャンクション例
 
@@ -46,37 +104,61 @@ git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git ~/Prj/draw-io-ski
 ln -s ~/Prj/draw-io-skill ~/.codex/skills/draw-io
 ```
 
-### 同梱 lint の確認
+### Claude Code
+
+Claude Code では、そのまま skills フォルダへ clone するか、`SKILL.md` を配置して使えます。
+
+#### グローバルスキル
+
+```bash
+git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git ~/.claude/skills/drawio
+```
+
+#### プロジェクトごとのスキル
+
+```bash
+git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git .claude/skills/drawio
+```
+
+## クイックコマンド
+
+### 同梱スクリプトの確認
 
 ```bash
 npm install
 npm run check
 ```
 
-## 🧰 このスキルでできること
-
-### 図の編集ワークフロー
-
-- `.drawio` XML の安全な編集
-- draw.io CLI による PNG / SVG 出力
-- 余白、矢印、和文テキスト幅のルール化
-
-### SVG lint
-
-[scripts/check-drawio-svg-overlaps.mjs](./scripts/check-drawio-svg-overlaps.mjs) は次を検知します。
-
-- `edge-edge`: 線どうしの交差や重なり
-- `edge-rect`: 線が箱の中を通ってしまうケース
-- `text-overflow(width)` / `text-overflow(height)`: `.drawio` を見ながら推定した文字はみ出し
-
-実行例:
+### 埋め込み XML 付き PNG export
 
 ```bash
-drawio -x -f svg -o docs/diagram.drawio.svg docs/diagram.drawio
-node scripts/check-drawio-svg-overlaps.mjs docs/diagram.drawio.svg
+node scripts/export-drawio.mjs docs/architecture.drawio --format png
 ```
 
-## 📦 構成
+### SVG export と review
+
+```bash
+node scripts/export-drawio.mjs docs/architecture.drawio --format svg
+node scripts/check-drawio-svg-overlaps.mjs docs/architecture.drawio.svg
+```
+
+### AWS アイコン検索
+
+```bash
+uv run python scripts/find_aws_icon.py lambda
+```
+
+## 出力フォーマット
+
+| Format | デフォルト出力 | 埋め込み XML | メモ |
+|--------|----------------|--------------|------|
+| `.drawio` | source file | n/a | native 編集ソース |
+| `png` | `name.drawio.png` | Yes | helper のデフォルト export。透明背景 + 2x |
+| `svg` | `name.drawio.svg` | Yes | lint と docs 表示に最適 |
+| `pdf` | `name.drawio.pdf` | Yes | レビューや印刷向け |
+| `jpg` | `name.drawio.jpg` | No | 劣化ありの簡易 fallback |
+
+## リポジトリ構成
 
 ```text
 draw-io-skill/
@@ -96,68 +178,32 @@ draw-io-skill/
 └── scripts/
     ├── check-drawio-svg-overlaps.mjs
     ├── convert-drawio-to-png.sh
+    ├── export-drawio.mjs
     └── find_aws_icon.py
 ```
 
-## 🛠 前提
-
-- Node.js 20+
-- draw.io CLI
-- `find_aws_icon.py` を使う場合は Python
-
-## ✅ 開発チェック
-
-ローカル確認:
-
-```bash
-npm run check
-```
-
-いまの `check` では次を見ています。
-
-- SVG lint スクリプトの Node 構文チェック
-- 同梱 fixture に対する lint 実行
-
-## 🧪 代表コマンド
-
-### PNG 出力
-
-```bash
-drawio -x -f png -s 2 -t -o architecture.drawio.png architecture.drawio
-```
-
-### SVG 出力
-
-```bash
-drawio -x -f svg -o architecture.drawio.svg architecture.drawio
-```
-
-### 重なり / overflow 検知
-
-```bash
-node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
-```
-
-### AWS アイコン検索
-
-```bash
-uv run python scripts/find_aws_icon.py lambda
-```
-
-## 📘 含まれるガイド
+## 含まれるガイド
 
 - [SKILL.md](./SKILL.md): エージェント向けスキル本文
-- [references/layout-guidelines.md](./references/layout-guidelines.md): レイアウト指針
+- [references/layout-guidelines.md](./references/layout-guidelines.md): レイアウトと余白の指針
 - [references/aws-icons.md](./references/aws-icons.md): AWS アイコン参照
 
-## 🤝 参考元とクレジット
+## 参考元とクレジット
 
-このリポジトリは `softaworks/agent-toolkit` の `draw-io` スキルを出発点にしつつ、lint と公開向け整備を追加したものです。
+このリポジトリは、次の良さを組み合わせて作っています。
+
+- `softaworks/agent-toolkit` の編集・レイアウト指針
+- `jgraph/drawio-mcp` の Claude Code 向け native draw.io フロー
+- このリポジトリ独自の lint / export / 公開向け整備
 
 参考にしたリポジトリ / ソース:
 
 - [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
+- [jgraph/drawio-mcp - skill-cli/README.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/README.md)
+- [jgraph/drawio-mcp - skill-cli/drawio/SKILL.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/drawio/SKILL.md)
+- [draw.io Style Reference](https://www.drawio.com/doc/faq/drawio-style-reference.html)
+- [draw.io mxfile XSD](https://www.drawio.com/assets/mxfile.xsd)
 
-## 📄 ライセンス
+## ライセンス
 
 [MIT](./LICENSE)

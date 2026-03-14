@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="./README.ja.md">日本語</a> · <strong>English</strong>
+  <a href="./README.ja.md">Japanese</a> · <strong>English</strong>
 </p>
 
 <p align="center">
@@ -14,23 +14,81 @@
 </p>
 
 <p align="center">
-  A reusable skill for draw.io diagram editing, PNG export, SVG overlap linting, and text-overflow checks.
+  A best-of-both-worlds draw.io skill for Codex, Claude Code, and agent workflows.
 </p>
 
-## ✨ Overview
+## Overview
 
-`draw-io-skill` packages a practical draw.io workflow for agent-driven editing:
+`draw-io-skill` combines the strongest parts of three approaches into one reusable repository:
 
-- edit `.drawio` XML safely and predictably
-- export transparent PNG or SVG outputs
-- lint SVGs for edge overlap, box penetration, and text overflow
-- reuse AWS icon search helpers and layout guidance
+- native `.drawio` authoring and export flow for Claude Code style assistants
+- practical XML editing and layout guidance for technical diagrams
+- repository-ready SVG linting for overlap, box penetration, and text overflow
 
-## 🚀 Quick Start
+The result is a single skill that helps agents create diagrams, refine them, export them, and catch the layout issues that draw.io itself does not detect.
 
-### Install into a Codex-style skill directory
+## Best-Of Workflow
 
-Clone this repository somewhere stable, then connect it into your skill folder.
+1. Generate or edit a native `.drawio` file.
+2. Keep the source diagram as the editable truth for repository work.
+3. Export with embedded XML using the bundled exporter when the user wants PNG, SVG, or PDF.
+4. Export SVG and run lint when edge routing or label density matters.
+5. Visually verify the final diagram even if lint passes.
+
+This keeps the official Claude Code style flow, while preserving the day-to-day repository ergonomics and QA checks that teams need.
+
+## What This Skill Includes
+
+### 1. Native draw.io workflow
+
+- generate and edit real mxGraphModel XML
+- use `.drawio`, `.drawio.png`, `.drawio.svg`, and `.drawio.pdf` naming consistently
+- keep the exported file editable through embedded XML where supported
+
+### 2. Cross-platform export helper
+
+Use the bundled exporter instead of remembering draw.io CLI flags:
+
+```bash
+node scripts/export-drawio.mjs architecture.drawio --format png --open
+node scripts/export-drawio.mjs architecture.drawio --format svg
+node scripts/export-drawio.mjs architecture.drawio --output architecture.drawio.pdf
+```
+
+The exporter:
+
+- locates the draw.io CLI on Windows, macOS, or Linux
+- uses embedded XML for `png`, `svg`, and `pdf`
+- defaults to transparent 2x PNG export
+- supports optional `--delete-source` cleanup when the user explicitly wants embedded-only output
+
+### 3. SVG linting
+
+The included [scripts/check-drawio-svg-overlaps.mjs](./scripts/check-drawio-svg-overlaps.mjs) checks:
+
+- `edge-edge` crossings and collinear overlaps
+- `edge-rect` penetration where arrows travel through boxes
+- `text-overflow(width)` and `text-overflow(height)` using the companion `.drawio`
+
+Example:
+
+```bash
+node scripts/export-drawio.mjs architecture.drawio --format svg
+node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
+```
+
+### 4. Layout and editing guidance
+
+- spacing rules for boxes, edges, and containers
+- Japanese text width guidance
+- margin rules for grouped frames and swimlanes
+- AWS icon search helpers and layout references
+
+## Installation
+
+### Codex
+
+Clone the repository somewhere stable, then connect it into your Codex skills directory.
 
 #### Windows junction example
 
@@ -46,37 +104,61 @@ git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git ~/Prj/draw-io-ski
 ln -s ~/Prj/draw-io-skill ~/.codex/skills/draw-io
 ```
 
-### Validate the bundled lint script
+### Claude Code
+
+Clone the repository directly into a Claude Code skill folder or copy `SKILL.md` into one.
+
+#### Global skill
+
+```bash
+git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git ~/.claude/skills/drawio
+```
+
+#### Per-project skill
+
+```bash
+git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git .claude/skills/drawio
+```
+
+## Quick Commands
+
+### Validate the bundled scripts
 
 ```bash
 npm install
 npm run check
 ```
 
-## 🧰 What This Skill Adds
-
-### Diagram authoring workflow
-
-- `.drawio` XML editing guidance
-- draw.io CLI export commands for PNG and SVG
-- layout rules for spacing, arrows, and Japanese text width
-
-### SVG linting
-
-The included script [scripts/check-drawio-svg-overlaps.mjs](./scripts/check-drawio-svg-overlaps.mjs) checks:
-
-- `edge-edge` crossings and collinear overlaps
-- `edge-rect` penetration where arrows travel through boxes
-- `text-overflow(width)` and `text-overflow(height)` using the companion `.drawio`
-
-Example:
+### Export PNG with embedded XML
 
 ```bash
-drawio -x -f svg -o docs/diagram.drawio.svg docs/diagram.drawio
-node scripts/check-drawio-svg-overlaps.mjs docs/diagram.drawio.svg
+node scripts/export-drawio.mjs docs/architecture.drawio --format png
 ```
 
-## 📦 Repository Layout
+### Export SVG for review
+
+```bash
+node scripts/export-drawio.mjs docs/architecture.drawio --format svg
+node scripts/check-drawio-svg-overlaps.mjs docs/architecture.drawio.svg
+```
+
+### Search AWS icons
+
+```bash
+uv run python scripts/find_aws_icon.py lambda
+```
+
+## Output Formats
+
+| Format | Default output | Embedded XML | Notes |
+|--------|----------------|--------------|-------|
+| `.drawio` | source file | n/a | Native editable XML |
+| `png` | `name.drawio.png` | Yes | Default export helper mode, transparent + 2x |
+| `svg` | `name.drawio.svg` | Yes | Best format for linting and scalable docs |
+| `pdf` | `name.drawio.pdf` | Yes | Good for print and review |
+| `jpg` | `name.drawio.jpg` | No | Lossy fallback only |
+
+## Repository Layout
 
 ```text
 draw-io-skill/
@@ -96,68 +178,32 @@ draw-io-skill/
 └── scripts/
     ├── check-drawio-svg-overlaps.mjs
     ├── convert-drawio-to-png.sh
+    ├── export-drawio.mjs
     └── find_aws_icon.py
 ```
 
-## 🛠 Requirements
+## Included Guides
 
-- Node.js 20+
-- draw.io CLI for export commands
-- optional Python for `find_aws_icon.py`
-
-## ✅ Development Checks
-
-Run the local structural check:
-
-```bash
-npm run check
-```
-
-This currently validates:
-
-- Node syntax for the SVG lint script
-- bundled fixture linting for a known-good `.drawio` / `.svg` pair
-
-## 🧪 Example Commands
-
-### Export PNG
-
-```bash
-drawio -x -f png -s 2 -t -o architecture.drawio.png architecture.drawio
-```
-
-### Export SVG
-
-```bash
-drawio -x -f svg -o architecture.drawio.svg architecture.drawio
-```
-
-### Run overlap and overflow lint
-
-```bash
-node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
-```
-
-### Search AWS icons
-
-```bash
-uv run python scripts/find_aws_icon.py lambda
-```
-
-## 📘 Included Guides
-
-- [SKILL.md](./SKILL.md): the skill instructions used by agents
-- [references/layout-guidelines.md](./references/layout-guidelines.md): layout rules
+- [SKILL.md](./SKILL.md): the agent-facing skill instructions
+- [references/layout-guidelines.md](./references/layout-guidelines.md): layout rules and spacing guidance
 - [references/aws-icons.md](./references/aws-icons.md): AWS icon references
 
-## 🤝 References And Credits
+## References And Credits
 
-This repository is derived from the original `draw-io` skill in `softaworks/agent-toolkit` and extends it with repository-ready lint tooling and polish.
+This repository is built as a combined workflow:
+
+- editing and layout guidance inspired by `softaworks/agent-toolkit`
+- native Claude Code draw.io flow inspired by `jgraph/drawio-mcp`
+- additional repository-oriented lint and export tooling added in this repository
 
 Referenced repositories and sources:
 
 - [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
+- [jgraph/drawio-mcp - skill-cli/README.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/README.md)
+- [jgraph/drawio-mcp - skill-cli/drawio/SKILL.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/drawio/SKILL.md)
+- [draw.io Style Reference](https://www.drawio.com/doc/faq/drawio-style-reference.html)
+- [draw.io mxfile XSD](https://www.drawio.com/assets/mxfile.xsd)
 
-## 📄 License
+## License
 
 [MIT](./LICENSE)

@@ -1,333 +1,296 @@
 ---
 name: draw-io
-description: draw.io diagram creation, editing, and review. Use for .drawio XML editing, PNG/SVG conversion, overlap and text-overflow linting, layout adjustment, and AWS icon usage.
+description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap and text-overflow linting, layout adjustment, and AWS icon usage.
 ---
 
 # draw.io Diagram Skill
 
-## 1. Basic Rules
+## 1. Purpose
 
-- Edit only `.drawio` files
-- Do not directly edit `.drawio.png` files
-- Use auto-generated `.drawio.png` by pre-commit hook in slides
+Use this skill when an agent needs to:
 
-## 2. Font Settings
+- create a new draw.io diagram as native `.drawio` XML
+- edit or refactor an existing `.drawio` file
+- export diagrams to `png`, `svg`, `pdf`, or `jpg`
+- check routed edges, box penetration, or text overflow
+- build architecture diagrams with AWS icons
 
-For diagrams used in Quarto slides,
-specify `defaultFontFamily` in mxGraphModel tag:
+This skill intentionally combines:
+
+- the native draw.io assistant workflow used by Claude Code style tools
+- the practical XML editing and layout rules from mature repository usage
+- repository-ready SVG linting that catches issues draw.io does not flag
+
+## 2. Default Workflow
+
+Follow this order unless the user asks for something narrower:
+
+1. Create or update the native `.drawio` file first.
+2. Keep `.drawio` as the editable source of truth for repository work.
+3. If the user asked for an exported artifact, export to `.drawio.png`, `.drawio.svg`, `.drawio.pdf`, or `.drawio.jpg`.
+4. If edge routing or label density matters, export SVG and run the lint script.
+5. Open or surface the final artifact requested by the user.
+6. Even when lint passes, visually verify the result.
+
+If the user only asks for a diagram and does not request a format, stop at the `.drawio` file.
+
+## 3. Basic Rules
+
+- Edit only `.drawio` files directly.
+- Do not manually edit generated `.drawio.png`, `.drawio.svg`, or `.drawio.pdf` files.
+- Prefer native mxGraphModel XML over Mermaid or CSV conversions.
+- Keep source diagrams unless the user explicitly wants embedded-only cleanup after export.
+- Use descriptive lowercase filenames with hyphens.
+
+Examples:
+
+- `login-flow.drawio`
+- `login-flow.drawio.png`
+- `er-diagram.drawio.svg`
+- `architecture-overview.drawio.pdf`
+
+## 4. Output Formats
+
+| Format | Embedded XML | Recommended use |
+|--------|--------------|-----------------|
+| `.drawio` | n/a | Editable source diagram |
+| `png` | Yes | Docs, slides, chat attachments |
+| `svg` | Yes | Docs, scalable output, lint input |
+| `pdf` | Yes | Review and print |
+| `jpg` | No | Last-resort lossy export |
+
+For repository workflows, prefer:
+
+- `.drawio` while editing
+- `.drawio.svg` when running lint
+- `.drawio.png` or `.drawio.svg` for documentation embeds
+
+## 5. Export Commands
+
+### 5.1. Preferred export helper
+
+Use the bundled helper first:
+
+```sh
+node scripts/export-drawio.mjs architecture.drawio --format png --open
+node scripts/export-drawio.mjs architecture.drawio --format svg
+node scripts/export-drawio.mjs architecture.drawio --output architecture.drawio.pdf
+```
+
+What it does:
+
+- locates the draw.io CLI on Windows, macOS, or Linux
+- uses embedded XML for `png`, `svg`, and `pdf`
+- defaults to transparent 2x PNG export
+- supports optional `--delete-source` when the user explicitly wants only the embedded export
+
+### 5.2. Manual draw.io CLI export
+
+If needed, call draw.io directly:
+
+```sh
+drawio -x -f png -e -s 2 -t -b 10 -o architecture.drawio.png architecture.drawio
+drawio -x -f svg -e -b 10 -o architecture.drawio.svg architecture.drawio
+drawio -x -f pdf -e -b 10 -o architecture.drawio.pdf architecture.drawio
+drawio -x -f jpg -b 10 -o architecture.drawio.jpg architecture.drawio
+```
+
+Key flags:
+
+- `-x`: export mode
+- `-f`: output format
+- `-e`: embed diagram XML in png/svg/pdf
+- `-o`: output file path
+- `-b`: border width
+- `-t`: transparent background for PNG
+- `-s`: scale factor
+- `-a`: all pages for PDF
+- `-p`: page index (1-based)
+
+### 5.3. Legacy PNG helper
+
+For existing pre-commit or shell workflows, the original helper remains available:
+
+```sh
+bash scripts/convert-drawio-to-png.sh architecture.drawio
+```
+
+## 6. SVG Linting
+
+After exporting SVG, run the bundled lint:
+
+```sh
+node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
+```
+
+The lint script currently checks:
+
+- `edge-edge`: edge crossings and collinear overlaps
+- `edge-rect`: lines penetrating boxes
+- `text-overflow(width)`: text likely too wide for its box
+- `text-overflow(height)`: text likely too tall for its box
+
+Notes:
+
+- Input may be either `.drawio` or `.drawio.svg`
+- Text overflow detection is heuristic, not pixel-perfect
+- Lint passing does not replace visual verification
+
+## 7. XML And Layout Rules
+
+### 7.1. Required XML structure
+
+Every diagram must use native mxGraphModel XML:
+
+```xml
+<mxGraphModel>
+  <root>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+  </root>
+</mxGraphModel>
+```
+
+All normal diagram cells should live under `parent="1"` unless you intentionally use container parents.
+
+### 7.2. Edge geometry is mandatory
+
+Every edge cell must contain geometry:
+
+```xml
+<mxCell id="e1" edge="1" parent="1" source="a" target="b" style="edgeStyle=orthogonalEdgeStyle;">
+  <mxGeometry relative="1" as="geometry"/>
+</mxCell>
+```
+
+Never use self-closing edge cells.
+
+### 7.3. Font settings
+
+For diagrams with Japanese text or slide usage, set the font family explicitly:
 
 ```xml
 <mxGraphModel defaultFontFamily="Noto Sans JP" ...>
 ```
 
-Also explicitly specify `fontFamily` in each text element's style attribute:
+Also set `fontFamily` in text styles:
 
 ```xml
-style="text;html=1;fontSize=27;fontFamily=Noto Sans JP;"
+style="text;html=1;fontSize=18;fontFamily=Noto Sans JP;"
 ```
 
-## 3. Conversion Commands
+### 7.4. Spacing and routing
 
-See conversion script at [scripts/convert-drawio-to-png.sh](scripts/convert-drawio-to-png.sh).
+- Space nodes generously. Prefer about 200px horizontal and 120px vertical gaps for routed diagrams.
+- Leave at least 20px of straight segment near arrowheads.
+- Use `edgeStyle=orthogonalEdgeStyle` for most technical diagrams.
+- Add explicit waypoints when auto-routing produces overlap or awkward bends.
+- Align to a coarse grid when possible.
 
-```sh
-# Convert all .drawio files
-mise exec -- pre-commit run --all-files
-
-# Convert specific .drawio file
-mise exec -- pre-commit run convert-drawio-to-png --files assets/my-diagram.drawio
-
-# Run script directly (using skill's script)
-bash ~/.claude/skills/draw-io/scripts/convert-drawio-to-png.sh assets/diagram1.drawio
-```
-
-Internal command used:
-
-```sh
-drawio -x -f png -s 2 -t -o output.drawio.png input.drawio
-```
-
-| Option | Description |
-|--------|-------------|
-| `-x` | Export mode |
-| `-f png` | PNG format output |
-| `-s 2` | 2x scale (high resolution) |
-| `-t` | Transparent background |
-| `-o` | Output file path |
-
-### 3.1. Diagram Linting
-
-Use the bundled SVG lint script after exporting diagrams when routing or text layout is important.
-
-```sh
-# Export SVG first
-drawio -x -f svg -o docs/diagram.drawio.svg docs/diagram.drawio
-
-# Check line overlaps, box penetration, and text overflow
-node scripts/check-drawio-svg-overlaps.mjs docs/diagram.drawio.svg
-```
-
-The lint script currently checks:
-
-- edge-edge overlap or crossing
-- edge-rect penetration
-- text overflow width / height against the companion `.drawio`
-
-Notes:
-
-- Input can be either `.drawio` or `.drawio.svg`
-- Text overflow detection is heuristic, but useful for catching labels that visually spill out of boxes
-- Keep visual PNG verification even when lint passes
-
-## 4. Layout Adjustment
-
-### 4.1. Coordinate Adjustment Steps
-
-1. Open `.drawio` file in text editor (plain XML format)
-2. Find `mxCell` for element to adjust (search by `value` attribute for text)
-3. Adjust coordinates in `mxGeometry` tag
-   - `x`: Position from left
-   - `y`: Position from top
-   - `width`: Width
-   - `height`: Height
-4. Run conversion and verify
-
-### 4.2. Coordinate Calculation
-
-- Element center coordinate = `y + (height / 2)`
-- To align multiple elements, calculate and match center coordinates
-
-## 5. Design Principles
-
-### 5.1. Basic Principles
-
-- Clarity: Create simple, visually clean diagrams
-- Consistency: Unify colors, fonts, icon sizes, line thickness
-- Accuracy: Do not sacrifice accuracy for simplification
-
-### 5.2. Element Rules
-
-- Label all elements
-- Use arrows to indicate direction
-  (prefer 2 unidirectional arrows over bidirectional)
-- Use latest official icons
-- Add legend to explain custom symbols
-
-### 5.3. Accessibility
-
-- Ensure sufficient color contrast
-- Use patterns in addition to colors
-
-### 5.4. Progressive Disclosure
-
-Separate complex systems into staged diagrams:
-
-| Diagram Type | Purpose |
-|--------------|---------|
-| Context Diagram | System overview from external perspective |
-| System Diagram | Main components and relationships |
-| Component Diagram | Technical details and integration points |
-| Deployment Diagram | Infrastructure configuration |
-| Data Flow Diagram | Data flow and transformation |
-| Sequence Diagram | Time-series interactions |
-
-### 5.5. Metadata
-
-Include title, description, last updated, author, and version in diagrams.
-
-## 6. Best Practices
-
-### 6.1. Background Color
-
-- Remove `background="#ffffff"`
-- Transparent background adapts to various themes
-
-### 6.2. Font Size
-
-- Use 1.5x standard font size (around 18px) for PDF readability
-
-### 6.3. Japanese Text Width
-
-- Allow 30-40px per character
-- Insufficient width causes unintended line breaks
+Example with waypoints:
 
 ```xml
-<!-- For 10-character text, allow 300-400px -->
-<mxGeometry x="140" y="60" width="400" height="40" />
-```
-
-### 6.4. Arrow Placement
-
-- Always place arrows at back (position in XML right after Title)
-- Position arrows to avoid overlapping with labels
-- Keep arrow start/end at least 20px from label bottom edge
-
-```xml
-<!-- Title -->
-<mxCell id="title" value="..." .../>
-
-<!-- Arrows (back layer) -->
-<mxCell id="arrow1" style="edgeStyle=..." .../>
-
-<!-- Other elements (front layer) -->
-<mxCell id="box1" .../>
-```
-
-### 6.5. Arrow Connection to Text Labels
-
-For text elements, exitX/exitY don't work, so use explicit coordinates:
-
-```xml
-<!-- Good: Explicit coordinates with sourcePoint/targetPoint -->
-<mxCell id="arrow" style="..." edge="1" parent="1">
+<mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;jettySize=auto;" edge="1" parent="1" source="a" target="b">
   <mxGeometry relative="1" as="geometry">
-    <mxPoint x="1279" y="500" as="sourcePoint"/>
-    <mxPoint x="119" y="500" as="targetPoint"/>
     <Array as="points">
-      <mxPoint x="1279" y="560"/>
-      <mxPoint x="119" y="560"/>
+      <mxPoint x="300" y="150"/>
+      <mxPoint x="300" y="250"/>
     </Array>
   </mxGeometry>
 </mxCell>
 ```
 
-### 6.6. edgeLabel Offset Adjustment
+### 7.5. Containers and groups
 
-Adjust offset attribute to distance arrow labels from arrows:
+Do not fake containment by simply placing boxes on top of bigger boxes.
 
-```xml
-<!-- Place above arrow (negative value to distance) -->
-<mxPoint x="0" y="-40" as="offset"/>
+- Use `parent="containerId"` for child elements.
+- Use `swimlane` when the container needs a visible title bar.
+- Use `group;pointerEvents=0;` for invisible containers.
+- Add `container=1;pointerEvents=0;` when using a custom shape as a container.
 
-<!-- Place below arrow (positive value to distance) -->
-<mxPoint x="0" y="40" as="offset"/>
-```
+### 7.6. Japanese text width
 
-### 6.7. Remove Unnecessary Elements
-
-- Remove decorative icons irrelevant to context
-- Example: If ECR exists, separate Docker icon is unnecessary
-
-### 6.8. Labels and Headings
-
-- Service name only: 1 line
-- Service name + supplementary info: 2 lines with line break
-- Redundant notation (e.g., ECR Container Registry): shorten to 1 line
-- Use `&lt;br&gt;` tag for line breaks
-
-### 6.9. Background Frame and Internal Element Placement
-
-When placing elements inside background frames (grouping boxes),
-ensure sufficient margin.
-
-- YOU MUST: Internal elements must have at least 30px margin from frame boundary
-- YOU MUST: Account for rounded corners (`rounded=1`) and stroke width
-- YOU MUST: Always visually verify PNG output for overflow
-
-Coordinate calculation verification:
-
-```text
-Background frame: y=20, height=400 -> range is y=20-420
-Internal element top: frame y + 30 or more (e.g., y=50)
-Internal element bottom: frame y + height - 30 or less (e.g., up to y=390)
-```
-
-Bad example (may overflow):
+Allow roughly 30 to 40px per Japanese character.
 
 ```xml
-<!-- Background frame -->
-<mxCell id="bg" style="rounded=1;strokeWidth=3;...">
-  <mxGeometry x="500" y="20" width="560" height="400" />
-</mxCell>
-<!-- Text: y=30 is too close to frame top (y=20) -->
-<mxCell id="label" value="Title" style="text;...">
-  <mxGeometry x="510" y="30" width="540" height="35" />
-</mxCell>
+<mxGeometry x="140" y="60" width="400" height="40" />
 ```
 
-Good example (sufficient margin):
+If text is mixed Japanese and English, err on the wider side.
 
-```xml
-<!-- Background frame -->
-<mxCell id="bg" style="rounded=1;strokeWidth=3;...">
-  <mxGeometry x="500" y="20" width="560" height="430" />
-</mxCell>
-<!-- Text: y=50 is 30px from frame top (y=20) -->
-<mxCell id="label" value="Title" style="text;...">
-  <mxGeometry x="510" y="50" width="540" height="35" />
-</mxCell>
-```
+### 7.7. Backgrounds, frames, and margins
 
-### 6.10. Text Overflow Guard
+- Prefer transparent backgrounds over hard-coded white backgrounds.
+- Inside rounded frames or swimlanes, keep at least 30px margin from the boundary.
+- Account for stroke width and rounded corners.
+- Verify that titles and labels do not sit too close to frame edges.
 
-When a box contains multiple lines or mixed Japanese / English text,
-run the SVG lint before finalizing:
+### 7.8. Labels and line breaks
+
+- Use one line for short service names when possible.
+- Use `&lt;br&gt;` for intentional two-line labels.
+- Shorten redundant wording instead of forcing cramped boxes.
+
+### 7.9. Metadata and progressive disclosure
+
+When appropriate, include title, description, last updated, author, or version.
+
+Split complex systems into multiple diagrams when one canvas becomes dense:
+
+- context diagram
+- system diagram
+- component diagram
+- deployment diagram
+- data flow diagram
+- sequence diagram
+
+## 8. AWS Icon Workflow
+
+When working on AWS diagrams:
+
+- use the latest official icon naming where possible
+- prefer current `mxgraph.aws4.*` icon references
+- remove unnecessary decorative icons that do not add meaning
+
+Search icons with:
 
 ```sh
-node scripts/check-drawio-svg-overlaps.mjs docs/diagram.drawio.svg
+uv run python scripts/find_aws_icon.py ec2
+uv run python scripts/find_aws_icon.py lambda
 ```
 
-If `text-overflow(width)` appears:
+## 9. Checklist
 
-- increase box width
-- shorten the label
-- add explicit line breaks with `&lt;br&gt;`
-
-If `text-overflow(height)` appears:
-
-- increase box height
-- reduce line count
-- increase internal spacing only after checking total height impact
-
-## 7. Reference
-
-- [Layout Guidelines](references/layout-guidelines.md)
-- [AWS Icons](references/aws-icons.md)
-- [AWS Icon Search Script](scripts/find_aws_icon.py)
-
-AWS icon search examples:
-
-```sh
-python ~/.claude/skills/draw-io/scripts/find_aws_icon.py ec2
-python ~/.claude/skills/draw-io/scripts/find_aws_icon.py lambda
-```
-
-## 8. Checklist
-
-- [ ] No background color set (page="0")
-- [ ] Font size appropriate (larger recommended)
-- [ ] Arrows placed at back layer
-- [ ] Arrows not overlapping labels (verify in PNG)
-- [ ] Arrow start/end sufficiently distant from labels (at least 20px)
-- [ ] Arrows not penetrating boxes or icons (verify in PNG)
-- [ ] `node scripts/check-drawio-svg-overlaps.mjs <diagram.drawio.svg>` passes
+- [ ] Diagram source is a valid `.drawio` file
+- [ ] Export filenames use `.drawio.<format>` when exported
+- [ ] Edge cells contain `<mxGeometry relative="1" as="geometry"/>`
+- [ ] Fonts are explicit when Japanese text is involved
+- [ ] No hard-coded white page background unless the user asked for it
+- [ ] Containers have enough internal margin
+- [ ] Edge routing is visually clear and leaves room for arrowheads
+- [ ] SVG lint passes for routing-heavy diagrams
 - [ ] No `text-overflow(width)` or `text-overflow(height)` findings remain
-- [ ] Internal elements not overflowing background frame (verify in PNG)
-- [ ] 30px+ margin between background frame and internal elements
-- [ ] AWS service names are official names/correct abbreviations
-- [ ] AWS icons are latest version (mxgraph.aws4.*)
-- [ ] No unnecessary elements remaining
-- [ ] Visually verified PNG conversion
+- [ ] Final PNG/SVG/PDF was visually checked
 
-## 9. Image Display in reveal.js Slides
+## 10. References
 
-Add `auto-stretch: false` to YAML header:
+- [README.md](README.md)
+- [references/layout-guidelines.md](references/layout-guidelines.md)
+- [references/aws-icons.md](references/aws-icons.md)
+- [draw.io Style Reference](https://www.drawio.com/doc/faq/drawio-style-reference.html)
+- [draw.io mxfile XSD](https://www.drawio.com/assets/mxfile.xsd)
 
-```yaml
----
-title: "Your Presentation"
-format:
-  revealjs:
-    auto-stretch: false
----
-```
+## 11. References And Credits
 
-This ensures correct image display on mobile devices.
+This local version is intentionally a blended skill:
 
-## 10. References And Credits
-
-This local version extends the original `draw-io` skill with PNG/SVG lint guidance and text-overflow detection workflow.
+- editing and layout guidance inspired by `softaworks/agent-toolkit`
+- native assistant workflow and export conventions inspired by `jgraph/drawio-mcp`
+- SVG linting and repository-ready QA extensions added in this repository
 
 Referenced repositories and sources:
 
 - [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
+- [jgraph/drawio-mcp - skill-cli/README.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/README.md)
+- [jgraph/drawio-mcp - skill-cli/drawio/SKILL.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/drawio/SKILL.md)

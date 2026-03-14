@@ -9,6 +9,7 @@ const MAX_OBSTACLE_WIDTH = 420;
 const MAX_OBSTACLE_HEIGHT = 240;
 const TEXT_OVERFLOW_TOLERANCE = 4;
 const DEFAULT_TEXT_PADDING = 4;
+const FRAME_CELL_ID_PATTERN = /(?:^|[-_])frame(?:[-_]|$)/i;
 
 function parseAttributes(source) {
   const attributes = {};
@@ -468,6 +469,18 @@ function isBackgroundRect(rect) {
   return rect.width > MAX_OBSTACLE_WIDTH || rect.height > MAX_OBSTACLE_HEIGHT;
 }
 
+function classifyRectLintRole(rect) {
+  if (FRAME_CELL_ID_PATTERN.test(rect.cellId)) {
+    return 'border-only';
+  }
+
+  if (isBackgroundRect(rect)) {
+    return 'ignore';
+  }
+
+  return 'obstacle';
+}
+
 function parseStyleNumber(style, key, fallback = null) {
   const rawValue = style[key];
 
@@ -837,13 +850,18 @@ function collectEdges(cells) {
   return edges;
 }
 
-function collectObstacleRects(cells) {
+function collectLintRects(cells) {
   const rects = [];
 
   for (const cell of cells.values()) {
     for (const rect of cell.rects) {
-      if (!isBackgroundRect(rect)) {
-        rects.push(rect);
+      const lintRole = classifyRectLintRole(rect);
+
+      if (lintRole !== 'ignore') {
+        rects.push({
+          ...rect,
+          lintRole,
+        });
       }
     }
   }
@@ -898,6 +916,10 @@ function findEdgeRectCollisions(edges, rects) {
 
   for (const edge of edges) {
     for (const rect of rects) {
+      if (rect.lintRole !== 'obstacle') {
+        continue;
+      }
+
       if (edge.cellId === rect.cellId) {
         continue;
       }
@@ -1074,7 +1096,7 @@ async function main() {
   const svgText = await readFile(targetPath, 'utf8');
   const cells = parseSvg(svgText);
   const edges = collectEdges(cells);
-  const rects = collectObstacleRects(cells);
+  const rects = collectLintRects(cells);
   const edgeIssues = findEdgeOverlaps(edges);
   const rectIssues = findEdgeRectCollisions(edges, rects);
   const rectBorderIssues = findEdgeRectBorderOverlaps(edges, rects);
@@ -1084,7 +1106,7 @@ async function main() {
   const issues = summarizeIssues([...edgeIssues, ...rectIssues, ...rectBorderIssues, ...textIssues]);
 
   console.log(`[diagram:check] ${path.relative(process.cwd(), targetPath)}`);
-  console.log(`[diagram:check] parsed ${cells.size} cells, ${edges.length} edges, ${rects.length} obstacle rects`);
+  console.log(`[diagram:check] parsed ${cells.size} cells, ${edges.length} edges, ${rects.length} lint rects`);
 
   if (companionDrawio) {
     console.log(`[diagram:check] parsed ${textBlocks.length} text block(s) from ${path.relative(process.cwd(), companionDrawio.path)}`);

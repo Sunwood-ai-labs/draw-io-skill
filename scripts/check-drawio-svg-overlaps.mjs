@@ -3,6 +3,7 @@ import path from 'node:path';
 
 const EPSILON = 0.5;
 const BOX_INTERIOR_THRESHOLD = 8;
+const BOX_BORDER_OVERLAP_THRESHOLD = 10;
 const MAX_OBSTACLE_AREA = 100_000;
 const MAX_OBSTACLE_WIDTH = 420;
 const MAX_OBSTACLE_HEIGHT = 240;
@@ -41,6 +42,15 @@ function parseStyle(styleText = '') {
 
 function getPaint(attributes, name) {
   if (attributes[name]) {
+    return attributes[name];
+  }
+
+  const style = parseStyle(attributes.style);
+  return style[name];
+}
+
+function getPresentationValue(attributes, name) {
+  if (attributes[name] !== undefined) {
     return attributes[name];
   }
 
@@ -232,6 +242,21 @@ function rectBounds(rect) {
   };
 }
 
+function expandBounds(bounds, padding) {
+  return {
+    minX: bounds.minX - padding,
+    maxX: bounds.maxX + padding,
+    minY: bounds.minY - padding,
+    maxY: bounds.maxY + padding,
+  };
+}
+
+function rangeOverlapLength(firstStart, firstEnd, secondStart, secondEnd) {
+  const overlapStart = Math.max(Math.min(firstStart, firstEnd), Math.min(secondStart, secondEnd));
+  const overlapEnd = Math.min(Math.max(firstStart, firstEnd), Math.max(secondStart, secondEnd));
+  return Math.max(0, overlapEnd - overlapStart);
+}
+
 function classifySegmentIntersection(first, second) {
   const firstVector = subtract(first.end, first.start);
   const secondVector = subtract(second.end, second.start);
@@ -330,6 +355,93 @@ function interiorLengthInsideRect(segment, rect) {
   }
 
   return Math.max(0, t1 - t0) * distance(segment.start, segment.end);
+}
+
+function borderContactTolerance(edge, rect) {
+  const edgeStroke = Math.max(1, edge.strokeWidth ?? 1);
+  const rectStroke = Math.max(1, rect.strokeWidth ?? 1);
+  return ((edgeStroke + rectStroke) / 2) + EPSILON;
+}
+
+function insetRect(rect, inset) {
+  const width = rect.width - (inset * 2);
+  const height = rect.height - (inset * 2);
+
+  if (width <= 0 || height <= 0) {
+    return null;
+  }
+
+  return {
+    x: rect.x + inset,
+    y: rect.y + inset,
+    width,
+    height,
+  };
+}
+
+function findSegmentRectBorderContacts(segment, edge, rect) {
+  if (isNone(rect.stroke)) {
+    return [];
+  }
+
+  const tolerance = borderContactTolerance(edge, rect);
+  const contacts = [];
+  const horizontal = approximatelyEqual(segment.start.y, segment.end.y, tolerance);
+  const vertical = approximatelyEqual(segment.start.x, segment.end.x, tolerance);
+  const rectRight = rect.x + rect.width;
+  const rectBottom = rect.y + rect.height;
+
+  if (horizontal) {
+    const y = (segment.start.y + segment.end.y) / 2;
+    const overlapLength = rangeOverlapLength(segment.start.x, segment.end.x, rect.x, rectRight);
+
+    if (overlapLength > BOX_BORDER_OVERLAP_THRESHOLD) {
+      const topDistance = Math.abs(y - rect.y);
+      if (topDistance <= tolerance) {
+        contacts.push({
+          side: 'top',
+          length: overlapLength,
+          offset: topDistance,
+        });
+      }
+
+      const bottomDistance = Math.abs(y - rectBottom);
+      if (bottomDistance <= tolerance) {
+        contacts.push({
+          side: 'bottom',
+          length: overlapLength,
+          offset: bottomDistance,
+        });
+      }
+    }
+  }
+
+  if (vertical) {
+    const x = (segment.start.x + segment.end.x) / 2;
+    const overlapLength = rangeOverlapLength(segment.start.y, segment.end.y, rect.y, rectBottom);
+
+    if (overlapLength > BOX_BORDER_OVERLAP_THRESHOLD) {
+      const leftDistance = Math.abs(x - rect.x);
+      if (leftDistance <= tolerance) {
+        contacts.push({
+          side: 'left',
+          length: overlapLength,
+          offset: leftDistance,
+        });
+      }
+
+      const rightDistance = Math.abs(x - rectRight);
+      if (rightDistance <= tolerance) {
+        contacts.push({
+          side: 'right',
+          length: overlapLength,
+          offset: rightDistance,
+        });
+      }
+    }
+  }
+
+  return contacts;
 }
 
 function isBackgroundRect(rect) {
@@ -672,6 +784,7 @@ function parseSvg(svgText) {
           height: toNumber(attributes.height),
           fill,
           stroke,
+          strokeWidth: toNumber(getPresentationValue(attributes, 'stroke-width'), 1),
         });
       }
     }
@@ -687,6 +800,7 @@ function parseSvg(svgText) {
           cellId: currentCellId,
           segments: parsePathData(d, inheritedOffset),
           stroke,
+          strokeWidth: toNumber(getPresentationValue(attributes, 'stroke-width'), 1),
         });
       }
     }
@@ -715,6 +829,7 @@ function collectEdges(cells) {
       edges.push({
         cellId: cell.cellId,
         segments: linePath.segments,
+        strokeWidth: linePath.strokeWidth,
       });
     }
   }
@@ -794,7 +909,8 @@ function findEdgeRectCollisions(edges, rects) {
           continue;
         }
 
-        const interiorLength = interiorLengthInsideRect(segment, rect);
+        const innerRect = insetRect(rect, borderContactTolerance(edge, rect));
+        const interiorLength = innerRect ? interiorLengthInsideRect(segment, innerRect) : 0;
 
         if (interiorLength > BOX_INTERIOR_THRESHOLD) {
           issues.push({
@@ -802,6 +918,40 @@ function findEdgeRectCollisions(edges, rects) {
             edgeCellId: edge.cellId,
             rectCellId: rect.cellId,
             length: interiorLength,
+          });
+        }
+      }
+    }
+  }
+
+  return issues;
+}
+
+function findEdgeRectBorderOverlaps(edges, rects) {
+  const issues = [];
+
+  for (const edge of edges) {
+    for (const rect of rects) {
+      if (edge.cellId === rect.cellId) {
+        continue;
+      }
+
+      const tolerance = borderContactTolerance(edge, rect);
+      const expandedRectBounds = expandBounds(rectBounds(rect), tolerance);
+
+      for (const segment of edge.segments) {
+        if (!boundsOverlap(segmentBounds(segment), expandedRectBounds, tolerance)) {
+          continue;
+        }
+
+        for (const contact of findSegmentRectBorderContacts(segment, edge, rect)) {
+          issues.push({
+            type: 'edge-rect-border',
+            edgeCellId: edge.cellId,
+            rectCellId: rect.cellId,
+            side: contact.side,
+            length: contact.length,
+            offset: contact.offset,
           });
         }
       }
@@ -852,7 +1002,23 @@ function summarizeIssues(issues) {
       continue;
     }
 
-    const key = `${issue.edgeCellId}::${issue.rectCellId}`;
+    if (issue.type === 'edge-rect-border') {
+      const key = `${issue.type}::${issue.edgeCellId}::${issue.rectCellId}`;
+
+      if (!summaries.has(key)) {
+        summaries.set(key, {
+          type: 'edge-rect-border',
+          edgeCellId: issue.edgeCellId,
+          rectCellId: issue.rectCellId,
+          details: new Set(),
+        });
+      }
+
+      summaries.get(key).details.add(`${issue.side} overlap ${issue.length.toFixed(1)}px (offset ${issue.offset.toFixed(1)}px)`);
+      continue;
+    }
+
+    const key = `${issue.type}::${issue.edgeCellId}::${issue.rectCellId}`;
 
     if (!summaries.has(key)) {
       summaries.set(key, {
@@ -883,6 +1049,11 @@ function formatIssue(issue) {
     return `- text-overflow(${issue.axis}): ${issue.cellId} requires ${issue.estimated.toFixed(1)}px but only ${issue.available.toFixed(1)}px is available [${issue.label}]`;
   }
 
+  if (issue.type === 'edge-rect-border') {
+    const details = [...issue.details].sort();
+    return `- edge-rect-border: ${issue.edgeCellId} -> ${issue.rectCellId} (${details.length} contact(s): ${details.join('; ')})`;
+  }
+
   return `- edge-rect: ${issue.edgeCellId} -> ${issue.rectCellId} (max interior ${issue.maxLength.toFixed(1)}px across ${issue.count} segment(s))`;
 }
 
@@ -906,10 +1077,11 @@ async function main() {
   const rects = collectObstacleRects(cells);
   const edgeIssues = findEdgeOverlaps(edges);
   const rectIssues = findEdgeRectCollisions(edges, rects);
+  const rectBorderIssues = findEdgeRectBorderOverlaps(edges, rects);
   const companionDrawio = await readCompanionDrawio(targetPath, targetArg);
   const textBlocks = companionDrawio ? parseDrawioTextBlocks(companionDrawio.text) : [];
   const textIssues = findTextOverflowIssues(textBlocks);
-  const issues = summarizeIssues([...edgeIssues, ...rectIssues, ...textIssues]);
+  const issues = summarizeIssues([...edgeIssues, ...rectIssues, ...rectBorderIssues, ...textIssues]);
 
   console.log(`[diagram:check] ${path.relative(process.cwd(), targetPath)}`);
   console.log(`[diagram:check] parsed ${cells.size} cells, ${edges.length} edges, ${rects.length} obstacle rects`);

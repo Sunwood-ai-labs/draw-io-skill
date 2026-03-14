@@ -7,7 +7,9 @@
   "scripts": {
     "check:node": "node --check scripts/check-drawio-svg-overlaps.mjs",
     "check:export-node": "node --check scripts/export-drawio.mjs",
+    "check:border-fixture-node": "node --check scripts/verify-border-overlap-fixture.mjs",
     "check:fixture": "node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg",
-    "check": "npm run check:node && npm run check:export-node && npm run check:fixture"
+    "check:border-fixture": "node scripts/verify-border-overlap-fixture.mjs",
+    "check": "npm run check:node && npm run check:export-node && npm run check:border-fixture-node && npm run check:fixture && npm run check:border-fixture"
   }
 }

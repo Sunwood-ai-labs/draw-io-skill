@@ -1,6 +1,6 @@
 ---
 name: draw-io
-description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap and text-overflow linting, layout adjustment, and AWS icon usage.
+description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap, border-overlap, and text-overflow linting, layout adjustment, and AWS icon usage.
 ---
 
 # draw.io Diagram Skill
@@ -12,7 +12,7 @@ Use this skill when an agent needs to:
 - create a new draw.io diagram as native `.drawio` XML
 - edit or refactor an existing `.drawio` file
 - export diagrams to `png`, `svg`, `pdf`, or `jpg`
-- check routed edges, box penetration, or text overflow
+- check routed edges, box-border overlap, box penetration, or text overflow
 - build architecture diagrams with AWS icons
 
 This skill intentionally combines:
@@ -126,6 +126,7 @@ node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
 The lint script currently checks:
 
 - `edge-edge`: edge crossings and collinear overlaps
+- `edge-rect-border`: lines that run along or visibly overlap a box border
 - `edge-rect`: lines penetrating boxes
 - `text-overflow(width)`: text likely too wide for its box
 - `text-overflow(height)`: text likely too tall for its box
@@ -270,6 +271,7 @@ uv run python scripts/find_aws_icon.py lambda
 - [ ] Containers have enough internal margin
 - [ ] Edge routing is visually clear and leaves room for arrowheads
 - [ ] SVG lint passes for routing-heavy diagrams
+- [ ] No `edge-rect-border` findings remain unless a border overlap is explicitly intentional
 - [ ] No `text-overflow(width)` or `text-overflow(height)` findings remain
 - [ ] Final PNG/SVG/PDF was visually checked
 

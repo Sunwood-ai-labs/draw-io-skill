@@ -23,7 +23,7 @@
 
 - native `.drawio` authoring and export flow for Claude Code style assistants
 - practical XML editing and layout guidance for technical diagrams
-- repository-ready SVG linting for overlap, box penetration, and text overflow
+- repository-ready SVG linting for overlap, box-border overlap, box penetration, and text overflow
 
 The result is a single skill that helps agents create diagrams, refine them, export them, and catch the layout issues that draw.io itself does not detect.
 
@@ -67,6 +67,7 @@ The exporter:
 The included [scripts/check-drawio-svg-overlaps.mjs](./scripts/check-drawio-svg-overlaps.mjs) checks:
 
 - `edge-edge` crossings and collinear overlaps
+- `edge-rect-border` when arrows run along or visibly overlap box borders
 - `edge-rect` penetration where arrows travel through boxes
 - `text-overflow(width)` and `text-overflow(height)` using the companion `.drawio`
 

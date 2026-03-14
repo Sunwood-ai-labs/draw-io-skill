@@ -23,7 +23,7 @@
 
 - Claude Code 系で使いやすい native `.drawio` 生成 / export フロー
 - 実務で使いやすい XML 編集とレイアウト指針
-- リポジトリ運用向けの SVG lint による重なり / 箱貫通 / 文字はみ出し検知
+- リポジトリ運用向けの SVG lint による重なり / 枠線重なり / 箱貫通 / 文字はみ出し検知
 
 図を作る、整える、書き出す、崩れを見つける、までを一続きで扱えるようにしています。
 
@@ -67,6 +67,7 @@ node scripts/export-drawio.mjs architecture.drawio --output architecture.drawio.
 [scripts/check-drawio-svg-overlaps.mjs](./scripts/check-drawio-svg-overlaps.mjs) は次を検知します。
 
 - `edge-edge`: 線どうしの交差や重なり
+- `edge-rect-border`: 矢印が箱の枠線をなぞる、または視覚的に重なるケース
 - `edge-rect`: 線が箱の中を通るケース
 - `text-overflow(width)` / `text-overflow(height)`: `.drawio` を見ながら推定する文字はみ出し
 

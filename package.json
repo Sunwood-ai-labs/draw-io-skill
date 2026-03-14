@@ -1,0 +1,12 @@
+{
+  "name": "draw-io-skill",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reusable draw.io skill assets and SVG lint tooling for Codex-style agent workflows.",
+  "scripts": {
+    "check:node": "node --check scripts/check-drawio-svg-overlaps.mjs",
+    "check:fixture": "node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg",
+    "check": "npm run check:node && npm run check:fixture"
+  }
+}

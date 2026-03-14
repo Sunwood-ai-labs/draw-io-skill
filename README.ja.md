@@ -26,8 +26,6 @@
 - 矢印重なり、箱貫通、文字 overflow の lint
 - AWS アイコン探索とレイアウト指針
 
-元になっているのは [softaworks/agent-toolkit の draw-io スキル](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md) で、このリポジトリでは図の可読性を自動チェックする仕組みを追加しています。
-
 ## 🚀 クイックスタート
 
 ### Codex 系スキルディレクトリへ導入
@@ -152,9 +150,13 @@ uv run python scripts/find_aws_icon.py lambda
 - [references/layout-guidelines.md](./references/layout-guidelines.md): レイアウト指針
 - [references/aws-icons.md](./references/aws-icons.md): AWS アイコン参照
 
-## 🤝 クレジット
+## 🤝 参考元とクレジット
 
-このリポジトリは `softaworks/agent-toolkit` の `draw-io` スキルを元にしており、出典を明記したうえで lint と公開向け整備を追加しています。
+このリポジトリは `softaworks/agent-toolkit` の `draw-io` スキルを出発点にしつつ、lint と公開向け整備を追加したものです。
+
+参考にしたリポジトリ / ソース:
+
+- [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
 
 ## 📄 ライセンス
 

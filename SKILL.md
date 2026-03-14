@@ -5,14 +5,6 @@ description: draw.io diagram creation, editing, and review. Use for .drawio XML 
 
 # draw.io Diagram Skill
 
-## Source
-
-This skill is based on the original `draw-io` skill from `softaworks/agent-toolkit`:
-
-- [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
-
-This local version adds PNG/SVG lint guidance and text-overflow detection workflow on top of the original material.
-
 ## 1. Basic Rules
 
 - Edit only `.drawio` files
@@ -331,3 +323,11 @@ format:
 ```
 
 This ensures correct image display on mobile devices.
+
+## 10. References And Credits
+
+This local version extends the original `draw-io` skill with PNG/SVG lint guidance and text-overflow detection workflow.
+
+Referenced repositories and sources:
+
+- [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)

@@ -26,8 +26,6 @@
 - lint SVGs for edge overlap, box penetration, and text overflow
 - reuse AWS icon search helpers and layout guidance
 
-This repository is based on the original `draw-io` skill from [softaworks/agent-toolkit](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md), with local additions focused on automated QA for diagram readability.
-
 ## 🚀 Quick Start
 
 ### Install into a Codex-style skill directory
@@ -152,9 +150,13 @@ uv run python scripts/find_aws_icon.py lambda
 - [references/layout-guidelines.md](./references/layout-guidelines.md): layout rules
 - [references/aws-icons.md](./references/aws-icons.md): AWS icon references
 
-## 🤝 Attribution
+## 🤝 References And Credits
 
-This repository is derived from the original `draw-io` skill in `softaworks/agent-toolkit` and keeps that source clearly attributed while extending it with repository-ready lint tooling and polish.
+This repository is derived from the original `draw-io` skill in `softaworks/agent-toolkit` and extends it with repository-ready lint tooling and polish.
+
+Referenced repositories and sources:
+
+- [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
 
 ## 📄 License
 

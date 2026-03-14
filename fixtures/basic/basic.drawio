@@ -1,0 +1,13 @@
+<mxfile host="app.diagrams.net" modified="2026-03-14T00:00:00.000Z" agent="Codex GPT-5" version="27.0.5">
+  <diagram id="basic" name="Basic">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="600" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="box" value="Basic Diagram&lt;br&gt;Lint Fixture" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="220" y="180" width="260" height="100" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

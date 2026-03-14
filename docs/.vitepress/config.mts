@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 
 const repo = "https://github.com/Sunwood-ai-labs/draw-io-skill";
+const penpenHeader = "https://raw.githubusercontent.com/Sunwood-ai-labs/draw-io-skill/refs/heads/main/assets/draw-io-skill-penpen-header.webp";
 
 export default defineConfig({
   title: "draw-io-skill",
@@ -8,12 +9,13 @@ export default defineConfig({
   base: "/draw-io-skill/",
   lastUpdated: true,
   head: [
-    ["link", { rel: "icon", type: "image/svg+xml", href: "/icon.svg" }],
+    ["link", { rel: "icon", type: "image/webp", href: penpenHeader }],
     ["meta", { property: "og:title", content: "draw-io-skill" }],
-    ["meta", { property: "og:description", content: "Native draw.io workflows, export helpers, and SVG linting for agent-driven repositories." }]
+    ["meta", { property: "og:description", content: "Native draw.io workflows, export helpers, and SVG linting for agent-driven repositories." }],
+    ["meta", { property: "og:image", content: penpenHeader }]
   ],
   themeConfig: {
-    logo: "/icon.svg",
+    logo: penpenHeader,
     socialLinks: [{ icon: "github", link: repo }]
   },
   locales: {

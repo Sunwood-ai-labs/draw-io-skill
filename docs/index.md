@@ -8,8 +8,8 @@ hero:
   text: Native draw.io workflows for agent teams
   tagline: Edit real .drawio files, export with embedded XML, and lint SVG output before it lands in docs, issues, or PRs.
   image:
-    src: /draw-io-skill-mark.svg
-    alt: draw-io-skill icon
+    src: https://raw.githubusercontent.com/Sunwood-ai-labs/draw-io-skill/refs/heads/main/assets/draw-io-skill-penpen-header.webp
+    alt: Penpen header illustration for draw-io-skill
   actions:
     - theme: brand
       text: Get Started

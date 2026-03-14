@@ -8,8 +8,8 @@ hero:
   text: エージェント向け native draw.io ワークフロー
   tagline: 実際の .drawio を編集し、埋め込み XML 付きで export し、公開前に SVG lint で崩れを拾えるようにします。
   image:
-    src: /draw-io-skill-mark.svg
-    alt: draw-io-skill icon
+    src: https://raw.githubusercontent.com/Sunwood-ai-labs/draw-io-skill/refs/heads/main/assets/draw-io-skill-penpen-header.webp
+    alt: draw-io-skill の Penpen ヘッダー画像
   actions:
     - theme: brand
       text: はじめに

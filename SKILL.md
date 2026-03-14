@@ -18,14 +18,14 @@ Use this skill when an agent needs to:
 This skill intentionally combines:
 
 - the native draw.io assistant workflow used by Claude Code style tools
-- the practical XML editing and layout rules from mature repository usage
+- practical XML editing and layout rules from repository use
 - repository-ready SVG linting that catches issues draw.io does not flag
 
 ### 1.1 Repository structure
 
 The repository layout and bundled workflow pieces are summarized in the diagram below.
 
-![draw-io-skill structure](./assets/draw-io-skill-structure.drawio.svg)
+![draw-io-skill structure](./assets/draw-io-skill-structure.drawio.png)
 
 ## 2. Default Workflow
 
@@ -73,7 +73,7 @@ For repository workflows, prefer:
 
 ## 5. Export Commands
 
-### 5.1. Preferred export helper
+### 5.1 Preferred export helper
 
 Use the bundled helper first:
 
@@ -90,7 +90,7 @@ What it does:
 - defaults to transparent 2x PNG export
 - supports optional `--delete-source` when the user explicitly wants only the embedded export
 
-### 5.2. Manual draw.io CLI export
+### 5.2 Manual draw.io CLI export
 
 If needed, call draw.io directly:
 
@@ -113,9 +113,9 @@ Key flags:
 - `-a`: all pages for PDF
 - `-p`: page index (1-based)
 
-### 5.3. Legacy PNG helper
+### 5.3 Legacy PNG helper
 
-For existing pre-commit or shell workflows, the original helper remains available:
+For existing shell workflows, the original helper remains available:
 
 ```sh
 bash scripts/convert-drawio-to-png.sh architecture.drawio
@@ -139,13 +139,13 @@ The lint script currently checks:
 
 Notes:
 
-- Input may be either `.drawio` or `.drawio.svg`
-- Text overflow detection is heuristic, not pixel-perfect
-- Lint passing does not replace visual verification
+- input may be either `.drawio` or `.drawio.svg`
+- text overflow detection is heuristic, not pixel-perfect
+- lint passing does not replace visual verification
 
 ## 7. XML And Layout Rules
 
-### 7.1. Required XML structure
+### 7.1 Required XML structure
 
 Every diagram must use native mxGraphModel XML:
 
@@ -160,7 +160,7 @@ Every diagram must use native mxGraphModel XML:
 
 All normal diagram cells should live under `parent="1"` unless you intentionally use container parents.
 
-### 7.2. Edge geometry is mandatory
+### 7.2 Edge geometry is mandatory
 
 Every edge cell must contain geometry:
 
@@ -172,7 +172,7 @@ Every edge cell must contain geometry:
 
 Never use self-closing edge cells.
 
-### 7.3. Font settings
+### 7.3 Font settings
 
 For diagrams with Japanese text or slide usage, set the font family explicitly:
 
@@ -186,13 +186,13 @@ Also set `fontFamily` in text styles:
 style="text;html=1;fontSize=18;fontFamily=Noto Sans JP;"
 ```
 
-### 7.4. Spacing and routing
+### 7.4 Spacing and routing
 
-- Space nodes generously. Prefer about 200px horizontal and 120px vertical gaps for routed diagrams.
-- Leave at least 20px of straight segment near arrowheads.
-- Use `edgeStyle=orthogonalEdgeStyle` for most technical diagrams.
-- Add explicit waypoints when auto-routing produces overlap or awkward bends.
-- Align to a coarse grid when possible.
+- space nodes generously; prefer about 200px horizontal and 120px vertical gaps for routed diagrams
+- leave at least 20px of straight segment near arrowheads
+- use `edgeStyle=orthogonalEdgeStyle` for most technical diagrams
+- add explicit waypoints when auto-routing produces overlap or awkward bends
+- align to a coarse grid when possible
 
 Example with waypoints:
 
@@ -207,16 +207,16 @@ Example with waypoints:
 </mxCell>
 ```
 
-### 7.5. Containers and groups
+### 7.5 Containers and groups
 
 Do not fake containment by simply placing boxes on top of bigger boxes.
 
-- Use `parent="containerId"` for child elements.
-- Use `swimlane` when the container needs a visible title bar.
-- Use `group;pointerEvents=0;` for invisible containers.
-- Add `container=1;pointerEvents=0;` when using a custom shape as a container.
+- use `parent="containerId"` for child elements
+- use `swimlane` when the container needs a visible title bar
+- use `group;pointerEvents=0;` for invisible containers
+- add `container=1;pointerEvents=0;` when using a custom shape as a container
 
-### 7.6. Japanese text width
+### 7.6 Japanese text width
 
 Allow roughly 30 to 40px per Japanese character.
 
@@ -226,20 +226,20 @@ Allow roughly 30 to 40px per Japanese character.
 
 If text is mixed Japanese and English, err on the wider side.
 
-### 7.7. Backgrounds, frames, and margins
+### 7.7 Backgrounds, frames, and margins
 
-- Prefer transparent backgrounds over hard-coded white backgrounds.
-- Inside rounded frames or swimlanes, keep at least 30px margin from the boundary.
-- Account for stroke width and rounded corners.
-- Verify that titles and labels do not sit too close to frame edges.
+- prefer transparent backgrounds over hard-coded white backgrounds
+- inside rounded frames or swimlanes, keep at least 30px margin from the boundary
+- account for stroke width and rounded corners
+- verify that titles and labels do not sit too close to frame edges
 
-### 7.8. Labels and line breaks
+### 7.8 Labels and line breaks
 
-- Use one line for short service names when possible.
-- Use `&lt;br&gt;` for intentional two-line labels.
-- Shorten redundant wording instead of forcing cramped boxes.
+- use one line for short service names when possible
+- use `&lt;br&gt;` for intentional two-line labels
+- shorten redundant wording instead of forcing cramped boxes
 
-### 7.9. Metadata and progressive disclosure
+### 7.9 Metadata and progressive disclosure
 
 When appropriate, include title, description, last updated, author, or version.
 
@@ -258,7 +258,7 @@ When working on AWS diagrams:
 
 - use the latest official icon naming where possible
 - prefer current `mxgraph.aws4.*` icon references
-- remove unnecessary decorative icons that do not add meaning
+- remove decorative icons that do not add meaning
 
 Search icons with:
 
@@ -269,25 +269,34 @@ uv run python scripts/find_aws_icon.py lambda
 
 ## 9. Checklist
 
-- [ ] Diagram source is a valid `.drawio` file
-- [ ] Export filenames use `.drawio.<format>` when exported
-- [ ] Edge cells contain `<mxGeometry relative="1" as="geometry"/>`
-- [ ] Fonts are explicit when Japanese text is involved
-- [ ] No hard-coded white page background unless the user asked for it
-- [ ] Containers have enough internal margin
-- [ ] Edge routing is visually clear and leaves room for arrowheads
+- [ ] diagram source is a valid `.drawio` file
+- [ ] export filenames use `.drawio.<format>` when exported
+- [ ] edge cells contain `<mxGeometry relative="1" as="geometry"/>`
+- [ ] fonts are explicit when Japanese text is involved
+- [ ] no hard-coded white page background unless the user asked for it
+- [ ] containers have enough internal margin
+- [ ] edge routing is visually clear and leaves room for arrowheads
 - [ ] SVG lint passes for routing-heavy diagrams
-- [ ] No `edge-rect-border` findings remain unless a border overlap is explicitly intentional
-- [ ] No `text-overflow(width)` or `text-overflow(height)` findings remain
-- [ ] Final PNG/SVG/PDF was visually checked
+- [ ] no `edge-rect-border` findings remain unless a border overlap is intentionally accepted
+- [ ] no `text-overflow(width)` or `text-overflow(height)` findings remain
+- [ ] final PNG/SVG/PDF was visually checked
 
-## 10. References
+## 10. Repository Docs
 
-- [README.md](README.md)
-- [references/layout-guidelines.md](references/layout-guidelines.md)
-- [references/aws-icons.md](references/aws-icons.md)
-- [draw.io Style Reference](https://www.drawio.com/doc/faq/drawio-style-reference.html)
-- [draw.io mxfile XSD](https://www.drawio.com/assets/mxfile.xsd)
+For repo-facing documentation and onboarding:
+
+- [README.md](./README.md)
+- [README.ja.md](./README.ja.md)
+- [docs/guide/getting-started.md](./docs/guide/getting-started.md)
+- [docs/guide/workflow.md](./docs/guide/workflow.md)
+- [docs/guide/architecture.md](./docs/guide/architecture.md)
+- [docs/guide/troubleshooting.md](./docs/guide/troubleshooting.md)
+- [docs/ja/guide/getting-started.md](./docs/ja/guide/getting-started.md)
+- [docs/ja/guide/workflow.md](./docs/ja/guide/workflow.md)
+- [docs/ja/guide/architecture.md](./docs/ja/guide/architecture.md)
+- [docs/ja/guide/troubleshooting.md](./docs/ja/guide/troubleshooting.md)
+- [references/layout-guidelines.en.md](./references/layout-guidelines.en.md)
+- [references/aws-icons.en.md](./references/aws-icons.en.md)
 
 ## 11. References And Credits
 
@@ -302,3 +311,5 @@ Referenced repositories and sources:
 - [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
 - [jgraph/drawio-mcp - skill-cli/README.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/README.md)
 - [jgraph/drawio-mcp - skill-cli/drawio/SKILL.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/drawio/SKILL.md)
+- [draw.io Style Reference](https://www.drawio.com/doc/faq/drawio-style-reference.html)
+- [draw.io mxfile XSD](https://www.drawio.com/assets/mxfile.xsd)

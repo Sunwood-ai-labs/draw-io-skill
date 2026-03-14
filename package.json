@@ -3,13 +3,41 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Best-of-both-worlds draw.io skill assets for Codex and Claude Code, with export helpers and SVG lint tooling.",
+  "description": "Native draw.io skill assets with export helpers, SVG linting, and public documentation for Codex and Claude Code workflows.",
+  "license": "MIT",
+  "homepage": "https://sunwood-ai-labs.github.io/draw-io-skill/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sunwood-ai-labs/draw-io-skill.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sunwood-ai-labs/draw-io-skill/issues"
+  },
+  "keywords": [
+    "claude-code",
+    "codex",
+    "diagrams",
+    "drawio",
+    "mxgraph",
+    "svg"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "check:node": "node --check scripts/check-drawio-svg-overlaps.mjs",
     "check:export-node": "node --check scripts/export-drawio.mjs",
     "check:border-fixture-node": "node --check scripts/verify-border-overlap-fixture.mjs",
     "check:fixture": "node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg",
     "check:border-fixture": "node scripts/verify-border-overlap-fixture.mjs",
-    "check": "npm run check:node && npm run check:export-node && npm run check:border-fixture-node && npm run check:fixture && npm run check:border-fixture"
+    "check:python": "uv run python -m py_compile scripts/find_aws_icon.py",
+    "check": "npm run check:node && npm run check:export-node && npm run check:border-fixture-node && npm run check:fixture && npm run check:border-fixture",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "verify": "npm run check && npm run check:python && npm run docs:build"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4"
   }
 }

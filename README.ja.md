@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/draw-io-skill-hero.svg" alt="draw-io-skill のヒーローバナー" width="960">
+  <img src="./assets/draw-io-skill-penpen-header.webp" alt="draw-io-skill の Penpen ヘッダー画像" width="320">
 </p>
 
 <h1 align="center">draw-io-skill</h1>

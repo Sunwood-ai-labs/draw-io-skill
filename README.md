@@ -29,6 +29,14 @@
 
 The result is a single skill that helps agents create diagrams, refine them, export them, and catch the layout issues that draw.io itself does not detect.
 
+## Skill Structure
+
+The repository structure and main workflow components are shown below.
+
+<p align="center">
+  <img src="./assets/draw-io-skill-structure.drawio.svg" alt="Structure diagram for draw-io-skill" width="960">
+</p>
+
 ## Best-Of Workflow
 
 1. Generate or edit a native `.drawio` file.

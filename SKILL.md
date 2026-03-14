@@ -21,6 +21,12 @@ This skill intentionally combines:
 - the practical XML editing and layout rules from mature repository usage
 - repository-ready SVG linting that catches issues draw.io does not flag
 
+### 1.1 Repository structure
+
+The repository layout and bundled workflow pieces are summarized in the diagram below.
+
+![draw-io-skill structure](./assets/draw-io-skill-structure.drawio.svg)
+
 ## 2. Default Workflow
 
 Follow this order unless the user asks for something narrower:

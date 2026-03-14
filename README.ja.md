@@ -29,6 +29,14 @@
 
 図を作る、整える、書き出す、崩れを見つける、までを一続きで扱えるようにしています。
 
+## スキル構成図
+
+リポジトリの構成と、主要なワークフロー要素は次の図で確認できます。
+
+<p align="center">
+  <img src="./assets/draw-io-skill-structure.drawio.svg" alt="draw-io-skill の構成図" width="960">
+</p>
+
 ## ベストプラクティスの流れ
 
 1. native な `.drawio` を作成または編集する

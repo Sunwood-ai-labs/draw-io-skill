@@ -1,6 +1,8 @@
 <p align="center">
-  <img src="./assets/draw-io-skill-hero.svg" alt="draw-io-skill hero" width="960">
+  <img src="./assets/draw-io-skill-penpen-header.webp" alt="draw-io-skill のヘッダーイラスト Penpen" width="960">
 </p>
+
+<h1 align="center">draw-io-skill</h1>
 
 <p align="center">
   <strong>日本語</strong> · <a href="./README.md">English</a>

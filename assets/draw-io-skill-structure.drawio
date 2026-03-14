@@ -12,111 +12,6 @@
           <mxGeometry x="410" y="74" width="760" height="28" as="geometry"/>
         </mxCell>
 
-        <mxCell id="edge-input-codex" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#f59e0b;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="265" y="290" as="sourcePoint"/>
-            <mxPoint x="495" y="290" as="targetPoint"/>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-input-claude" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#f59e0b;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="265" y="410" as="sourcePoint"/>
-            <mxPoint x="495" y="315" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="330" y="410"/>
-              <mxPoint x="330" y="315"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-input-repo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#f59e0b;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="265" y="530" as="sourcePoint"/>
-            <mxPoint x="495" y="330" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="350" y="530"/>
-              <mxPoint x="350" y="330"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-
-        <mxCell id="edge-skill-authoring" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="545" y="335" as="sourcePoint"/>
-            <mxPoint x="465" y="390" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="545" y="360"/>
-              <mxPoint x="465" y="360"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-skill-export" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="645" y="335" as="sourcePoint"/>
-            <mxPoint x="725" y="390" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="645" y="360"/>
-              <mxPoint x="725" y="360"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-skill-lint" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="595" y="335" as="sourcePoint"/>
-            <mxPoint x="595" y="545" as="targetPoint"/>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-export-lint" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="725" y="490" as="sourcePoint"/>
-            <mxPoint x="680" y="592" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="725" y="525"/>
-              <mxPoint x="700" y="525"/>
-              <mxPoint x="700" y="592"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-
-        <mxCell id="edge-authoring-source" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="465" y="490" as="sourcePoint"/>
-            <mxPoint x="1400" y="350" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="465" y="705"/>
-              <mxPoint x="1540" y="705"/>
-              <mxPoint x="1540" y="330"/>
-              <mxPoint x="1400" y="330"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-export-artifact" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="810" y="440" as="sourcePoint"/>
-            <mxPoint x="1290" y="430" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="900" y="440"/>
-              <mxPoint x="900" y="430"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-lint-report" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="595" y="640" as="sourcePoint"/>
-            <mxPoint x="1290" y="615" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="595" y="690"/>
-              <mxPoint x="900" y="690"/>
-              <mxPoint x="900" y="615"/>
-            </Array>
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="edge-export-docs" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
-          <mxGeometry relative="1" as="geometry">
-            <mxPoint x="1400" y="510" as="sourcePoint"/>
-            <mxPoint x="1400" y="560" as="targetPoint"/>
-          </mxGeometry>
-        </mxCell>
-
         <mxCell id="frame-inputs" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f59e0b;strokeWidth=2;arcSize=12;" vertex="1" parent="1">
           <mxGeometry x="40" y="150" width="250" height="560" as="geometry"/>
         </mxCell>
@@ -184,6 +79,109 @@
         </mxCell>
         <mxCell id="box-exported" value="Review surface&lt;br&gt;lint report&lt;br&gt;README / docs / slides" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="1290" y="560" width="220" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-input-codex" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#f59e0b;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="290" as="sourcePoint"/>
+            <mxPoint x="495" y="290" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-input-claude" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#f59e0b;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="410" as="sourcePoint"/>
+            <mxPoint x="495" y="315" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="330" y="410"/>
+              <mxPoint x="330" y="315"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-input-repo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#f59e0b;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="530" as="sourcePoint"/>
+            <mxPoint x="495" y="330" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="350" y="530"/>
+              <mxPoint x="350" y="330"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-skill-authoring" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="545" y="335" as="sourcePoint"/>
+            <mxPoint x="465" y="390" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="545" y="360"/>
+              <mxPoint x="465" y="360"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-skill-export" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="645" y="335" as="sourcePoint"/>
+            <mxPoint x="725" y="390" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="645" y="360"/>
+              <mxPoint x="725" y="360"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-skill-lint" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="595" y="335" as="sourcePoint"/>
+            <mxPoint x="595" y="545" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-export-lint" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="725" y="490" as="sourcePoint"/>
+            <mxPoint x="680" y="592" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="725" y="525"/>
+              <mxPoint x="700" y="525"/>
+              <mxPoint x="700" y="592"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-authoring-source" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="465" y="490" as="sourcePoint"/>
+            <mxPoint x="1400" y="350" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="465" y="705"/>
+              <mxPoint x="1540" y="705"/>
+              <mxPoint x="1540" y="330"/>
+              <mxPoint x="1400" y="330"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-export-artifact" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="810" y="440" as="sourcePoint"/>
+            <mxPoint x="1290" y="430" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="900" y="440"/>
+              <mxPoint x="900" y="430"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-lint-report" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="595" y="640" as="sourcePoint"/>
+            <mxPoint x="1290" y="615" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="595" y="690"/>
+              <mxPoint x="900" y="690"/>
+              <mxPoint x="900" y="615"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-export-docs" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="510" as="sourcePoint"/>
+            <mxPoint x="1400" y="560" as="targetPoint"/>
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>

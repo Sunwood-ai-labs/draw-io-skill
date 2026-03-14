@@ -48,17 +48,20 @@
           <mxGeometry x="65" y="490" width="200" height="80" as="geometry"/>
         </mxCell>
 
-        <mxCell id="box-skill" value="SKILL.md&lt;br&gt;best-of workflow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=20;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-skill" value="Agent workflow&lt;br&gt;SKILL.md best-of loop" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=20;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="495" y="245" width="200" height="90" as="geometry"/>
         </mxCell>
-        <mxCell id="box-authoring" value="Native .drawio&lt;br&gt;authoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0ea5e9;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-authoring" value="Native .drawio&lt;br&gt;create and revise" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0ea5e9;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="380" y="390" width="170" height="100" as="geometry"/>
         </mxCell>
         <mxCell id="box-export" value="Export helper&lt;br&gt;export-drawio.mjs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="640" y="390" width="170" height="100" as="geometry"/>
         </mxCell>
-        <mxCell id="box-lint" value="SVG lint and review&lt;br&gt;check-drawio-svg-overlaps.mjs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
-          <mxGeometry x="510" y="545" width="170" height="95" as="geometry"/>
+        <mxCell id="box-lint" value="Verify diagram&lt;br&gt;SVG lint + review" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="640" y="545" width="170" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="box-feedback" value="Findings back to agent&lt;br&gt;fix and retry" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=15;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="380" y="545" width="170" height="95" as="geometry"/>
         </mxCell>
 
         <mxCell id="box-layout" value="references/&lt;br&gt;layout-guidelines.md" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#65a30d;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#365314;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
@@ -117,41 +120,43 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-skill-export" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
+        <mxCell id="edge-authoring-export" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="645" y="335" as="sourcePoint"/>
-            <mxPoint x="725" y="390" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="645" y="360"/>
-              <mxPoint x="725" y="360"/>
-            </Array>
+            <mxPoint x="550" y="440" as="sourcePoint"/>
+            <mxPoint x="640" y="440" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
-        <mxCell id="edge-skill-lint" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
+        <mxCell id="edge-feedback-skill" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="595" y="335" as="sourcePoint"/>
-            <mxPoint x="595" y="545" as="targetPoint"/>
+            <mxPoint x="380" y="592" as="sourcePoint"/>
+            <mxPoint x="495" y="335" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="370" y="592"/>
+              <mxPoint x="370" y="350"/>
+              <mxPoint x="495" y="350"/>
+            </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="edge-export-lint" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="725" y="490" as="sourcePoint"/>
-            <mxPoint x="680" y="592" as="targetPoint"/>
-            <Array as="points">
-              <mxPoint x="725" y="525"/>
-              <mxPoint x="700" y="525"/>
-              <mxPoint x="700" y="592"/>
-            </Array>
+            <mxPoint x="725" y="545" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-lint-feedback" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="640" y="592" as="sourcePoint"/>
+            <mxPoint x="550" y="592" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
         <mxCell id="edge-authoring-source" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="465" y="490" as="sourcePoint"/>
+            <mxPoint x="550" y="390" as="sourcePoint"/>
             <mxPoint x="1400" y="350" as="targetPoint"/>
             <Array as="points">
-              <mxPoint x="465" y="705"/>
-              <mxPoint x="1560" y="705"/>
-              <mxPoint x="1560" y="330"/>
+              <mxPoint x="550" y="370"/>
+              <mxPoint x="900" y="370"/>
+              <mxPoint x="900" y="330"/>
               <mxPoint x="1400" y="330"/>
             </Array>
           </mxGeometry>
@@ -168,12 +173,12 @@
         </mxCell>
         <mxCell id="edge-lint-report" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="595" y="640" as="sourcePoint"/>
+            <mxPoint x="725" y="640" as="sourcePoint"/>
             <mxPoint x="1290" y="615" as="targetPoint"/>
             <Array as="points">
-              <mxPoint x="595" y="690"/>
-              <mxPoint x="900" y="690"/>
-              <mxPoint x="900" y="615"/>
+              <mxPoint x="725" y="690"/>
+              <mxPoint x="950" y="690"/>
+              <mxPoint x="950" y="615"/>
             </Array>
           </mxGeometry>
         </mxCell>

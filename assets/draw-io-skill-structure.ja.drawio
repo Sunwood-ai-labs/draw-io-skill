@@ -1,15 +1,15 @@
-<mxfile host="app.diagrams.net" modified="2026-03-14T10:30:00.000Z" agent="Codex GPT-5" version="27.0.5">
-  <diagram id="draw-io-skill-structure" name="Structure">
+<mxfile host="app.diagrams.net" modified="2026-03-15T03:20:00.000Z" agent="Codex GPT-5" version="27.0.5">
+  <diagram id="draw-io-skill-structure-ja" name="構成図">
     <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
 
-        <mxCell id="title" value="draw-io-skill Structure" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=30;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#0f172a;" vertex="1" parent="1">
+        <mxCell id="title" value="draw-io-skill 構成図" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=30;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#0f172a;" vertex="1" parent="1">
           <mxGeometry x="430" y="30" width="720" height="40" as="geometry"/>
         </mxCell>
-        <mxCell id="subtitle" value="Best-of workflow for Codex, Claude Code, and repository QA" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=16;fontFamily=Noto Sans JP;fontColor=#475569;" vertex="1" parent="1">
-          <mxGeometry x="410" y="74" width="760" height="28" as="geometry"/>
+        <mxCell id="subtitle" value="Codex、Claude Code、リポジトリ QA をつないだベストオブ構成" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=15;fontFamily=Noto Sans JP;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="330" y="74" width="920" height="28" as="geometry"/>
         </mxCell>
 
         <mxCell id="frame-inputs" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#f59e0b;strokeWidth=2;arcSize=12;" vertex="1" parent="1">
@@ -25,39 +25,39 @@
           <mxGeometry x="1260" y="150" width="280" height="560" as="geometry"/>
         </mxCell>
 
-        <mxCell id="inputs-title" value="How Agents Enter" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#9a3412;" vertex="1" parent="1">
-          <mxGeometry x="70" y="180" width="190" height="36" as="geometry"/>
+        <mxCell id="inputs-title" value="入口となる利用経路" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#9a3412;" vertex="1" parent="1">
+          <mxGeometry x="65" y="180" width="200" height="36" as="geometry"/>
         </mxCell>
-        <mxCell id="core-title" value="Core Skill Flow" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1d4ed8;" vertex="1" parent="1">
+        <mxCell id="core-title" value="スキルの中核フロー" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1d4ed8;" vertex="1" parent="1">
           <mxGeometry x="360" y="180" width="470" height="36" as="geometry"/>
         </mxCell>
-        <mxCell id="support-title" value="Support And References" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#3f6212;" vertex="1" parent="1">
+        <mxCell id="support-title" value="補助資料と参照元" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#3f6212;" vertex="1" parent="1">
           <mxGeometry x="560" y="775" width="460" height="36" as="geometry"/>
         </mxCell>
-        <mxCell id="artifacts-title" value="Artifacts And Surfacing" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#be123c;" vertex="1" parent="1">
+        <mxCell id="artifacts-title" value="成果物と公開先" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#be123c;" vertex="1" parent="1">
           <mxGeometry x="1290" y="180" width="220" height="36" as="geometry"/>
         </mxCell>
 
-        <mxCell id="box-codex" value="Codex&lt;br&gt;skill invocation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f59e0b;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-codex" value="Codex&lt;br&gt;スキル呼び出し" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f59e0b;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="65" y="250" width="200" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="box-claude" value="Claude Code&lt;br&gt;/drawio workflow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f59e0b;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-claude" value="Claude Code&lt;br&gt;/drawio ワークフロー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f59e0b;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="65" y="370" width="200" height="80" as="geometry"/>
         </mxCell>
-        <mxCell id="box-repo" value="Repository tasks&lt;br&gt;docs and reviews" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f59e0b;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-repo" value="リポジトリ作業&lt;br&gt;docs とレビュー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#f59e0b;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="65" y="490" width="200" height="80" as="geometry"/>
         </mxCell>
 
-        <mxCell id="box-skill" value="SKILL.md&lt;br&gt;best-of workflow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=20;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-skill" value="SKILL.md&lt;br&gt;ベストオブ手順" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=20;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="495" y="245" width="200" height="90" as="geometry"/>
         </mxCell>
-        <mxCell id="box-authoring" value="Native .drawio&lt;br&gt;authoring" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0ea5e9;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-authoring" value="Native .drawio&lt;br&gt;作成・編集" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0ea5e9;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="380" y="390" width="170" height="100" as="geometry"/>
         </mxCell>
-        <mxCell id="box-export" value="Export helper&lt;br&gt;export-drawio.mjs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-export" value="書き出し helper&lt;br&gt;export-drawio.mjs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="640" y="390" width="170" height="100" as="geometry"/>
         </mxCell>
-        <mxCell id="box-lint" value="SVG lint and review&lt;br&gt;check-drawio-svg-overlaps.mjs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-lint" value="SVG lint とレビュー&lt;br&gt;check-drawio-svg-overlaps.mjs" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="510" y="545" width="170" height="95" as="geometry"/>
         </mxCell>
 
@@ -70,14 +70,14 @@
         <mxCell id="box-find" value="scripts/&lt;br&gt;find_aws_icon.py" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#65a30d;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#365314;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="740" y="820" width="220" height="60" as="geometry"/>
         </mxCell>
-        <mxCell id="box-upstream" value="Upstream ideas&lt;br&gt;softaworks + jgraph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#65a30d;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#365314;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-upstream" value="上流の着想&lt;br&gt;softaworks + jgraph" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#65a30d;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#365314;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="1050" y="805" width="370" height="90" as="geometry"/>
         </mxCell>
 
-        <mxCell id="box-source" value="Repository artifacts&lt;br&gt;*.drawio&lt;br&gt;*.drawio.png / .svg / .pdf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-source" value="リポジトリ成果物&lt;br&gt;*.drawio&lt;br&gt;*.drawio.png / .svg / .pdf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="1290" y="350" width="220" height="160" as="geometry"/>
         </mxCell>
-        <mxCell id="box-exported" value="Review surface&lt;br&gt;lint report&lt;br&gt;README / docs / slides" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+        <mxCell id="box-exported" value="確認・公開先&lt;br&gt;lint レポート&lt;br&gt;README / docs / slides" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
           <mxGeometry x="1290" y="560" width="220" height="110" as="geometry"/>
         </mxCell>
 

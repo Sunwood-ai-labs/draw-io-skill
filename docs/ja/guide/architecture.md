@@ -2,7 +2,11 @@
 
 ## リポジトリの主要サーフェス
 
-![リポジトリ構成の概要](../../../assets/draw-io-skill-structure.drawio.png)
+![リポジトリ構成の概要](../../../assets/draw-io-skill-structure.ja.drawio.png)
+
+日本語版の編集用ソースは
+`../../../assets/draw-io-skill-structure.ja.drawio`
+です。英語版が必要な場合は `../../../assets/draw-io-skill-structure.drawio` を参照してください。
 
 ## コアファイル
 

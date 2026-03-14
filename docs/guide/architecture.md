@@ -4,6 +4,10 @@
 
 ![Repository structure overview](../../assets/draw-io-skill-structure.drawio.png)
 
+For Japanese-facing docs or slides, use the localized companion source at
+`../../assets/draw-io-skill-structure.ja.drawio`
+and the exported assets beside it.
+
 ## Core Files
 
 | Path | Purpose |

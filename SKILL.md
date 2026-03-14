@@ -12,7 +12,7 @@ Use this skill when an agent needs to:
 - create a new draw.io diagram as native `.drawio` XML
 - edit or refactor an existing `.drawio` file
 - export diagrams to `png`, `svg`, `pdf`, or `jpg`
-- check routed edges, box-border overlap, box penetration, or text overflow
+- check routed edges, box- or frame-border overlap, box penetration, or text overflow
 - build architecture diagrams with AWS icons
 
 This skill intentionally combines:
@@ -26,6 +26,48 @@ This skill intentionally combines:
 The repository layout and bundled workflow pieces are summarized in the diagram below.
 
 ![draw-io-skill structure](./assets/draw-io-skill-structure.drawio.png)
+
+The repository also ships:
+
+- an English structure source and exports under `assets/draw-io-skill-structure.drawio*`
+- a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
+- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, and `fixtures/large-frame-border-overlap`
+
+### 1.2 Repository-local commands
+
+When working inside this repository, these are the main maintenance commands:
+
+```sh
+npm install
+npm run check
+npm run verify
+npm run docs:install
+npm run docs:build
+npm run docs:dev
+uv run python -m py_compile scripts/find_aws_icon.py
+```
+
+Use them this way:
+
+- `npm run check`: script syntax plus fixture-based lint verification
+- `npm run verify`: full repository signoff, including docs build
+- `npm run docs:build`: one-shot docs build
+- `npm run docs:dev`: interactive docs preview
+
+If you need to attach the repo as a skill in a local assistant environment, the repository docs use these conventions:
+
+- Codex on Windows: junction `C:\Users\YOUR_NAME\.codex\skills\draw-io -> D:\Prj\draw-io-skill`
+- Claude Code: clone under `~/.claude/skills/drawio`
+
+### 1.3 Repository QA model
+
+The repository uses three QA layers:
+
+1. syntax checks for the JavaScript tools
+2. fixture-based lint verification
+3. documentation build validation for the public-facing docs
+
+That keeps the technical tooling and the user-facing docs aligned in CI.
 
 ## 2. Default Workflow
 
@@ -88,7 +130,16 @@ What it does:
 - locates the draw.io CLI on Windows, macOS, or Linux
 - uses embedded XML for `png`, `svg`, and `pdf`
 - defaults to transparent 2x PNG export
+- supports explicit `--drawio <path>` when automatic CLI discovery fails
 - supports optional `--delete-source` when the user explicitly wants only the embedded export
+
+If draw.io CLI discovery fails, rerun with an explicit executable path:
+
+```sh
+node scripts/export-drawio.mjs architecture.drawio --drawio "C:\\Program Files\\draw.io\\draw.io.exe" --format svg
+```
+
+On macOS or Linux, point `--drawio` at the installed executable for that environment.
 
 ### 5.2 Manual draw.io CLI export
 
@@ -127,12 +178,14 @@ After exporting SVG, run the bundled lint:
 
 ```sh
 node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
 ```
 
 The lint script currently checks:
 
 - `edge-edge`: edge crossings and collinear overlaps
-- `edge-rect-border`: lines that run along or visibly overlap a box border
+- `edge-rect-border`: lines that run along or visibly overlap a box or large frame border
 - `edge-rect`: lines penetrating boxes
 - `text-overflow(width)`: text likely too wide for its box
 - `text-overflow(height)`: text likely too tall for its box
@@ -141,7 +194,13 @@ Notes:
 
 - input may be either `.drawio` or `.drawio.svg`
 - text overflow detection is heuristic, not pixel-perfect
+- bundled fixtures cover both a simple box-border overlap and a large frame-border overlap
 - lint passing does not replace visual verification
+
+When investigating findings:
+
+- if `edge-rect-border` is intentional, keep the routing obvious, visually review the output, and document the exception in the surrounding workflow
+- if `text-overflow` looks like a false positive, first try widening the box, shortening the label, adding an intentional line break, or setting explicit fonts
 
 ## 7. XML And Layout Rules
 
@@ -192,6 +251,7 @@ style="text;html=1;fontSize=18;fontFamily=Noto Sans JP;"
 - leave at least 20px of straight segment near arrowheads
 - use `edgeStyle=orthogonalEdgeStyle` for most technical diagrams
 - add explicit waypoints when auto-routing produces overlap or awkward bends
+- when using large outer frames or swimlanes, keep routed segments off the frame stroke and use the gutter between the frame and child boxes instead
 - align to a coarse grid when possible
 
 Example with waypoints:
@@ -277,7 +337,7 @@ uv run python scripts/find_aws_icon.py lambda
 - [ ] containers have enough internal margin
 - [ ] edge routing is visually clear and leaves room for arrowheads
 - [ ] SVG lint passes for routing-heavy diagrams
-- [ ] no `edge-rect-border` findings remain unless a border overlap is intentionally accepted
+- [ ] no `edge-rect-border` findings remain unless a box or frame border overlap is intentionally accepted
 - [ ] no `text-overflow(width)` or `text-overflow(height)` findings remain
 - [ ] final PNG/SVG/PDF was visually checked
 
@@ -297,6 +357,10 @@ For repo-facing documentation and onboarding:
 - [docs/ja/guide/troubleshooting.md](./docs/ja/guide/troubleshooting.md)
 - [references/layout-guidelines.en.md](./references/layout-guidelines.en.md)
 - [references/aws-icons.en.md](./references/aws-icons.en.md)
+
+Docs-specific repo note:
+
+- if GitHub Pages styling breaks after a repo rename, verify the VitePress base still matches `/draw-io-skill/`
 
 ## 11. References And Credits
 

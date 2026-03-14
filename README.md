@@ -26,7 +26,7 @@
 
 - native `.drawio` editing for assistant-driven diagram generation
 - export helpers for `png`, `svg`, `pdf`, and `jpg`
-- SVG linting for crossings, border overlap, box penetration, and text overflow
+- SVG linting for crossings, box or frame border overlap, box penetration, and text overflow
 
 It is meant to be practical in a real repository: editable source stays in `.drawio`, exports stay reproducible, and routing defects can be caught before a diagram lands in docs or a PR.
 
@@ -62,6 +62,11 @@ npm run docs:build
   <img src="./assets/draw-io-skill-structure.drawio.png" alt="Repository structure diagram for draw-io-skill" width="960">
 </p>
 
+The repository also ships a Japanese-localized companion diagram:
+`assets/draw-io-skill-structure.ja.drawio`,
+`assets/draw-io-skill-structure.ja.drawio.png`,
+and `assets/draw-io-skill-structure.ja.drawio.svg`.
+
 ## 🛠️ What You Get
 
 ### Native draw.io workflow
@@ -85,15 +90,18 @@ The helper locates the draw.io CLI across Windows, macOS, and Linux, defaults PN
 ```bash
 node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
 ```
 
 The linter checks:
 
 - `edge-edge`
-- `edge-rect-border`
+- `edge-rect-border` for lines that run along or visibly overlap a box or large frame border
 - `edge-rect`
 - `text-overflow(width)`
 - `text-overflow(height)`
+
+The repository includes dedicated regression fixtures for both a simple box-border overlap and a large frame-border overlap so routing regressions can be caught in CI before a diagram lands in docs.
 
 ## 📦 Installation
 
@@ -137,7 +145,10 @@ draw-io-skill/
 │   ├── draw-io-skill-penpen-header.webp
 │   ├── draw-io-skill-structure.drawio
 │   ├── draw-io-skill-structure.drawio.png
-│   └── draw-io-skill-structure.drawio.svg
+│   ├── draw-io-skill-structure.drawio.svg
+│   ├── draw-io-skill-structure.ja.drawio
+│   ├── draw-io-skill-structure.ja.drawio.png
+│   └── draw-io-skill-structure.ja.drawio.svg
 ├── docs/
 │   ├── .vitepress/
 │   ├── guide/

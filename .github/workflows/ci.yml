@@ -5,9 +5,13 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  validate:
+  verify:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,6 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v6
@@ -27,11 +32,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install npm metadata
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Run repository checks
-        run: npm run check
-
-      - name: Compile Python helper
-        run: uv run python -m py_compile scripts/find_aws_icon.py
+      - name: Run repository verification
+        run: npm run verify

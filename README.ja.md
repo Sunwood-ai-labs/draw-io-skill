@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./assets/draw-io-skill-penpen-header.webp" alt="draw-io-skill のヘッダーイラスト Penpen" width="960">
+  <img src="./assets/draw-io-skill-penpen-header.webp" alt="draw-io-skill のヘッダーイラスト Penpen" width="500">
 </p>
 
 <h1 align="center">draw-io-skill</h1>

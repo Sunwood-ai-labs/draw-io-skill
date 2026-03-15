@@ -56,3 +56,4 @@ features:
 - [Export と lint](/ja/guide/export-and-lint)
 - [Reference ガイド](/ja/guide/reference-guides)
 - [トラブルシューティング](/ja/guide/troubleshooting)
+- [v0.1.0 リリースノート](/ja/guide/releases/v0.1.0)

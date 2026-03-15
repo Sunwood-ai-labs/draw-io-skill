@@ -56,3 +56,4 @@ features:
 - [Export And Lint](/guide/export-and-lint)
 - [Reference Guides](/guide/reference-guides)
 - [Troubleshooting](/guide/troubleshooting)
+- [v0.1.0 Release Notes](/guide/releases/v0.1.0)

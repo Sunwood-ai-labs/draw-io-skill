@@ -68,6 +68,12 @@ npm run docs:build
 `assets/draw-io-skill-structure.ja.drawio.svg`
 にあります。英語版は従来どおり `assets/draw-io-skill-structure.drawio` 系を参照してください。
 
+shape ごとの配線や枠線の当たりを確認するサンプルとして、
+`assets/draw-io-skill-structure-shapes.drawio`、
+`assets/draw-io-skill-structure-shapes.drawio.png`、
+`assets/draw-io-skill-structure-shapes.drawio.svg`
+も同梱しています。
+
 ## 🛠️ 含まれるもの
 
 ### native draw.io ワークフロー
@@ -150,6 +156,9 @@ draw-io-skill/
 │   ├── draw-io-skill-structure.drawio
 │   ├── draw-io-skill-structure.drawio.png
 │   ├── draw-io-skill-structure.drawio.svg
+│   ├── draw-io-skill-structure-shapes.drawio
+│   ├── draw-io-skill-structure-shapes.drawio.png
+│   ├── draw-io-skill-structure-shapes.drawio.svg
 │   ├── draw-io-skill-structure.ja.drawio
 │   ├── draw-io-skill-structure.ja.drawio.png
 │   └── draw-io-skill-structure.ja.drawio.svg
@@ -160,7 +169,10 @@ draw-io-skill/
 │   └── public/
 ├── fixtures/
 │   ├── basic/
-│   └── border-overlap/
+│   ├── border-overlap/
+│   ├── large-frame-border-overlap/
+│   ├── shape-border-overlap/
+│   └── shape-text-overflow/
 ├── references/
 │   ├── aws-icons.en.md
 │   ├── aws-icons.md

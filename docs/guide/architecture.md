@@ -8,6 +8,11 @@ For Japanese-facing docs or slides, use the localized companion source at
 `../../assets/draw-io-skill-structure.ja.drawio`
 and the exported assets beside it.
 
+For shape-focused routing and border-fit examples, use
+`../../assets/draw-io-skill-structure-shapes.drawio`
+plus `../../assets/draw-io-skill-structure-shapes.drawio.png`
+and `../../assets/draw-io-skill-structure-shapes.drawio.svg`.
+
 ## Core Files
 
 | Path | Purpose |
@@ -16,8 +21,10 @@ and the exported assets beside it.
 | `scripts/export-drawio.mjs` | Cross-platform wrapper around the draw.io CLI |
 | `scripts/check-drawio-svg-overlaps.mjs` | SVG linting for overlaps, border contact, penetration, and text overflow |
 | `scripts/find_aws_icon.py` | AWS icon search helper run through `uv` |
+| `assets/draw-io-skill-structure-shapes.drawio` | Shape-focused sample diagram used to review non-rect layout and routing behavior |
 | `fixtures/basic` | Baseline fixture for a clean lint result |
 | `fixtures/border-overlap` | Regression fixture for border-contact detection |
+| `fixtures/shape-border-overlap` | Regression fixture for supported non-rect shape border-contact detection |
 | `references/layout-guidelines.md` | Practical layout rules for boxes, spacing, and containers |
 | `references/aws-icons.md` | AWS icon lookup reference material |
 

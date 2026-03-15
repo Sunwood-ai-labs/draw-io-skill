@@ -30,6 +30,7 @@ The repository layout and bundled workflow pieces are summarized in the diagram 
 The repository also ships:
 
 - an English structure source and exports under `assets/draw-io-skill-structure.drawio*`
+- a shape-focused structure sample under `assets/draw-io-skill-structure-shapes.drawio` with exports at `assets/draw-io-skill-structure-shapes.drawio.png` and `assets/draw-io-skill-structure-shapes.drawio.svg`
 - a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
 - fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, and `fixtures/shape-text-overflow`
 

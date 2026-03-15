@@ -67,6 +67,11 @@ The repository also ships a Japanese-localized companion diagram:
 `assets/draw-io-skill-structure.ja.drawio.png`,
 and `assets/draw-io-skill-structure.ja.drawio.svg`.
 
+For shape-focused routing and border-fit examples, the repository also ships:
+`assets/draw-io-skill-structure-shapes.drawio`,
+`assets/draw-io-skill-structure-shapes.drawio.png`,
+and `assets/draw-io-skill-structure-shapes.drawio.svg`.
+
 ## 🛠️ What You Get
 
 ### Native draw.io workflow
@@ -149,6 +154,9 @@ draw-io-skill/
 │   ├── draw-io-skill-structure.drawio
 │   ├── draw-io-skill-structure.drawio.png
 │   ├── draw-io-skill-structure.drawio.svg
+│   ├── draw-io-skill-structure-shapes.drawio
+│   ├── draw-io-skill-structure-shapes.drawio.png
+│   ├── draw-io-skill-structure-shapes.drawio.svg
 │   ├── draw-io-skill-structure.ja.drawio
 │   ├── draw-io-skill-structure.ja.drawio.png
 │   └── draw-io-skill-structure.ja.drawio.svg
@@ -159,7 +167,10 @@ draw-io-skill/
 │   └── public/
 ├── fixtures/
 │   ├── basic/
-│   └── border-overlap/
+│   ├── border-overlap/
+│   ├── large-frame-border-overlap/
+│   ├── shape-border-overlap/
+│   └── shape-text-overflow/
 ├── references/
 │   ├── aws-icons.en.md
 │   ├── aws-icons.md

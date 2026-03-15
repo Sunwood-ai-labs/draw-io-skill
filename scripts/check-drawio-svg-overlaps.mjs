@@ -25,13 +25,32 @@ function parseStyle(styleText = '') {
   const style = {};
 
   for (const declaration of styleText.split(';')) {
-    if (!declaration.includes(':')) {
+    const trimmed = declaration.trim();
+    if (!trimmed) {
       continue;
     }
 
-    const [rawKey, rawValue] = declaration.split(':');
-    const key = rawKey.trim();
-    const value = rawValue.trim();
+    const separatorIndex = (() => {
+      const equalsIndex = trimmed.indexOf('=');
+      const colonIndex = trimmed.indexOf(':');
+
+      if (equalsIndex === -1) {
+        return colonIndex;
+      }
+
+      if (colonIndex === -1) {
+        return equalsIndex;
+      }
+
+      return Math.min(equalsIndex, colonIndex);
+    })();
+
+    if (separatorIndex === -1) {
+      continue;
+    }
+
+    const key = trimmed.slice(0, separatorIndex).trim();
+    const value = trimmed.slice(separatorIndex + 1).trim();
 
     if (key) {
       style[key] = value;
@@ -594,6 +613,109 @@ function estimateWrappedMetrics(lines, availableWidth) {
   return { estimatedWidth, estimatedHeight };
 }
 
+function getShapeTextInsets(style, width, height, fontSize) {
+  const shape = String(style.shape ?? '').toLowerCase();
+  const insets = {
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  };
+
+  if (shape === 'document') {
+    const sideInset = Math.max(6, width * 0.03);
+    return {
+      left: sideInset,
+      right: sideInset,
+      top: Math.max(4, fontSize * 0.2),
+      bottom: Math.max(fontSize * 2, height * 0.32),
+    };
+  }
+
+  if (shape === 'folder') {
+    return {
+      ...insets,
+      top: Math.max(10, height * 0.12),
+    };
+  }
+
+  return insets;
+}
+
+function getShapeLineWidthBudget({ shape, width, height, lineCenterY, spacingLeft, spacingRight, fontSize }) {
+  const innerWidth = Math.max(0, width - spacingLeft - spacingRight);
+
+  if (shape === 'hexagon') {
+    const baseInset = Math.max(fontSize * 0.35, width * 0.04);
+    const taperInset = Math.max(width * 0.25, fontSize * 2)
+      * Math.abs(((lineCenterY / height) * 2) - 1);
+
+    return Math.max(0, innerWidth - (2 * (baseInset + taperInset)));
+  }
+
+  if (shape === 'trapezoid') {
+    const baseInset = Math.max(fontSize * 0.35, width * 0.035);
+    const taperInset = Math.max(width * 0.18, fontSize * 1.4)
+      * Math.max(0, 1 - (lineCenterY / height));
+
+    return Math.max(0, innerWidth - (2 * (baseInset + taperInset)));
+  }
+
+  return null;
+}
+
+function findShapeAwareWidthProfile({
+  availableHeight,
+  fontSize,
+  height,
+  lines,
+  shape,
+  shapeInsets,
+  spacingLeft,
+  spacingRight,
+  spacingTop,
+  width,
+}) {
+  if (!['hexagon', 'trapezoid'].includes(shape) || lines.length === 0) {
+    return null;
+  }
+
+  const totalLineHeight = lines.reduce((total, line) => total + (line.fontSize * 1.25), 0);
+  const verticalOffset = Math.max(0, (availableHeight - totalLineHeight) / 2);
+  let cursorY = spacingTop + shapeInsets.top + verticalOffset;
+  let worstFit = null;
+
+  for (const line of lines) {
+    const lineHeight = line.fontSize * 1.25;
+    const lineCenterY = cursorY + (lineHeight / 2);
+    const lineAvailableWidth = getShapeLineWidthBudget({
+      shape,
+      width,
+      height,
+      lineCenterY,
+      spacingLeft,
+      spacingRight,
+      fontSize: line.fontSize || fontSize,
+    });
+
+    if (lineAvailableWidth !== null && line.width > lineAvailableWidth + TEXT_OVERFLOW_TOLERANCE) {
+      const overflowAmount = line.width - lineAvailableWidth;
+
+      if (!worstFit || overflowAmount > worstFit.overflowAmount) {
+        worstFit = {
+          availableWidth: lineAvailableWidth,
+          estimatedWidth: line.width,
+          overflowAmount,
+        };
+      }
+    }
+
+    cursorY += lineHeight;
+  }
+
+  return worstFit;
+}
+
 function parseDrawioTextBlocks(drawioText) {
   const blocks = [];
   const cellRegex = /<mxCell\b([^>]*?)(?:\/>|>([\s\S]*?)<\/mxCell>)/g;
@@ -629,23 +751,37 @@ function parseDrawioTextBlocks(drawioText) {
     }
 
     const style = parseStyle(rawStyle);
+    const shape = String(style.shape ?? '').toLowerCase();
     const fontSize = parseStyleNumber(style, 'fontSize', 17);
     const spacing = parseStyleNumber(style, 'spacing', DEFAULT_TEXT_PADDING);
     const spacingLeft = parseStyleNumber(style, 'spacingLeft', spacing);
     const spacingRight = parseStyleNumber(style, 'spacingRight', spacing);
     const spacingTop = parseStyleNumber(style, 'spacingTop', spacing);
     const spacingBottom = parseStyleNumber(style, 'spacingBottom', spacing);
+    const shapeInsets = getShapeTextInsets(style, width, height, fontSize);
     const lines = extractLineMetrics(attributes.value, fontSize);
-    const availableWidth = Math.max(0, width - spacingLeft - spacingRight);
-    const availableHeight = Math.max(0, height - spacingTop - spacingBottom);
+    const availableWidth = Math.max(0, width - spacingLeft - spacingRight - shapeInsets.left - shapeInsets.right);
+    const availableHeight = Math.max(0, height - spacingTop - spacingBottom - shapeInsets.top - shapeInsets.bottom);
     const wrappedMetrics = estimateWrappedMetrics(lines, availableWidth);
+    const shapeAwareWidthProfile = findShapeAwareWidthProfile({
+      availableHeight,
+      fontSize,
+      height,
+      lines,
+      shape,
+      shapeInsets,
+      spacingLeft,
+      spacingRight,
+      spacingTop,
+      width,
+    });
 
     blocks.push({
       cellId: attributes.id ?? 'unknown-cell',
       value: decodeXmlEntities(attributes.value).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
-      availableWidth,
+      availableWidth: shapeAwareWidthProfile?.availableWidth ?? availableWidth,
       availableHeight,
-      estimatedWidth: wrappedMetrics.estimatedWidth,
+      estimatedWidth: shapeAwareWidthProfile?.estimatedWidth ?? wrappedMetrics.estimatedWidth,
       estimatedHeight: wrappedMetrics.estimatedHeight,
     });
   }

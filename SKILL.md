@@ -12,7 +12,7 @@ Use this skill when an agent needs to:
 - create a new draw.io diagram as native `.drawio` XML
 - edit or refactor an existing `.drawio` file
 - export diagrams to `png`, `svg`, `pdf`, or `jpg`
-- check routed edges, box- or frame-border overlap, box penetration, or text overflow
+- check routed edges, box- or frame-border overlap, supported non-rect shape border overlap, box penetration, or text overflow
 - build architecture diagrams with AWS icons
 
 This skill intentionally combines:
@@ -31,7 +31,7 @@ The repository also ships:
 
 - an English structure source and exports under `assets/draw-io-skill-structure.drawio*`
 - a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
-- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, and `fixtures/large-frame-border-overlap`
+- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, and `fixtures/shape-text-overflow`
 
 ### 1.2 Repository-local commands
 
@@ -180,13 +180,16 @@ After exporting SVG, run the bundled lint:
 node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
 ```
 
 The lint script currently checks:
 
 - `edge-edge`: edge crossings and collinear overlaps
 - `edge-rect-border`: lines that run along or visibly overlap a box or large frame border
+- `edge-shape-border`: lines that run along supported non-rect shape borders such as `document`, `hexagon`, `parallelogram`, and `trapezoid`
 - `edge-rect`: lines penetrating boxes
+- `rect-shape-border`: box or frame borders that run along those supported non-rect shape borders
 - `text-overflow(width)`: text likely too wide for its box
 - `text-overflow(height)`: text likely too tall for its box
 
@@ -194,12 +197,12 @@ Notes:
 
 - input may be either `.drawio` or `.drawio.svg`
 - text overflow detection is heuristic, not pixel-perfect
-- bundled fixtures cover both a simple box-border overlap and a large frame-border overlap
+- bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, and shape-aware text overflow
 - lint passing does not replace visual verification
 
 When investigating findings:
 
-- if `edge-rect-border` is intentional, keep the routing obvious, visually review the output, and document the exception in the surrounding workflow
+- if `edge-rect-border`, `edge-shape-border`, or `rect-shape-border` is intentional, keep the routing obvious, visually review the output, and document the exception in the surrounding workflow
 - if `text-overflow` looks like a false positive, first try widening the box, shortening the label, adding an intentional line break, or setting explicit fonts
 
 ## 7. XML And Layout Rules
@@ -338,6 +341,7 @@ uv run python scripts/find_aws_icon.py lambda
 - [ ] edge routing is visually clear and leaves room for arrowheads
 - [ ] SVG lint passes for routing-heavy diagrams
 - [ ] no `edge-rect-border` findings remain unless a box or frame border overlap is intentionally accepted
+- [ ] no `edge-shape-border` or `rect-shape-border` findings remain unless a supported non-rect border contact is intentionally accepted
 - [ ] no `text-overflow(width)` or `text-overflow(height)` findings remain
 - [ ] final PNG/SVG/PDF was visually checked
 

@@ -33,6 +33,7 @@ node scripts/export-drawio.mjs architecture.drawio --output architecture.drawio.
 Run lint after SVG export when:
 
 - arrows route around multiple boxes
+- non-rect shapes such as `document`, `hexagon`, `parallelogram`, or `trapezoid` sit close to arrows or frames
 - labels are long or mixed-language
 - boxes are packed tightly
 - you need repeatable QA in CI
@@ -47,7 +48,9 @@ node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
 
 - `edge-edge`
 - `edge-rect-border`
+- `edge-shape-border`
 - `edge-rect`
+- `rect-shape-border`
 - `text-overflow(width)`
 - `text-overflow(height)`
 

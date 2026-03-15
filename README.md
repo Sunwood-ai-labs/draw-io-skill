@@ -26,7 +26,7 @@
 
 - native `.drawio` editing for assistant-driven diagram generation
 - export helpers for `png`, `svg`, `pdf`, and `jpg`
-- SVG linting for crossings, box or frame border overlap, box penetration, and text overflow
+- SVG linting for crossings, box or frame border overlap, supported non-rect shape border overlap, box penetration, and text overflow
 
 It is meant to be practical in a real repository: editable source stays in `.drawio`, exports stay reproducible, and routing defects can be caught before a diagram lands in docs or a PR.
 
@@ -91,17 +91,20 @@ The helper locates the draw.io CLI across Windows, macOS, and Linux, defaults PN
 node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
 ```
 
 The linter checks:
 
 - `edge-edge`
 - `edge-rect-border` for lines that run along or visibly overlap a box or large frame border
+- `edge-shape-border` for lines that run along supported non-rect shape borders such as `document`, `hexagon`, `parallelogram`, and `trapezoid`
 - `edge-rect`
+- `rect-shape-border` for box or frame borders that run along those supported non-rect shape borders
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-The repository includes dedicated regression fixtures for both a simple box-border overlap and a large frame-border overlap so routing regressions can be caught in CI before a diagram lands in docs.
+The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs.
 
 ## 📦 Installation
 

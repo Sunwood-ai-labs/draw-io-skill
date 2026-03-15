@@ -35,20 +35,23 @@ SVG export の後に lint を実行します。
 node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
 ```
 
 現在の検知対象:
 
 - `edge-edge`
 - `edge-rect-border` 箱や大きいフレームの枠線に沿う、または重なる線
+- `edge-shape-border` `document` / `hexagon` / `parallelogram` / `trapezoid` など、対応する非矩形 shape の枠線に沿う、または重なる線
 - `edge-rect`
+- `rect-shape-border` 箱やフレームの枠線が、対応する非矩形 shape の枠線に沿う、または重なるケース
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-`fixtures/border-overlap/...` と `fixtures/large-frame-border-overlap/...` を使い分けることで、細い箱枠と大きいセクション枠の両方を回帰テストできます。
+`fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、shape-aware な文字はみ出しをそれぞれ回帰テストできます。
 
 ## 実運用での確認ルール
 
-lint は有効ですが、目視確認の代わりにはなりません。ルーティングとラベルが固まったら、最後に PNG / SVG / PDF を 1 回は開いて確認します。
+lint は有効ですが、目視確認の代わりにはなりません。ルーティングとラベルが固まったら、最後に PNG / SVG / PDF を 1 回は開いて確認します。特に `document` / `hexagon` / `parallelogram` / `trapezoid` が矢印や外枠に近い場合は、見た目も必ず確認します。
 
-swimlane や外枠フレームを使う図では、意図したケースを除き `edge-rect-border` を配線バグとして扱うのがおすすめです。
+swimlane や外枠フレームを使う図では、意図したケースを除き `edge-rect-border`、`edge-shape-border`、`rect-shape-border` を配線バグとして扱うのがおすすめです。

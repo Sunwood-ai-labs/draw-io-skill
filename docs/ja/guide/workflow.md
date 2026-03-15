@@ -31,6 +31,7 @@ node scripts/export-drawio.mjs architecture.drawio --output architecture.drawio.
 ## lint を実行すべき場面
 
 - 矢印が複数の箱を回り込む
+- `document` / `hexagon` / `parallelogram` / `trapezoid` のような非矩形 shape が矢印や枠に近い
 - ラベルが長い、または多言語混在
 - 箱が密集している
 - CI で再現可能な QA を入れたい
@@ -45,7 +46,9 @@ node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
 
 - `edge-edge`
 - `edge-rect-border`
+- `edge-shape-border`
 - `edge-rect`
+- `rect-shape-border`
 - `text-overflow(width)`
 - `text-overflow(height)`
 

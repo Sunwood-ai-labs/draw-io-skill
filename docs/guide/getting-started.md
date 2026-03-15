@@ -41,7 +41,7 @@ git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git ~/.claude/skills/
 ## Build the docs locally
 
 ```bash
-npm run docs:install
+npm ci
 npm run docs:build
 ```
 

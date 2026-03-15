@@ -42,10 +42,10 @@ features:
 
 ## ショーケース導線
 
-- [リポジトリ構成の全体図](/ja/guide/showcase#リポジトリ構成の全体図)
-- [lint 確認用サンプル](/ja/guide/showcase#lint-確認用サンプル)
-- [アイコン付きブロック例](/ja/guide/showcase#アイコン付きブロック例)
-- [AWS 構成図へ広げるときの土台](/ja/guide/showcase#aws-構成図へ広げるときの土台)
+- [リポジトリ構成の全体図](/ja/guide/showcase)
+- [lint 確認用サンプル](/ja/guide/showcase)
+- [アイコン付きブロック例](/ja/guide/showcase)
+- [AWS 構成図へ広げるときの土台](/ja/guide/showcase)
 
 ## 主要リンク
 

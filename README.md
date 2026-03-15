@@ -36,7 +36,7 @@ Install the local tooling, export a bundled fixture, then run the linter:
 
 ```bash
 npm ci
-npm run docs:install
+npm ci
 npm run verify
 node scripts/export-drawio.mjs fixtures/basic/basic.drawio --format svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
@@ -46,7 +46,7 @@ uv run python scripts/find_aws_icon.py lambda
 If you only want to rebuild the documentation site:
 
 ```bash
-npm run docs:install
+npm ci
 npm run docs:build
 ```
 

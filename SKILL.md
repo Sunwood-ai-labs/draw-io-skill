@@ -44,7 +44,7 @@ When working inside this repository, these are the main maintenance commands:
 npm install
 npm run check
 npm run verify
-npm run docs:install
+npm ci
 npm run docs:build
 npm run docs:dev
 uv run python -m py_compile scripts/find_aws_icon.py

@@ -36,7 +36,7 @@
 
 ```bash
 npm ci
-npm run docs:install
+npm ci
 npm run verify
 node scripts/export-drawio.mjs fixtures/basic/basic.drawio --format svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
@@ -46,7 +46,7 @@ uv run python scripts/find_aws_icon.py lambda
 ドキュメントサイトだけを build したい場合:
 
 ```bash
-npm run docs:install
+npm ci
 npm run docs:build
 ```
 

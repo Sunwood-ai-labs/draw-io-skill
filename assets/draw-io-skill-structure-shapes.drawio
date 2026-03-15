@@ -51,8 +51,8 @@
         <mxCell id="box-skill" value="Agent workflow&lt;br&gt;SKILL.md&lt;br&gt;best-of loop" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2563eb;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=center;verticalAlign=middle;spacing=8;shadow=1;gradientColor=#f8fafc;glass=0;" vertex="1" parent="1">
           <mxGeometry x="470" y="230" width="240" height="120" as="geometry"/>
         </mxCell>
-        <mxCell id="box-authoring" value="Native .drawio&lt;br&gt;create and revise" style="shape=document;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0ea5e9;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;shadow=1;gradientColor=#f8fafc;glass=0;" vertex="1" parent="1">
-          <mxGeometry x="370" y="390" width="180" height="126" as="geometry"/>
+        <mxCell id="box-authoring" value="Native .drawio&lt;br&gt;create and revise" style="shape=document;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0ea5e9;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;spacingBottom=12;shadow=1;gradientColor=#f8fafc;glass=0;" vertex="1" parent="1">
+          <mxGeometry x="370" y="380" width="190" height="160" as="geometry"/>
         </mxCell>
         <mxCell id="box-export" value="Export helper&lt;br&gt;export-drawio.mjs" style="shape=trapezoid;perimeter=trapezoidPerimeter;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#0f172a;align=center;verticalAlign=middle;spacing=8;shadow=1;gradientColor=#f8fafc;glass=0;" vertex="1" parent="1">
           <mxGeometry x="600" y="385" width="230" height="110" as="geometry"/>
@@ -80,8 +80,8 @@
         <mxCell id="box-source" value="Repository artifacts&lt;br&gt;*.drawio&lt;br&gt;*.drawio.png / .svg / .pdf" style="shape=folder;tabWidth=52;tabHeight=18;tabPosition=left;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=10;shadow=1;gradientColor=#fff1f2;glass=0;" vertex="1" parent="1">
           <mxGeometry x="1290" y="350" width="220" height="160" as="geometry"/>
         </mxCell>
-        <mxCell id="box-exported" value="Review surface&lt;br&gt;lint report&lt;br&gt;README / docs / slides" style="shape=document;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=8;shadow=1;gradientColor=#fff1f2;glass=0;" vertex="1" parent="1">
-          <mxGeometry x="1260" y="530" width="280" height="150" as="geometry"/>
+        <mxCell id="box-exported" value="Review surface&lt;br&gt;lint report&lt;br&gt;README / docs / slides" style="shape=document;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#881337;align=center;verticalAlign=middle;spacing=8;spacingBottom=24;shadow=1;gradientColor=#fff1f2;glass=0;" vertex="1" parent="1">
+          <mxGeometry x="1270" y="520" width="260" height="180" as="geometry"/>
         </mxCell>
 
         <mxCell id="edge-input-codex" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#f59e0b;" edge="1" parent="1">
@@ -122,7 +122,7 @@
         </mxCell>
         <mxCell id="edge-authoring-export" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="550" y="440" as="sourcePoint"/>
+            <mxPoint x="560" y="440" as="sourcePoint"/>
             <mxPoint x="600" y="440" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
@@ -131,8 +131,8 @@
             <mxPoint x="380" y="592" as="sourcePoint"/>
             <mxPoint x="470" y="350" as="targetPoint"/>
             <Array as="points">
-              <mxPoint x="370" y="592"/>
-              <mxPoint x="370" y="350"/>
+              <mxPoint x="355" y="592"/>
+              <mxPoint x="355" y="350"/>
               <mxPoint x="470" y="350"/>
             </Array>
           </mxGeometry>
@@ -140,7 +140,7 @@
         <mxCell id="edge-export-lint" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="715" y="495" as="sourcePoint"/>
-            <mxPoint x="725" y="545" as="targetPoint"/>
+            <mxPoint x="715" y="545" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
         <mxCell id="edge-lint-feedback" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563eb;" edge="1" parent="1">
@@ -151,10 +151,10 @@
         </mxCell>
         <mxCell id="edge-authoring-source" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="550" y="390" as="sourcePoint"/>
+            <mxPoint x="560" y="390" as="sourcePoint"/>
             <mxPoint x="1400" y="350" as="targetPoint"/>
             <Array as="points">
-              <mxPoint x="550" y="370"/>
+              <mxPoint x="560" y="370"/>
               <mxPoint x="900" y="370"/>
               <mxPoint x="900" y="330"/>
               <mxPoint x="1400" y="330"/>
@@ -174,7 +174,7 @@
         <mxCell id="edge-lint-report" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="725" y="640" as="sourcePoint"/>
-            <mxPoint x="1260" y="605" as="targetPoint"/>
+            <mxPoint x="1270" y="605" as="targetPoint"/>
             <Array as="points">
               <mxPoint x="725" y="690"/>
               <mxPoint x="950" y="690"/>
@@ -185,7 +185,7 @@
         <mxCell id="edge-export-docs" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#dc2626;" edge="1" parent="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1400" y="510" as="sourcePoint"/>
-            <mxPoint x="1400" y="530" as="targetPoint"/>
+            <mxPoint x="1400" y="520" as="targetPoint"/>
           </mxGeometry>
         </mxCell>
       </root>

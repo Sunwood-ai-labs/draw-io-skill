@@ -10,6 +10,7 @@ const MAX_OBSTACLE_HEIGHT = 240;
 const TEXT_OVERFLOW_TOLERANCE = 4;
 const DEFAULT_TEXT_PADDING = 4;
 const FRAME_CELL_ID_PATTERN = /(?:^|[-_])frame(?:[-_]|$)/i;
+const SUPPORTED_NON_RECT_BORDER_SHAPES = new Set(['document', 'hexagon', 'parallelogram', 'trapezoid']);
 
 function parseAttributes(source) {
   const attributes = {};
@@ -305,6 +306,7 @@ function classifySegmentIntersection(first, second) {
 
     return {
       type: 'overlap',
+      length: overlapEnd - overlapStart,
       detail: `collinear overlap (${(overlapEnd - overlapStart).toFixed(1)}px)`,
     };
   }
@@ -623,12 +625,12 @@ function getShapeTextInsets(style, width, height, fontSize) {
   };
 
   if (shape === 'document') {
-    const sideInset = Math.max(6, width * 0.03);
+    const sideInset = Math.max(8, width * 0.035);
     return {
       left: sideInset,
       right: sideInset,
-      top: Math.max(4, fontSize * 0.2),
-      bottom: Math.max(fontSize * 2, height * 0.32),
+      top: Math.max(6, fontSize * 0.25),
+      bottom: Math.max(fontSize * 2.2, height * 0.4),
     };
   }
 
@@ -783,6 +785,7 @@ function parseDrawioTextBlocks(drawioText) {
       availableHeight,
       estimatedWidth: shapeAwareWidthProfile?.estimatedWidth ?? wrappedMetrics.estimatedWidth,
       estimatedHeight: wrappedMetrics.estimatedHeight,
+      overflowTolerance: shape === 'document' ? 1 : TEXT_OVERFLOW_TOLERANCE,
     });
   }
 
@@ -793,7 +796,9 @@ function findTextOverflowIssues(textBlocks) {
   const issues = [];
 
   for (const block of textBlocks) {
-    if (block.estimatedWidth > block.availableWidth + TEXT_OVERFLOW_TOLERANCE) {
+    const overflowTolerance = block.overflowTolerance ?? TEXT_OVERFLOW_TOLERANCE;
+
+    if (block.estimatedWidth > block.availableWidth + overflowTolerance) {
       issues.push({
         type: 'text-overflow',
         axis: 'width',
@@ -804,7 +809,7 @@ function findTextOverflowIssues(textBlocks) {
       });
     }
 
-    if (block.estimatedHeight > block.availableHeight + TEXT_OVERFLOW_TOLERANCE) {
+    if (block.estimatedHeight > block.availableHeight + overflowTolerance) {
       issues.push({
         type: 'text-overflow',
         axis: 'height',
@@ -861,7 +866,34 @@ async function readCompanionDrawio(targetPath, originalInput) {
   return null;
 }
 
-function parseSvg(svgText) {
+function parseDrawioCellMetadata(drawioText) {
+  const cells = new Map();
+  const cellRegex = /<mxCell\b([^>]*?)(?:\/>|>([\s\S]*?)<\/mxCell>)/g;
+
+  for (const match of drawioText.matchAll(cellRegex)) {
+    const [, rawAttributes = '', body = ''] = match;
+    const attributes = parseAttributes(rawAttributes);
+    const cellId = attributes.id;
+
+    if (!cellId) {
+      continue;
+    }
+
+    const geometryMatch = body.match(/<mxGeometry\b([^>]*?)\/>/);
+
+    cells.set(cellId, {
+      cellId,
+      edge: attributes.edge === '1',
+      style: parseStyle(attributes.style ?? ''),
+      vertex: attributes.vertex === '1',
+      geometry: geometryMatch ? parseAttributes(geometryMatch[1]) : {},
+    });
+  }
+
+  return cells;
+}
+
+function parseSvg(svgText, drawioCells = new Map()) {
   const cells = new Map();
   const tagRegex = /<\/?([A-Za-z][\w:-]*)([^<>]*?)\/?>/g;
   const stack = [{
@@ -890,6 +922,7 @@ function parseSvg(svgText) {
         cellId,
         rects: [],
         linePaths: [],
+        shapeBorders: [],
       });
     }
 
@@ -942,6 +975,8 @@ function parseSvg(svgText) {
       const fill = getPaint(attributes, 'fill');
       const stroke = getPaint(attributes, 'stroke');
       const d = attributes.d ?? '';
+      const cellMeta = drawioCells.get(currentCellId);
+      const shapeName = String(cellMeta?.style?.shape ?? '').toLowerCase();
 
       if ((fill === 'none' || fill === undefined) && !isNone(stroke) && d) {
         const cell = ensureCell(currentCellId);
@@ -951,6 +986,25 @@ function parseSvg(svgText) {
           stroke,
           strokeWidth: toNumber(getPresentationValue(attributes, 'stroke-width'), 1),
         });
+      } else if (
+        cellMeta?.vertex
+        && !cellMeta?.edge
+        && SUPPORTED_NON_RECT_BORDER_SHAPES.has(shapeName)
+        && !isNone(stroke)
+        && d
+      ) {
+        const segments = parsePathData(d, inheritedOffset);
+
+        if (segments.length > 0) {
+          const cell = ensureCell(currentCellId);
+          cell.shapeBorders.push({
+            cellId: currentCellId,
+            shape: shapeName,
+            segments,
+            stroke,
+            strokeWidth: toNumber(getPresentationValue(attributes, 'stroke-width'), 1),
+          });
+        }
       }
     }
 
@@ -1003,6 +1057,46 @@ function collectLintRects(cells) {
   }
 
   return rects;
+}
+
+function segmentsBounds(segments) {
+  let bounds = null;
+
+  for (const segment of segments) {
+    const currentBounds = segmentBounds(segment);
+
+    if (!bounds) {
+      bounds = { ...currentBounds };
+      continue;
+    }
+
+    bounds.minX = Math.min(bounds.minX, currentBounds.minX);
+    bounds.maxX = Math.max(bounds.maxX, currentBounds.maxX);
+    bounds.minY = Math.min(bounds.minY, currentBounds.minY);
+    bounds.maxY = Math.max(bounds.maxY, currentBounds.maxY);
+  }
+
+  return bounds ?? {
+    minX: 0,
+    maxX: 0,
+    minY: 0,
+    maxY: 0,
+  };
+}
+
+function collectShapeBorders(cells) {
+  const shapeBorders = [];
+
+  for (const cell of cells.values()) {
+    for (const shapeBorder of cell.shapeBorders ?? []) {
+      shapeBorders.push({
+        ...shapeBorder,
+        bounds: segmentsBounds(shapeBorder.segments),
+      });
+    }
+  }
+
+  return shapeBorders;
 }
 
 function findEdgeOverlaps(edges) {
@@ -1119,6 +1213,144 @@ function findEdgeRectBorderOverlaps(edges, rects) {
   return issues;
 }
 
+function rectToBorderSegments(rect) {
+  const right = rect.x + rect.width;
+  const bottom = rect.y + rect.height;
+
+  return [
+    {
+      side: 'top',
+      segment: {
+        start: { x: rect.x, y: rect.y },
+        end: { x: right, y: rect.y },
+      },
+    },
+    {
+      side: 'right',
+      segment: {
+        start: { x: right, y: rect.y },
+        end: { x: right, y: bottom },
+      },
+    },
+    {
+      side: 'bottom',
+      segment: {
+        start: { x: right, y: bottom },
+        end: { x: rect.x, y: bottom },
+      },
+    },
+    {
+      side: 'left',
+      segment: {
+        start: { x: rect.x, y: bottom },
+        end: { x: rect.x, y: rect.y },
+      },
+    },
+  ];
+}
+
+function findEdgeShapeBorderOverlaps(edges, shapeBorders) {
+  const issues = [];
+
+  for (const edge of edges) {
+    for (const shapeBorder of shapeBorders) {
+      if (edge.cellId === shapeBorder.cellId) {
+        continue;
+      }
+
+      const tolerance = borderContactTolerance(edge, shapeBorder);
+      const expandedBounds = expandBounds(shapeBorder.bounds, tolerance);
+
+      for (const edgeSegment of edge.segments) {
+        if (!boundsOverlap(segmentBounds(edgeSegment), expandedBounds, tolerance)) {
+          continue;
+        }
+
+        for (let index = 0; index < shapeBorder.segments.length; index += 1) {
+          const shapeSegment = shapeBorder.segments[index];
+
+          if (!boundsOverlap(segmentBounds(edgeSegment), segmentBounds(shapeSegment), tolerance)) {
+            continue;
+          }
+
+          const intersection = classifySegmentIntersection(edgeSegment, shapeSegment);
+
+          if (!intersection || intersection.type !== 'overlap') {
+            continue;
+          }
+
+          if ((intersection.length ?? 0) <= BOX_BORDER_OVERLAP_THRESHOLD) {
+            continue;
+          }
+
+          issues.push({
+            type: 'edge-shape-border',
+            edgeCellId: edge.cellId,
+            shapeCellId: shapeBorder.cellId,
+            detail: `${shapeBorder.shape} segment ${index + 1} overlap ${(intersection.length ?? 0).toFixed(1)}px`,
+          });
+        }
+      }
+    }
+  }
+
+  return issues;
+}
+
+function findRectShapeBorderOverlaps(rects, shapeBorders) {
+  const issues = [];
+
+  for (const rect of rects) {
+    if (isNone(rect.stroke)) {
+      continue;
+    }
+
+    const rectBorderSegments = rectToBorderSegments(rect);
+
+    for (const shapeBorder of shapeBorders) {
+      if (rect.cellId === shapeBorder.cellId) {
+        continue;
+      }
+
+      const tolerance = borderContactTolerance(rect, shapeBorder);
+      const expandedBounds = expandBounds(shapeBorder.bounds, tolerance);
+
+      for (const rectBorder of rectBorderSegments) {
+        if (!boundsOverlap(segmentBounds(rectBorder.segment), expandedBounds, tolerance)) {
+          continue;
+        }
+
+        for (let index = 0; index < shapeBorder.segments.length; index += 1) {
+          const shapeSegment = shapeBorder.segments[index];
+
+          if (!boundsOverlap(segmentBounds(rectBorder.segment), segmentBounds(shapeSegment), tolerance)) {
+            continue;
+          }
+
+          const intersection = classifySegmentIntersection(rectBorder.segment, shapeSegment);
+
+          if (!intersection || intersection.type !== 'overlap') {
+            continue;
+          }
+
+          if ((intersection.length ?? 0) <= BOX_BORDER_OVERLAP_THRESHOLD) {
+            continue;
+          }
+
+          issues.push({
+            type: 'rect-shape-border',
+            rectCellId: rect.cellId,
+            shapeCellId: shapeBorder.cellId,
+            detail: `${rectBorder.side} side with ${shapeBorder.shape} segment ${index + 1} overlap ${(intersection.length ?? 0).toFixed(1)}px`,
+          });
+        }
+      }
+    }
+  }
+
+  return issues;
+}
+
 function summarizeIssues(issues) {
   const summaries = new Map();
 
@@ -1176,6 +1408,38 @@ function summarizeIssues(issues) {
       continue;
     }
 
+    if (issue.type === 'edge-shape-border') {
+      const key = `${issue.type}::${issue.edgeCellId}::${issue.shapeCellId}`;
+
+      if (!summaries.has(key)) {
+        summaries.set(key, {
+          type: 'edge-shape-border',
+          edgeCellId: issue.edgeCellId,
+          shapeCellId: issue.shapeCellId,
+          details: new Set(),
+        });
+      }
+
+      summaries.get(key).details.add(issue.detail);
+      continue;
+    }
+
+    if (issue.type === 'rect-shape-border') {
+      const key = `${issue.type}::${issue.rectCellId}::${issue.shapeCellId}`;
+
+      if (!summaries.has(key)) {
+        summaries.set(key, {
+          type: 'rect-shape-border',
+          rectCellId: issue.rectCellId,
+          shapeCellId: issue.shapeCellId,
+          details: new Set(),
+        });
+      }
+
+      summaries.get(key).details.add(issue.detail);
+      continue;
+    }
+
     const key = `${issue.type}::${issue.edgeCellId}::${issue.rectCellId}`;
 
     if (!summaries.has(key)) {
@@ -1212,6 +1476,16 @@ function formatIssue(issue) {
     return `- edge-rect-border: ${issue.edgeCellId} -> ${issue.rectCellId} (${details.length} contact(s): ${details.join('; ')})`;
   }
 
+  if (issue.type === 'edge-shape-border') {
+    const details = [...issue.details].sort();
+    return `- edge-shape-border: ${issue.edgeCellId} -> ${issue.shapeCellId} (${details.length} contact(s): ${details.join('; ')})`;
+  }
+
+  if (issue.type === 'rect-shape-border') {
+    const details = [...issue.details].sort();
+    return `- rect-shape-border: ${issue.rectCellId} -> ${issue.shapeCellId} (${details.length} contact(s): ${details.join('; ')})`;
+  }
+
   return `- edge-rect: ${issue.edgeCellId} -> ${issue.rectCellId} (max interior ${issue.maxLength.toFixed(1)}px across ${issue.count} segment(s))`;
 }
 
@@ -1229,20 +1503,31 @@ async function main() {
   }
 
   const targetPath = resolveTargetPath(targetArg);
+  const companionDrawio = await readCompanionDrawio(targetPath, targetArg);
+  const drawioCellMetadata = companionDrawio ? parseDrawioCellMetadata(companionDrawio.text) : new Map();
   const svgText = await readFile(targetPath, 'utf8');
-  const cells = parseSvg(svgText);
+  const cells = parseSvg(svgText, drawioCellMetadata);
   const edges = collectEdges(cells);
   const rects = collectLintRects(cells);
+  const shapeBorders = collectShapeBorders(cells);
   const edgeIssues = findEdgeOverlaps(edges);
   const rectIssues = findEdgeRectCollisions(edges, rects);
   const rectBorderIssues = findEdgeRectBorderOverlaps(edges, rects);
-  const companionDrawio = await readCompanionDrawio(targetPath, targetArg);
+  const edgeShapeBorderIssues = findEdgeShapeBorderOverlaps(edges, shapeBorders);
+  const rectShapeBorderIssues = findRectShapeBorderOverlaps(rects, shapeBorders);
   const textBlocks = companionDrawio ? parseDrawioTextBlocks(companionDrawio.text) : [];
   const textIssues = findTextOverflowIssues(textBlocks);
-  const issues = summarizeIssues([...edgeIssues, ...rectIssues, ...rectBorderIssues, ...textIssues]);
+  const issues = summarizeIssues([
+    ...edgeIssues,
+    ...rectIssues,
+    ...rectBorderIssues,
+    ...edgeShapeBorderIssues,
+    ...rectShapeBorderIssues,
+    ...textIssues,
+  ]);
 
   console.log(`[diagram:check] ${path.relative(process.cwd(), targetPath)}`);
-  console.log(`[diagram:check] parsed ${cells.size} cells, ${edges.length} edges, ${rects.length} lint rects`);
+  console.log(`[diagram:check] parsed ${cells.size} cells, ${edges.length} edges, ${rects.length} lint rects, ${shapeBorders.length} shape borders`);
 
   if (companionDrawio) {
     console.log(`[diagram:check] parsed ${textBlocks.length} text block(s) from ${path.relative(process.cwd(), companionDrawio.path)}`);

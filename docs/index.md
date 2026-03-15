@@ -21,7 +21,7 @@ hero:
       text: GitHub
       link: https://github.com/Sunwood-ai-labs/draw-io-skill
     - theme: alt
-      text: 日本語
+      text: Japanese
       link: /ja/
 
 features:
@@ -56,4 +56,5 @@ features:
 - [Export And Lint](/guide/export-and-lint)
 - [Reference Guides](/guide/reference-guides)
 - [Troubleshooting](/guide/troubleshooting)
+- [v0.2.0 Release Notes](/guide/releases/v0.2.0)
 - [v0.1.0 Release Notes](/guide/releases/v0.1.0)

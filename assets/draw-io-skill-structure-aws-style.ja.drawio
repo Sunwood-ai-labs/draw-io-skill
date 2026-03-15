@@ -1,0 +1,305 @@
+<mxfile host="app.diagrams.net" modified="2026-03-15T12:30:00.000Z" agent="Codex GPT-5" version="27.0.5">
+  <diagram id="draw-io-skill-structure-aws-style-ja" name="AWS Style Blocks JA">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="draw-io-skill 構成図（AWS 構成図風）" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=30;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#0f172a;" vertex="1" parent="1">
+          <mxGeometry x="320" y="28" width="960" height="42" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="icons 版を複製し、アーキテクチャアイコン風のサービスカードで役割と流れを見やすくしたバージョン" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=15;fontFamily=Noto Sans JP;fontColor=#475569;" vertex="1" parent="1">
+          <mxGeometry x="250" y="76" width="1100" height="28" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="frame-entry" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff7ed;strokeColor=#ff9900;strokeWidth=2;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="40" y="150" width="250" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="frame-control" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eff6ff;strokeColor=#3b82f6;strokeWidth=2;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="330" y="150" width="560" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="frame-artifacts" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fdf2f8;strokeColor=#e11d48;strokeWidth=2;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="150" width="280" height="560" as="geometry"/>
+        </mxCell>
+        <mxCell id="frame-support" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f0fdf4;strokeColor=#22c55e;strokeWidth=2;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="40" y="750" width="1500" height="170" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="tag-entry" value="ENTRY POINTS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ff9900;strokeColor=#ff9900;fontColor=#ffffff;fontSize=11;fontStyle=1;fontFamily=Noto Sans JP;arcSize=18;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="60" y="168" width="110" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="tag-control" value="CONTROL PLANE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#3b82f6;strokeColor=#3b82f6;fontColor=#ffffff;fontSize=11;fontStyle=1;fontFamily=Noto Sans JP;arcSize=18;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="350" y="168" width="118" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="tag-artifacts" value="ARTIFACTS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e11d48;strokeColor=#e11d48;fontColor=#ffffff;fontSize=11;fontStyle=1;fontFamily=Noto Sans JP;arcSize=18;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="168" width="88" height="26" as="geometry"/>
+        </mxCell>
+        <mxCell id="tag-support" value="REFERENCE / SEARCH" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#22c55e;strokeColor=#22c55e;fontColor=#ffffff;fontSize=11;fontStyle=1;fontFamily=Noto Sans JP;arcSize=18;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="60" y="768" width="148" height="26" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="entry-title" value="入口になるクライアント" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#9a3412;" vertex="1" parent="1">
+          <mxGeometry x="60" y="208" width="200" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="control-title" value="スキル実行の制御フロー" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1d4ed8;" vertex="1" parent="1">
+          <mxGeometry x="350" y="208" width="420" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="artifacts-title" value="成果物と公開面" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#be123c;" vertex="1" parent="1">
+          <mxGeometry x="1280" y="208" width="220" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="support-title" value="参照ガイドと検索補助" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#15803d;" vertex="1" parent="1">
+          <mxGeometry x="60" y="804" width="320" height="34" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-codex" value="&lt;b&gt;Codex&lt;/b&gt;&lt;br&gt;スキル呼び出し" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ff9900;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#f8fafc;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="65" y="250" width="200" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-codex" value="AI CLIENT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#fdba74;fontColor=#9a3412;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="139" y="260" width="74" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-codex" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.q_developer;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="82" y="278" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-claude" value="&lt;b&gt;Claude Code&lt;/b&gt;&lt;br&gt;/drawio ワークフロー" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ff9900;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#f8fafc;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="65" y="370" width="200" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-claude" value="CLI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#fdba74;fontColor=#9a3412;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="139" y="380" width="54" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-claude" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.codewhisperer;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="82" y="398" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-repo" value="&lt;b&gt;Repository Tasks&lt;/b&gt;&lt;br&gt;docs / review / export" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#ff9900;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#7c2d12;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#f8fafc;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="65" y="500" width="200" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-repo" value="REPO" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#fdba74;fontColor=#9a3412;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="139" y="500" width="58" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-repo" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.codecommit;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="82" y="518" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-orchestration" value="&lt;b&gt;SKILL.md ベースの best-of ループ&lt;/b&gt;&lt;br&gt;プロンプトを受けて、編集・export・lint・見直しを回す中心ノード" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=left;verticalAlign=top;spacingTop=32;spacingLeft=84;spacingRight=16;spacingBottom=14;shadow=1;gradientColor=#eff6ff;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="380" y="250" width="470" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-orchestration" value="ORCHESTRATION" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#93c5fd;fontColor=#1d4ed8;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="464" y="260" width="104" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-orchestration" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.step_functions;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="400" y="274" width="48" height="48" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-source" value="&lt;b&gt;Native .drawio&lt;/b&gt;&lt;br&gt;編集ソース" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#0ea5e9;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#f0f9ff;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="380" y="390" width="215" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-source" value="SOURCE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e0f2fe;strokeColor=#7dd3fc;fontColor=#0369a1;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="454" y="400" width="60" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-source" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.artifact;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="398" y="422" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-export" value="&lt;b&gt;export-drawio.mjs&lt;/b&gt;&lt;br&gt;PNG / SVG / PDF 化" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#10b981;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#0f172a;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#ecfdf5;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="635" y="390" width="215" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-export" value="EXPORT" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dcfce7;strokeColor=#86efac;fontColor=#047857;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="709" y="400" width="60" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-export" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.codebuild;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="653" y="422" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-feedback" value="&lt;b&gt;修正して再実行&lt;/b&gt;&lt;br&gt;指摘を戻してループ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#3b82f6;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#1e3a8a;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#eff6ff;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="380" y="535" width="215" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-feedback" value="FEEDBACK" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dbeafe;strokeColor=#93c5fd;fontColor=#1d4ed8;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="454" y="545" width="74" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-feedback" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.workflow;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="398" y="567" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-verify" value="&lt;b&gt;SVG lint + 目視確認&lt;/b&gt;&lt;br&gt;重なり・はみ出し・読みやすさ" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d97706;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#92400e;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#fffbeb;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="635" y="535" width="215" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-verify" value="VERIFY" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fef3c7;strokeColor=#fcd34d;fontColor=#b45309;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="709" y="545" width="58" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-verify" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.inspector;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="653" y="567" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-layout" value="&lt;b&gt;layout-guidelines.md&lt;/b&gt;&lt;br&gt;レイアウト指針" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;fontColor=#166534;align=left;verticalAlign=top;spacingTop=28;spacingLeft=64;spacingRight=12;spacingBottom=10;shadow=1;gradientColor=#f0fdf4;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="100" y="835" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-layout" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.artifact;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="116" y="853" width="32" height="32" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-aws-icons" value="&lt;b&gt;aws-icons.md&lt;/b&gt;&lt;br&gt;アイコン名の対応表" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;fontColor=#166534;align=left;verticalAlign=top;spacingTop=28;spacingLeft=64;spacingRight=12;spacingBottom=10;shadow=1;gradientColor=#f0fdf4;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="410" y="835" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-aws-icons" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.s3;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="426" y="853" width="32" height="32" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-find-icon" value="&lt;b&gt;find_aws_icon.py&lt;/b&gt;&lt;br&gt;uv でアイコン検索" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=2;fontSize=16;fontFamily=Noto Sans JP;fontColor=#166534;align=left;verticalAlign=top;spacingTop=28;spacingLeft=64;spacingRight=12;spacingBottom=10;shadow=1;gradientColor=#f0fdf4;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="720" y="835" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-find-icon" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.logs;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="736" y="853" width="32" height="32" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-fixtures" value="&lt;b&gt;fixtures + upstream docs&lt;/b&gt;&lt;br&gt;lint fixture と参考実装の土台" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#22c55e;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#166534;align=left;verticalAlign=top;spacingTop=30;spacingLeft=68;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#f0fdf4;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="820" width="420" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-fixtures" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bucket_with_objects;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1048" y="846" width="36" height="36" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-assets" value="&lt;b&gt;Editable Assets&lt;/b&gt;&lt;br&gt;*.drawio&lt;br&gt;複製元と派生版のソース" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#9f1239;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#fff1f2;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="300" width="220" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-assets" value="SOURCE OF TRUTH" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe4e6;strokeColor=#fda4af;fontColor=#be123c;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1364" y="310" width="112" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-assets" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.bucket_with_objects;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1308" y="338" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-published" value="&lt;b&gt;Published Outputs&lt;/b&gt;&lt;br&gt;*.png / *.svg / *.pdf" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=18;fontFamily=Noto Sans JP;fontColor=#9f1239;align=left;verticalAlign=top;spacingTop=32;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#fff1f2;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="450" width="220" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-published" value="DELIVERABLES" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe4e6;strokeColor=#fda4af;fontColor=#be123c;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1364" y="470" width="88" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-published" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.codeartifact;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1308" y="495" width="40" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="card-surface" value="&lt;b&gt;README / docs / slides&lt;/b&gt;&lt;br&gt;見せる面へ配置" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#e11d48;strokeWidth=2;fontSize=17;fontFamily=Noto Sans JP;fontColor=#9f1239;align=left;verticalAlign=top;spacingTop=30;spacingLeft=74;spacingRight=14;spacingBottom=12;shadow=1;gradientColor=#fff1f2;arcSize=18;" vertex="1" parent="1">
+          <mxGeometry x="1290" y="590" width="220" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip-surface" value="SURFACE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe4e6;strokeColor=#fda4af;fontColor=#be123c;fontSize=10;fontStyle=1;fontFamily=Noto Sans JP;arcSize=16;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1364" y="620" width="60" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="icon-surface" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.artifact;html=1;fillColor=none;strokeColor=none;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="1308" y="632" width="36" height="36" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="edge-codex" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#ff9900;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="296" as="sourcePoint"/>
+            <mxPoint x="380" y="296" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-claude" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#ff9900;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="416" as="sourcePoint"/>
+            <mxPoint x="380" y="310" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="310" y="416"/>
+              <mxPoint x="310" y="310"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-repo" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#ff9900;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="265" y="536" as="sourcePoint"/>
+            <mxPoint x="380" y="324" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="340" y="536"/>
+              <mxPoint x="340" y="324"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge-orchestration-source" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#3b82f6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="515" y="370" as="sourcePoint"/>
+            <mxPoint x="488" y="390" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="515" y="380"/>
+              <mxPoint x="488" y="380"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-orchestration-export" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#3b82f6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="715" y="370" as="sourcePoint"/>
+            <mxPoint x="742" y="390" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="715" y="380"/>
+              <mxPoint x="742" y="380"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-source-export" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#0ea5e9;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="595" y="440" as="sourcePoint"/>
+            <mxPoint x="635" y="440" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-export-verify" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#10b981;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="742" y="530" as="sourcePoint"/>
+            <mxPoint x="742" y="535" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-verify-feedback" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#d97706;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="635" y="585" as="sourcePoint"/>
+            <mxPoint x="595" y="585" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-feedback-loop" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#3b82f6;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="380" y="605" as="sourcePoint"/>
+            <mxPoint x="488" y="370" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="350" y="605"/>
+              <mxPoint x="350" y="380"/>
+              <mxPoint x="488" y="380"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge-export-published" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#e11d48;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="440" as="sourcePoint"/>
+            <mxPoint x="1290" y="520" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="980" y="440"/>
+              <mxPoint x="980" y="520"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-verify-surface" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#e11d48;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="850" y="585" as="sourcePoint"/>
+            <mxPoint x="1290" y="650" as="targetPoint"/>
+            <Array as="points">
+              <mxPoint x="980" y="585"/>
+              <mxPoint x="980" y="650"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-published-surface" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#e11d48;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1400" y="580" as="sourcePoint"/>
+            <mxPoint x="1400" y="590" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <mxCell id="edge-find-aws" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;dashed=1;dashPattern=6 4;strokeColor=#22c55e;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="720" y="870" as="sourcePoint"/>
+            <mxPoint x="670" y="870" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

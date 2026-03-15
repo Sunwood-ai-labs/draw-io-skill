@@ -50,6 +50,18 @@ Current checks:
 
 The repository includes `fixtures/border-overlap/...`, `fixtures/large-frame-border-overlap/...`, `fixtures/shape-border-overlap/...`, and `fixtures/shape-text-overflow/...` so you can regression-test box borders, large section frames, supported non-rect shape borders, and shape-aware text fit separately.
 
+## Lint Review Sample
+
+For a repository-local verification sample, use:
+
+- `assets/draw-io-skill-structure-shapes.drawio`
+- `assets/draw-io-skill-structure-shapes.drawio.png`
+- `assets/draw-io-skill-structure-shapes.drawio.svg`
+
+This sample is meant for checking non-rect shape spacing, border contact, and post-lint visual review rather than for introducing the repository architecture.
+
+If you also want a more presentation-oriented, icon-rich example, see [Showcase](./showcase.md).
+
 ## Practical review rule
 
 Lint helps, but it does not replace visual inspection. Always open the final PNG, SVG, or PDF once routing and labels settle, especially when a `document`, `hexagon`, `parallelogram`, or `trapezoid` sits close to arrows or outer frames.

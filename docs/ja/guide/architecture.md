@@ -8,11 +8,7 @@
 `../../../assets/draw-io-skill-structure.ja.drawio`
 です。英語版が必要な場合は `../../../assets/draw-io-skill-structure.drawio` を参照してください。
 
-shape ごとの配線や枠線の当たりを確認したい場合は
-`../../../assets/draw-io-skill-structure-shapes.drawio`
-、`../../../assets/draw-io-skill-structure-shapes.drawio.png`、
-`../../../assets/draw-io-skill-structure-shapes.drawio.svg`
-を使います。
+lint 確認用やアイコン付きの見せ方サンプルは [ショーケース](./showcase.md) にまとめています。
 
 ## コアファイル
 
@@ -22,7 +18,6 @@ shape ごとの配線や枠線の当たりを確認したい場合は
 | `scripts/export-drawio.mjs` | draw.io CLI を包むクロスプラットフォーム helper |
 | `scripts/check-drawio-svg-overlaps.mjs` | 重なり、枠線接触、箱貫通、文字はみ出しを検知する SVG lint |
 | `scripts/find_aws_icon.py` | `uv` 経由で動かす AWS アイコン検索 helper |
-| `assets/draw-io-skill-structure-shapes.drawio` | 非矩形 shape のレイアウトや配線の見え方を確認するためのサンプル図 |
 | `fixtures/basic` | 正常系 lint 結果を確認する baseline fixture |
 | `fixtures/border-overlap` | 枠線接触検知の回帰確認 fixture |
 | `fixtures/shape-border-overlap` | 対応する非矩形 shape の枠線接触検知を確認する回帰 fixture |

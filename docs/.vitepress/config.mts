@@ -27,6 +27,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "Get Started", link: "/guide/getting-started" },
+          { text: "Showcase", link: "/guide/showcase" },
           { text: "Architecture", link: "/guide/architecture" },
           { text: "Troubleshooting", link: "/guide/troubleshooting" },
           { text: "GitHub", link: repo }
@@ -37,6 +38,7 @@ export default defineConfig({
               text: "Guide",
               items: [
                 { text: "Getting Started", link: "/guide/getting-started" },
+                { text: "Showcase", link: "/guide/showcase" },
                 { text: "Architecture", link: "/guide/architecture" },
                 { text: "Workflow", link: "/guide/workflow" },
                 { text: "Export And Lint", link: "/guide/export-and-lint" },
@@ -66,6 +68,7 @@ export default defineConfig({
       themeConfig: {
         nav: [
           { text: "はじめに", link: "/ja/guide/getting-started" },
+          { text: "ショーケース", link: "/ja/guide/showcase" },
           { text: "アーキテクチャ", link: "/ja/guide/architecture" },
           { text: "トラブルシューティング", link: "/ja/guide/troubleshooting" },
           { text: "GitHub", link: repo }
@@ -76,6 +79,7 @@ export default defineConfig({
               text: "ガイド",
               items: [
                 { text: "はじめに", link: "/ja/guide/getting-started" },
+                { text: "ショーケース", link: "/ja/guide/showcase" },
                 { text: "アーキテクチャ", link: "/ja/guide/architecture" },
                 { text: "ワークフロー", link: "/ja/guide/workflow" },
                 { text: "Export と lint", link: "/ja/guide/export-and-lint" },

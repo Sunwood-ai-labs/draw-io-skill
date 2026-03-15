@@ -50,6 +50,18 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 
 `fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、shape-aware な文字はみ出しをそれぞれ回帰テストできます。
 
+## lint 確認用サンプル
+
+リポジトリ内で検証サンプルとして使う場合は、次を参照します。
+
+- `assets/draw-io-skill-structure-shapes.drawio`
+- `assets/draw-io-skill-structure-shapes.drawio.png`
+- `assets/draw-io-skill-structure-shapes.drawio.svg`
+
+これはリポジトリ構成図の紹介というより、非矩形 shape の余白、枠線接触、lint 後の目視確認を行うためのサンプルです。
+
+見せ方を強めたアイコン付きレイアウト例は [ショーケース](./showcase.md) を参照してください。
+
 ## 実運用での確認ルール
 
 lint は有効ですが、目視確認の代わりにはなりません。ルーティングとラベルが固まったら、最後に PNG / SVG / PDF を 1 回は開いて確認します。特に `document` / `hexagon` / `parallelogram` / `trapezoid` が矢印や外枠に近い場合は、見た目も必ず確認します。

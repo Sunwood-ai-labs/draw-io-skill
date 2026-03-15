@@ -67,10 +67,15 @@ The repository also ships a Japanese-localized companion diagram:
 `assets/draw-io-skill-structure.ja.drawio.png`,
 and `assets/draw-io-skill-structure.ja.drawio.svg`.
 
-For shape-focused routing and border-fit examples, the repository also ships:
-`assets/draw-io-skill-structure-shapes.drawio`,
-`assets/draw-io-skill-structure-shapes.drawio.png`,
-and `assets/draw-io-skill-structure-shapes.drawio.svg`.
+## 🖼️ Showcase Samples
+
+If you want the repository to read more like a showcase, these bundled samples are the best starting points:
+
+- `assets/draw-io-skill-structure.drawio*` for repository structure onboarding
+- `assets/draw-io-skill-structure-shapes.drawio*` for lint and visual review of non-rect shapes
+- `assets/draw-io-skill-structure-icons.drawio*` for icon-rich presentation blocks that pair well with the AWS icon guide and `uv run python scripts/find_aws_icon.py`
+
+The guided walkthrough lives in [`docs/guide/showcase.md`](./docs/guide/showcase.md).
 
 ## 🛠️ What You Get
 
@@ -111,6 +116,16 @@ The linter checks:
 
 The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs.
 
+For a repository-local lint and visual review sample, use
+`assets/draw-io-skill-structure-shapes.drawio`,
+`assets/draw-io-skill-structure-shapes.drawio.png`,
+and `assets/draw-io-skill-structure-shapes.drawio.svg`.
+
+For a more presentation-oriented sample, use
+`assets/draw-io-skill-structure-icons.drawio`,
+`assets/draw-io-skill-structure-icons.drawio.png`,
+and `assets/draw-io-skill-structure-icons.drawio.svg`.
+
 ## 📦 Installation
 
 ### Codex
@@ -130,6 +145,7 @@ git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git ~/.claude/skills/
 
 - [GitHub Pages documentation](https://sunwood-ai-labs.github.io/draw-io-skill/)
 - [Getting started guide](./docs/guide/getting-started.md)
+- [Showcase gallery](./docs/guide/showcase.md)
 - [Workflow guide](./docs/guide/workflow.md)
 - [Architecture guide](./docs/guide/architecture.md)
 - [Export and lint guide](./docs/guide/export-and-lint.md)
@@ -154,6 +170,12 @@ draw-io-skill/
 │   ├── draw-io-skill-structure.drawio
 │   ├── draw-io-skill-structure.drawio.png
 │   ├── draw-io-skill-structure.drawio.svg
+│   ├── draw-io-skill-structure-icons.drawio
+│   ├── draw-io-skill-structure-icons.drawio.png
+│   ├── draw-io-skill-structure-icons.drawio.svg
+│   ├── draw-io-skill-structure-icons.ja.drawio
+│   ├── draw-io-skill-structure-icons.ja.drawio.png
+│   ├── draw-io-skill-structure-icons.ja.drawio.svg
 │   ├── draw-io-skill-structure-shapes.drawio
 │   ├── draw-io-skill-structure-shapes.drawio.png
 │   ├── draw-io-skill-structure-shapes.drawio.svg

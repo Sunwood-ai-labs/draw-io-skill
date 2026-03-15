@@ -30,8 +30,10 @@ The repository layout and bundled workflow pieces are summarized in the diagram 
 The repository also ships:
 
 - an English structure source and exports under `assets/draw-io-skill-structure.drawio*`
-- a shape-focused structure sample under `assets/draw-io-skill-structure-shapes.drawio` with exports at `assets/draw-io-skill-structure-shapes.drawio.png` and `assets/draw-io-skill-structure-shapes.drawio.svg`
+- an icon block showcase under `assets/draw-io-skill-structure-icons.drawio*` plus a Japanese-localized companion under `assets/draw-io-skill-structure-icons.ja.drawio*`
+- a shape-focused lint review sample under `assets/draw-io-skill-structure-shapes.drawio` with exports at `assets/draw-io-skill-structure-shapes.drawio.png` and `assets/draw-io-skill-structure-shapes.drawio.svg`
 - a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
+- public showcase pages under `docs/guide/showcase.md` and `docs/ja/guide/showcase.md`
 - fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, and `fixtures/shape-text-overflow`
 
 ### 1.2 Repository-local commands

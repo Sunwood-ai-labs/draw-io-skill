@@ -15,6 +15,9 @@ hero:
       text: Get Started
       link: /guide/getting-started
     - theme: alt
+      text: Showcase
+      link: /guide/showcase
+    - theme: alt
       text: GitHub
       link: https://github.com/Sunwood-ai-labs/draw-io-skill
     - theme: alt
@@ -37,9 +40,17 @@ features:
 - bundled fixtures for quick verification
 - English and Japanese onboarding guides
 
+## Showcase snapshots
+
+- [Repository structure overview](/guide/showcase#repository-structure-overview)
+- [Shape-aware lint review sample](/guide/showcase#lint-review-sample)
+- [Icon block showcase sample](/guide/showcase#icon-block-sample)
+- [AWS-ready layout pattern](/guide/showcase#aws-ready-layout-pattern)
+
 ## Useful links
 
 - [Getting Started](/guide/getting-started)
+- [Showcase](/guide/showcase)
 - [Architecture](/guide/architecture)
 - [Workflow](/guide/workflow)
 - [Export And Lint](/guide/export-and-lint)

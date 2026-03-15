@@ -15,6 +15,9 @@ hero:
       text: はじめに
       link: /ja/guide/getting-started
     - theme: alt
+      text: ショーケース
+      link: /ja/guide/showcase
+    - theme: alt
       text: GitHub
       link: https://github.com/Sunwood-ai-labs/draw-io-skill
     - theme: alt
@@ -37,9 +40,17 @@ features:
 - 動作確認用 fixture
 - 英語と日本語のガイド
 
+## ショーケース導線
+
+- [リポジトリ構成の全体図](/ja/guide/showcase#リポジトリ構成の全体図)
+- [lint 確認用サンプル](/ja/guide/showcase#lint-確認用サンプル)
+- [アイコン付きブロック例](/ja/guide/showcase#アイコン付きブロック例)
+- [AWS 構成図へ広げるときの土台](/ja/guide/showcase#aws-構成図へ広げるときの土台)
+
 ## 主要リンク
 
 - [はじめに](/ja/guide/getting-started)
+- [ショーケース](/ja/guide/showcase)
 - [アーキテクチャ](/ja/guide/architecture)
 - [ワークフロー](/ja/guide/workflow)
 - [Export と lint](/ja/guide/export-and-lint)

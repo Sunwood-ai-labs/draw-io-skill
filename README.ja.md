@@ -68,11 +68,15 @@ npm run docs:build
 `assets/draw-io-skill-structure.ja.drawio.svg`
 にあります。英語版は従来どおり `assets/draw-io-skill-structure.drawio` 系を参照してください。
 
-shape ごとの配線や枠線の当たりを確認するサンプルとして、
-`assets/draw-io-skill-structure-shapes.drawio`、
-`assets/draw-io-skill-structure-shapes.drawio.png`、
-`assets/draw-io-skill-structure-shapes.drawio.svg`
-も同梱しています。
+## 🖼️ ショーケース用サンプル
+
+ショーケース寄りに見せたいときは、次の同梱サンプルを起点にするのがおすすめです。
+
+- `assets/draw-io-skill-structure.drawio*` はリポジトリ構成の導入向け
+- `assets/draw-io-skill-structure-shapes.drawio*` は非矩形 shape を含む lint / 目視確認向け
+- `assets/draw-io-skill-structure-icons.drawio*` は AWS アイコンガイドや `uv run python scripts/find_aws_icon.py` と相性のよい、見せ方重視のアイコン付きブロック例
+
+ガイド付きの紹介は [`docs/ja/guide/showcase.md`](./docs/ja/guide/showcase.md) にまとめています。
 
 ## 🛠️ 含まれるもの
 
@@ -113,6 +117,18 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 
 リポジトリには、通常の箱枠重なり用 `fixtures/border-overlap/...`、大きいセクション枠用 `fixtures/large-frame-border-overlap/...`、非矩形 shape 枠線用 `fixtures/shape-border-overlap/...`、shape-aware な文字はみ出し用 `fixtures/shape-text-overflow/...` の回帰 fixture が含まれています。CI で配線崩れを拾いたいときに使えます。
 
+リポジトリ内で lint や目視確認のサンプルとして使う場合は
+`assets/draw-io-skill-structure-shapes.drawio`、
+`assets/draw-io-skill-structure-shapes.drawio.png`、
+`assets/draw-io-skill-structure-shapes.drawio.svg`
+を参照してください。
+
+見せ方を強めた資料向けサンプルとしては
+`assets/draw-io-skill-structure-icons.drawio`、
+`assets/draw-io-skill-structure-icons.drawio.png`、
+`assets/draw-io-skill-structure-icons.drawio.svg`
+も利用できます。
+
 ## 📦 インストール
 
 ### Codex
@@ -132,6 +148,7 @@ git clone https://github.com/Sunwood-ai-labs/draw-io-skill.git ~/.claude/skills/
 
 - [GitHub Pages ドキュメント](https://sunwood-ai-labs.github.io/draw-io-skill/ja/)
 - [はじめに](./docs/ja/guide/getting-started.md)
+- [ショーケース](./docs/ja/guide/showcase.md)
 - [ワークフローガイド](./docs/ja/guide/workflow.md)
 - [アーキテクチャガイド](./docs/ja/guide/architecture.md)
 - [Export と lint](./docs/ja/guide/export-and-lint.md)
@@ -156,6 +173,12 @@ draw-io-skill/
 │   ├── draw-io-skill-structure.drawio
 │   ├── draw-io-skill-structure.drawio.png
 │   ├── draw-io-skill-structure.drawio.svg
+│   ├── draw-io-skill-structure-icons.drawio
+│   ├── draw-io-skill-structure-icons.drawio.png
+│   ├── draw-io-skill-structure-icons.drawio.svg
+│   ├── draw-io-skill-structure-icons.ja.drawio
+│   ├── draw-io-skill-structure-icons.ja.drawio.png
+│   ├── draw-io-skill-structure-icons.ja.drawio.svg
 │   ├── draw-io-skill-structure-shapes.drawio
 │   ├── draw-io-skill-structure-shapes.drawio.png
 │   ├── draw-io-skill-structure-shapes.drawio.svg

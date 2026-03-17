@@ -10,6 +10,8 @@
 
 lint 確認用やアイコン付きの見せ方サンプルは [ショーケース](./showcase.md) にまとめています。
 
+外部の AWS 構成図例として、`onizuka-game-agi-co` の [`onizuka-game-agi-aws-architecture.drawio`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio) と [`onizuka-game-agi-aws-architecture.drawio.svg`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio.svg) も参照できます。
+
 ## コアファイル
 
 | パス | 役割 |

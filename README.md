@@ -76,6 +76,13 @@ If you want the repository to read more like a showcase, these bundled samples a
 - `assets/draw-io-skill-structure-shapes.drawio*` for lint and visual review of non-rect shapes
 - `assets/draw-io-skill-structure-icons.drawio*` for icon-rich presentation blocks that pair well with the AWS icon guide and `uv run python scripts/find_aws_icon.py`
 
+### External Example Links
+
+For a public AWS architecture example from another repository, see `onizuka-game-agi-co`:
+
+- [`onizuka-game-agi-aws-architecture.drawio`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio) for the editable source
+- [`onizuka-game-agi-aws-architecture.drawio.svg`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio.svg) for the published SVG example
+
 The guided walkthrough lives in [`docs/guide/showcase.md`](./docs/guide/showcase.md).
 
 ## 🛠️ What You Get

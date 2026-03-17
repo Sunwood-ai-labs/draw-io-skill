@@ -10,6 +10,8 @@ and the exported assets beside it.
 
 For a visual sample gallery with lint-review and icon-rich variants, see [Showcase](./showcase.md).
 
+For a public AWS architecture reference that pairs editable source with a published SVG, see `onizuka-game-agi-co`: [`onizuka-game-agi-aws-architecture.drawio`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio) and [`onizuka-game-agi-aws-architecture.drawio.svg`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio.svg).
+
 ## Core Files
 
 | Path | Purpose |

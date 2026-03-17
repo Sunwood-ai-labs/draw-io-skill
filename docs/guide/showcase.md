@@ -53,3 +53,12 @@ The repository does not ship a single fixed AWS topology, but it does include th
 - `assets/draw-io-skill-structure-icons.drawio*`
 
 Start from the icon block sample when you want a showcase-style architecture diagram. Replace the existing role icons or blocks with service groups such as `Route 53` and `CloudFront`, `API Gateway` and `Lambda`, or `S3` and `DynamoDB`, then run the normal export and SVG lint flow from [Export And Lint](./export-and-lint.md).
+
+### External Example Links
+
+If you want a public repository example that already ships both the editable source and the rendered SVG, use this pair from `onizuka-game-agi-co`:
+
+- [`onizuka-game-agi-aws-architecture.drawio`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio)
+- [`onizuka-game-agi-aws-architecture.drawio.svg`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio.svg)
+
+It is a good real-world reference when you want to compare an editable AWS architecture source with the published SVG that lands in docs.

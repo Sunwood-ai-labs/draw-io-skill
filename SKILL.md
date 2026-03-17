@@ -12,7 +12,7 @@ Use this skill when an agent needs to:
 - create a new draw.io diagram as native `.drawio` XML
 - edit or refactor an existing `.drawio` file
 - export diagrams to `png`, `svg`, `pdf`, or `jpg`
-- check routed edges, box- or frame-border overlap, supported non-rect shape border overlap, box penetration, or text overflow
+- check routed edges, box- or frame-border overlap, supported non-rect shape border overlap, box penetration, short arrowhead tails, label collisions, or text overflow
 - build architecture diagrams with AWS icons
 
 This skill intentionally combines:
@@ -34,7 +34,7 @@ The repository also ships:
 - a shape-focused lint review sample under `assets/draw-io-skill-structure-shapes.drawio` with exports at `assets/draw-io-skill-structure-shapes.drawio.png` and `assets/draw-io-skill-structure-shapes.drawio.svg`
 - a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
 - public showcase pages under `docs/guide/showcase.md` and `docs/ja/guide/showcase.md`
-- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, and `fixtures/shape-text-overflow`
+- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, `fixtures/label-rect-overlap`, `fixtures/text-cell-overflow`, and `fixtures/shape-text-overflow`
 
 ### 1.2 Repository-local commands
 
@@ -184,6 +184,8 @@ node scripts/check-drawio-svg-overlaps.mjs architecture.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
 ```
 
 The lint script currently checks:
@@ -202,8 +204,9 @@ The lint script currently checks:
 Notes:
 
 - input may be either `.drawio` or `.drawio.svg`
+- when the input is `.drawio`, the checker also reads the companion draw.io geometry so `label-rect` and text-fit checks stay aligned with the editable source
 - text overflow detection is heuristic, not pixel-perfect
-- bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, and shape-aware text overflow
+- bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, and shape-aware text overflow
 - `edge-terminal`, `edge-label`, and `label-rect` are heuristic checks intended to catch the common "tiny arrowhead tail", "line through label", and "note card covering a label" draw.io failures seen in repository diagrams
 - lint passing does not replace visual verification
 
@@ -350,6 +353,8 @@ uv run python scripts/find_aws_icon.py lambda
 - [ ] containers have enough internal margin
 - [ ] edge routing is visually clear and leaves room for arrowheads
 - [ ] SVG lint passes for routing-heavy diagrams
+- [ ] no `edge-terminal` findings remain unless a tiny terminal run is intentionally accepted
+- [ ] no `edge-label` or `label-rect` findings remain
 - [ ] no `edge-rect-border` findings remain unless a box or frame border overlap is intentionally accepted
 - [ ] no `edge-shape-border` or `rect-shape-border` findings remain unless a supported non-rect border contact is intentionally accepted
 - [ ] no `text-overflow(width)` or `text-overflow(height)` findings remain

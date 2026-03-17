@@ -36,12 +36,13 @@
 
 ```bash
 npm ci
-npm ci
 npm run verify
 node scripts/export-drawio.mjs fixtures/basic/basic.drawio --format svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 uv run python scripts/find_aws_icon.py lambda
 ```
+
+`npm run verify` は、構文チェック、同梱されている lint 回帰 fixture 一式、docs build までまとめて実行します。`edge-terminal`、`edge-label`、`label-rect`、`text-overflow` まで含めて一気に確認したいときの最短ルートです。
 
 ドキュメントサイトだけを build したい場合:
 
@@ -103,6 +104,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
 ```
 
 検知対象:
@@ -118,7 +121,9 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-リポジトリには、通常の箱枠重なり用 `fixtures/border-overlap/...`、大きいセクション枠用 `fixtures/large-frame-border-overlap/...`、非矩形 shape 枠線用 `fixtures/shape-border-overlap/...`、label-box 重なり用 `fixtures/label-rect-overlap/...`、shape-aware な文字はみ出し用 `fixtures/shape-text-overflow/...` の回帰 fixture が含まれています。CI で配線崩れを拾いたいときに使えます。`edge-terminal`、`edge-label`、`label-rect` は、export 後に起きやすい「矢印先端のちょい線」「ラベル文字の突っ切り」「注釈 box がラベルにかぶさる」を拾うための追加ヒューリスティクスです。
+checker は `.drawio` と `.drawio.svg` の両方を受け付けます。`.drawio` を直接渡した場合は companion の draw.io geometry も使うので、`label-rect` や文字フィット判定が編集ソースと揃いやすくなります。
+
+リポジトリには、通常の箱枠重なり用 `fixtures/border-overlap/...`、大きいセクション枠用 `fixtures/large-frame-border-overlap/...`、非矩形 shape 枠線用 `fixtures/shape-border-overlap/...`、label-box 重なり用 `fixtures/label-rect-overlap/...`、text cell の文字はみ出し用 `fixtures/text-cell-overflow/...`、shape-aware な文字はみ出し用 `fixtures/shape-text-overflow/...` の回帰 fixture が含まれています。CI で配線崩れを拾いたいときに使えます。`edge-terminal`、`edge-label`、`label-rect` は、export 後に起きやすい「矢印先端のちょい線」「ラベル文字の突っ切り」「注釈 box がラベルにかぶさる」を拾うための追加ヒューリスティクスです。
 
 リポジトリ内で lint や目視確認のサンプルとして使う場合は
 `assets/draw-io-skill-structure-shapes.drawio`、
@@ -196,9 +201,11 @@ draw-io-skill/
 ├── fixtures/
 │   ├── basic/
 │   ├── border-overlap/
+│   ├── label-rect-overlap/
 │   ├── large-frame-border-overlap/
 │   ├── shape-border-overlap/
-│   └── shape-text-overflow/
+│   ├── shape-text-overflow/
+│   └── text-cell-overflow/
 ├── references/
 │   ├── aws-icons.en.md
 │   ├── aws-icons.md
@@ -209,7 +216,9 @@ draw-io-skill/
     ├── convert-drawio-to-png.sh
     ├── export-drawio.mjs
     ├── find_aws_icon.py
-    └── verify-border-overlap-fixture.mjs
+    ├── verify-border-overlap-fixture.mjs
+    ├── verify-label-rect-fixture.mjs
+    └── verify-text-cell-overflow-fixture.mjs
 ```
 
 ## 🙏 参考元とクレジット

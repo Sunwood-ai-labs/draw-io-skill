@@ -36,6 +36,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
 ```
 
 現在の検知対象:
@@ -51,7 +53,11 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-`fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/label-rect-overlap/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、label-box 重なり、shape-aware な文字はみ出しをそれぞれ回帰テストできます。`edge-terminal`、`edge-label`、`label-rect` は、export 後に起きやすい「矢印先端のちょい線」「ラベル文字の突っ切り」「注釈 box がラベルにかぶさる」を拾うための追加ヒューリスティクスです。
+checker は `.drawio` と `.drawio.svg` の両方を受け付けます。`.drawio` を直接渡した場合は companion の draw.io geometry も読むので、`label-rect` と文字フィット判定が編集ソースに近い形で行われます。
+
+`fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/label-rect-overlap/...`、`fixtures/text-cell-overflow/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、label-box 重なり、text cell の文字はみ出し、shape-aware な文字はみ出しをそれぞれ回帰テストできます。`edge-terminal`、`edge-label`、`label-rect` は、export 後に起きやすい「矢印先端のちょい線」「ラベル文字の突っ切り」「注釈 box がラベルにかぶさる」を拾うための追加ヒューリスティクスです。
+
+リポジトリルートの `npm run verify` は、これらの fixture を回したあとに docs site まで build するので、公開前や skill 更新前のフル確認に向いています。
 
 ## lint 確認用サンプル
 

@@ -36,6 +36,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
 ```
 
 Current checks:
@@ -51,7 +53,11 @@ Current checks:
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-The repository includes `fixtures/border-overlap/...`, `fixtures/large-frame-border-overlap/...`, `fixtures/shape-border-overlap/...`, `fixtures/label-rect-overlap/...`, and `fixtures/shape-text-overflow/...` so you can regression-test box borders, large section frames, supported non-rect shape borders, label-box collisions, and shape-aware text fit separately. `edge-terminal`, `edge-label`, and `label-rect` are heuristic checks for the common exported-diagram failures where an arrowhead gets only a tiny final run, a route slices through label text, or a note card drifts up into a label.
+The checker accepts either `.drawio` or `.drawio.svg` input. When the input is a `.drawio` source, it also reads the companion draw.io geometry so `label-rect` and text-fit checks stay aligned with the editable source instead of depending only on exported SVG bounds.
+
+The repository includes `fixtures/border-overlap/...`, `fixtures/large-frame-border-overlap/...`, `fixtures/shape-border-overlap/...`, `fixtures/label-rect-overlap/...`, `fixtures/text-cell-overflow/...`, and `fixtures/shape-text-overflow/...` so you can regression-test box borders, large section frames, supported non-rect shape borders, label-box collisions, text-cell overflow, and shape-aware text fit separately. `edge-terminal`, `edge-label`, and `label-rect` are heuristic checks for the common exported-diagram failures where an arrowhead gets only a tiny final run, a route slices through label text, or a note card drifts up into a label.
+
+`npm run verify` in the repository root exercises those fixtures and then builds the docs site, so it is the recommended full signoff before release or repository updates.
 
 ## Lint Review Sample
 

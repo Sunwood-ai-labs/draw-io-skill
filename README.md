@@ -36,12 +36,13 @@ Install the local tooling, export a bundled fixture, then run the linter:
 
 ```bash
 npm ci
-npm ci
 npm run verify
 node scripts/export-drawio.mjs fixtures/basic/basic.drawio --format svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 uv run python scripts/find_aws_icon.py lambda
 ```
+
+`npm run verify` runs the syntax checks, every bundled lint regression fixture, and the docs build, so it is the fastest way to confirm that `edge-terminal`, `edge-label`, `label-rect`, and text-overflow coverage still works end to end.
 
 If you only want to rebuild the documentation site:
 
@@ -102,6 +103,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/border-overlap/border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/large-frame-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
+node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
 ```
 
 The linter checks:
@@ -117,7 +120,9 @@ The linter checks:
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs. `edge-terminal`, `edge-label`, and `label-rect` are additional heuristics aimed at the common "tiny arrow tail", "line through label", and "note card covering a label" failures that often need a second pass after export.
+The checker accepts either `.drawio` or `.drawio.svg` input. When you point it at a `.drawio` source, it reads the companion draw.io geometry as well, which keeps `label-rect` and text-fit checks aligned with the editable source instead of relying only on exported SVG bounds.
+
+The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs. `edge-terminal`, `edge-label`, and `label-rect` are additional heuristics aimed at the common "tiny arrow tail", "line through label", and "note card covering a label" failures that often need a second pass after export.
 
 For a repository-local lint and visual review sample, use
 `assets/draw-io-skill-structure-shapes.drawio`,
@@ -193,9 +198,11 @@ draw-io-skill/
 ├── fixtures/
 │   ├── basic/
 │   ├── border-overlap/
+│   ├── label-rect-overlap/
 │   ├── large-frame-border-overlap/
 │   ├── shape-border-overlap/
-│   └── shape-text-overflow/
+│   ├── shape-text-overflow/
+│   └── text-cell-overflow/
 ├── references/
 │   ├── aws-icons.en.md
 │   ├── aws-icons.md
@@ -206,7 +213,9 @@ draw-io-skill/
     ├── convert-drawio-to-png.sh
     ├── export-drawio.mjs
     ├── find_aws_icon.py
-    └── verify-border-overlap-fixture.mjs
+    ├── verify-border-overlap-fixture.mjs
+    ├── verify-label-rect-fixture.mjs
+    └── verify-text-cell-overflow-fixture.mjs
 ```
 
 ## 🙏 References And Credits

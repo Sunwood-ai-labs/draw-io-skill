@@ -1,6 +1,6 @@
 ---
 name: draw-io
-description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap, border-overlap, and text-overflow linting, layout adjustment, and AWS icon usage.
+description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap, border-overlap, label-intrusion, short-terminal, and text-overflow linting, layout adjustment, and AWS icon usage.
 ---
 
 # draw.io Diagram Skill
@@ -192,6 +192,8 @@ The lint script currently checks:
 - `edge-rect-border`: lines that run along or visibly overlap a box or large frame border
 - `edge-shape-border`: lines that run along supported non-rect shape borders such as `document`, `hexagon`, `parallelogram`, and `trapezoid`
 - `edge-rect`: lines penetrating boxes
+- `edge-terminal`: final arrow runs that are too short after the last bend
+- `edge-label`: routed lines crossing label text boxes
 - `rect-shape-border`: box or frame borders that run along those supported non-rect shape borders
 - `text-overflow(width)`: text likely too wide for its box
 - `text-overflow(height)`: text likely too tall for its box
@@ -201,11 +203,14 @@ Notes:
 - input may be either `.drawio` or `.drawio.svg`
 - text overflow detection is heuristic, not pixel-perfect
 - bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, and shape-aware text overflow
+- `edge-terminal` and `edge-label` are heuristic checks intended to catch the common "tiny arrowhead tail" and "line through label" draw.io failures seen in repository diagrams
 - lint passing does not replace visual verification
 
 When investigating findings:
 
 - if `edge-rect-border`, `edge-shape-border`, or `rect-shape-border` is intentional, keep the routing obvious, visually review the output, and document the exception in the surrounding workflow
+- if `edge-terminal` fires, add a longer straight segment before the arrowhead or move the last bend farther away from the target
+- if `edge-label` fires, reroute the edge or move the label so the text keeps clean breathing room
 - if `text-overflow` looks like a false positive, first try widening the box, shortening the label, adding an intentional line break, or setting explicit fonts
 
 ## 7. XML And Layout Rules

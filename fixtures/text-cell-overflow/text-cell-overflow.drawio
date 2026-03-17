@@ -1,0 +1,22 @@
+<mxfile host="app.diagrams.net" modified="2026-03-17T00:00:00.000Z" agent="Codex GPT-5" version="27.0.5">
+  <diagram id="text-cell-overflow" name="Text Cell Overflow">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="600" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="frame" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="560" height="260" as="geometry"/>
+        </mxCell>
+        <mxCell id="text-nowrap-overflow" value="AWS-style diagram note text that should visibly overflow a narrow text cell" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=13;fontFamily=Noto Sans JP;fontColor=#0f172a;" vertex="1" parent="1">
+          <mxGeometry x="160" y="170" width="220" height="20" as="geometry"/>
+        </mxCell>
+        <mxCell id="text-multiline-overflow" value="Long repository label&lt;br&gt;with a second line that is still too wide" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#17202A;" vertex="1" parent="1">
+          <mxGeometry x="410" y="170" width="160" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="text-fits" value="Short label&lt;br&gt;fits fine" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#17202A;" vertex="1" parent="1">
+          <mxGeometry x="260" y="250" width="120" height="34" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

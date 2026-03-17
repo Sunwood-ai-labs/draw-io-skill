@@ -44,11 +44,13 @@ Current checks:
 - `edge-rect-border` for lines that run along or visibly overlap a box or large frame border
 - `edge-shape-border` for lines that run along supported non-rect shape borders such as `document`, `hexagon`, `parallelogram`, and `trapezoid`
 - `edge-rect`
+- `edge-terminal` for final arrow runs that become too short after the last bend
+- `edge-label` for routed lines that cross label text boxes
 - `rect-shape-border` for box or frame borders that run along those supported non-rect shape borders
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-The repository includes `fixtures/border-overlap/...`, `fixtures/large-frame-border-overlap/...`, `fixtures/shape-border-overlap/...`, and `fixtures/shape-text-overflow/...` so you can regression-test box borders, large section frames, supported non-rect shape borders, and shape-aware text fit separately.
+The repository includes `fixtures/border-overlap/...`, `fixtures/large-frame-border-overlap/...`, `fixtures/shape-border-overlap/...`, and `fixtures/shape-text-overflow/...` so you can regression-test box borders, large section frames, supported non-rect shape borders, and shape-aware text fit separately. `edge-terminal` and `edge-label` are heuristic checks for the common exported-diagram failures where an arrowhead gets only a tiny final run or a route slices through label text.
 
 ## Lint Review Sample
 
@@ -67,3 +69,5 @@ If you also want a more presentation-oriented, icon-rich example, see [Showcase]
 Lint helps, but it does not replace visual inspection. Always open the final PNG, SVG, or PDF once routing and labels settle, especially when a `document`, `hexagon`, `parallelogram`, or `trapezoid` sits close to arrows or outer frames.
 
 If your diagram uses swimlanes, outer rounded sections, or other large frames, treat unexpected `edge-rect-border`, `edge-shape-border`, or `rect-shape-border` hits as routing bugs unless the border contact is intentional.
+
+When `edge-terminal` fires, move the last bend farther away from the target or add a longer straight run before the arrowhead. When `edge-label` fires, reroute the edge or move the label so the text keeps visible breathing room.

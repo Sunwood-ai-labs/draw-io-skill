@@ -44,11 +44,13 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 - `edge-rect-border` 箱や大きいフレームの枠線に沿う、または重なる線
 - `edge-shape-border` `document` / `hexagon` / `parallelogram` / `trapezoid` など、対応する非矩形 shape の枠線に沿う、または重なる線
 - `edge-rect`
+- `edge-terminal` 最後の曲がり角から矢印先端までの直線が短すぎるケース
+- `edge-label` 配線がラベル文字の領域を突っ切るケース
 - `rect-shape-border` 箱やフレームの枠線が、対応する非矩形 shape の枠線に沿う、または重なるケース
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-`fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、shape-aware な文字はみ出しをそれぞれ回帰テストできます。
+`fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、shape-aware な文字はみ出しをそれぞれ回帰テストできます。`edge-terminal` と `edge-label` は、export 後に起きやすい「矢印先端のちょい線」と「ラベル文字の突っ切り」を拾うための追加ヒューリスティクスです。
 
 ## lint 確認用サンプル
 
@@ -67,3 +69,5 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 lint は有効ですが、目視確認の代わりにはなりません。ルーティングとラベルが固まったら、最後に PNG / SVG / PDF を 1 回は開いて確認します。特に `document` / `hexagon` / `parallelogram` / `trapezoid` が矢印や外枠に近い場合は、見た目も必ず確認します。
 
 swimlane や外枠フレームを使う図では、意図したケースを除き `edge-rect-border`、`edge-shape-border`、`rect-shape-border` を配線バグとして扱うのがおすすめです。
+
+`edge-terminal` が出たら、最後の曲がり角をターゲットから離すか、矢印先端の手前に 20px 以上の直線区間を確保するのがおすすめです。`edge-label` が出たら、配線を逃がすか、ラベル位置をずらして文字の余白を確保してください。

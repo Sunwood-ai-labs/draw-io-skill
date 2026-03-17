@@ -111,11 +111,13 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 - `edge-rect-border` 箱や大きいフレームの枠線に沿う、または重なる線
 - `edge-shape-border` `document` / `hexagon` / `parallelogram` / `trapezoid` など、対応する非矩形 shape の枠線に沿う、または重なる線
 - `edge-rect`
+- `edge-terminal` 最後の曲がり角から矢印先端までの直線が短すぎるケース
+- `edge-label` 配線がラベル文字の領域を突っ切るケース
 - `rect-shape-border` 箱やフレームの枠線が、対応する非矩形 shape の枠線に沿う、または重なるケース
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-リポジトリには、通常の箱枠重なり用 `fixtures/border-overlap/...`、大きいセクション枠用 `fixtures/large-frame-border-overlap/...`、非矩形 shape 枠線用 `fixtures/shape-border-overlap/...`、shape-aware な文字はみ出し用 `fixtures/shape-text-overflow/...` の回帰 fixture が含まれています。CI で配線崩れを拾いたいときに使えます。
+リポジトリには、通常の箱枠重なり用 `fixtures/border-overlap/...`、大きいセクション枠用 `fixtures/large-frame-border-overlap/...`、非矩形 shape 枠線用 `fixtures/shape-border-overlap/...`、shape-aware な文字はみ出し用 `fixtures/shape-text-overflow/...` の回帰 fixture が含まれています。CI で配線崩れを拾いたいときに使えます。`edge-terminal` と `edge-label` は、export 後に起きやすい「矢印先端のちょい線」と「ラベル文字の突っ切り」を拾うための追加ヒューリスティクスです。
 
 リポジトリ内で lint や目視確認のサンプルとして使う場合は
 `assets/draw-io-skill-structure-shapes.drawio`、

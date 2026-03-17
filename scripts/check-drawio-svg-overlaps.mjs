@@ -9,6 +9,10 @@ const MAX_OBSTACLE_WIDTH = 420;
 const MAX_OBSTACLE_HEIGHT = 240;
 const TEXT_OVERFLOW_TOLERANCE = 4;
 const DEFAULT_TEXT_PADDING = 4;
+const MIN_TERMINAL_SEGMENT_LENGTH = 20;
+const TERMINAL_SEGMENT_NOISE_TOLERANCE = 1;
+const LABEL_INTERIOR_THRESHOLD = 1;
+const LABEL_BOX_PADDING = 2;
 const FRAME_CELL_ID_PATTERN = /(?:^|[-_])frame(?:[-_]|$)/i;
 const SUPPORTED_NON_RECT_BORDER_SHAPES = new Set(['document', 'hexagon', 'parallelogram', 'trapezoid']);
 
@@ -99,6 +103,10 @@ function parseTranslate(transformText = '') {
 function toNumber(value, fallback = 0) {
   const number = Number(value);
   return Number.isFinite(number) ? number : fallback;
+}
+
+function clamp(value, min, max) {
+  return Math.min(max, Math.max(min, value));
 }
 
 function decodeXmlEntities(text = '') {
@@ -234,6 +242,10 @@ function dot(a, b) {
 
 function distance(a, b) {
   return Math.hypot(a.x - b.x, a.y - b.y);
+}
+
+function segmentLength(segment) {
+  return distance(segment.start, segment.end);
 }
 
 function segmentBounds(segment) {
@@ -718,14 +730,15 @@ function findShapeAwareWidthProfile({
   return worstFit;
 }
 
-function parseDrawioTextBlocks(drawioText) {
-  const blocks = [];
+function parseDrawioTextLayouts(drawioText) {
+  const layouts = [];
   const cellRegex = /<mxCell\b([^>]*?)(?:\/>|>([\s\S]*?)<\/mxCell>)/g;
 
   for (const match of drawioText.matchAll(cellRegex)) {
     const [, rawAttributes = '', body = ''] = match;
     const attributes = parseAttributes(rawAttributes);
     const rawStyle = attributes.style ?? '';
+    const isTextCell = /(^|;)text(;|$)/i.test(rawStyle);
 
     if (attributes.vertex !== '1') {
       continue;
@@ -735,16 +748,14 @@ function parseDrawioTextBlocks(drawioText) {
       continue;
     }
 
-    if (/(^|;)text(;|$)/i.test(rawStyle)) {
-      continue;
-    }
-
     const geometryMatch = body.match(/<mxGeometry\b([^>]*?)\/>/);
     if (!geometryMatch) {
       continue;
     }
 
     const geometryAttributes = parseAttributes(geometryMatch[1]);
+    const x = toNumber(geometryAttributes.x);
+    const y = toNumber(geometryAttributes.y);
     const width = toNumber(geometryAttributes.width);
     const height = toNumber(geometryAttributes.height);
 
@@ -755,41 +766,90 @@ function parseDrawioTextBlocks(drawioText) {
     const style = parseStyle(rawStyle);
     const shape = String(style.shape ?? '').toLowerCase();
     const fontSize = parseStyleNumber(style, 'fontSize', 17);
-    const spacing = parseStyleNumber(style, 'spacing', DEFAULT_TEXT_PADDING);
+    const spacingDefault = isTextCell ? 0 : DEFAULT_TEXT_PADDING;
+    const spacing = parseStyleNumber(style, 'spacing', spacingDefault);
     const spacingLeft = parseStyleNumber(style, 'spacingLeft', spacing);
     const spacingRight = parseStyleNumber(style, 'spacingRight', spacing);
     const spacingTop = parseStyleNumber(style, 'spacingTop', spacing);
     const spacingBottom = parseStyleNumber(style, 'spacingBottom', spacing);
-    const shapeInsets = getShapeTextInsets(style, width, height, fontSize);
+    const align = style.align ?? 'left';
+    const verticalAlign = style.verticalAlign ?? 'middle';
+    const shapeInsets = isTextCell
+      ? { left: 0, right: 0, top: 0, bottom: 0 }
+      : getShapeTextInsets(style, width, height, fontSize);
     const lines = extractLineMetrics(attributes.value, fontSize);
     const availableWidth = Math.max(0, width - spacingLeft - spacingRight - shapeInsets.left - shapeInsets.right);
     const availableHeight = Math.max(0, height - spacingTop - spacingBottom - shapeInsets.top - shapeInsets.bottom);
     const wrappedMetrics = estimateWrappedMetrics(lines, availableWidth);
-    const shapeAwareWidthProfile = findShapeAwareWidthProfile({
-      availableHeight,
-      fontSize,
-      height,
-      lines,
-      shape,
-      shapeInsets,
-      spacingLeft,
-      spacingRight,
-      spacingTop,
-      width,
-    });
+    const shapeAwareWidthProfile = isTextCell
+      ? null
+      : findShapeAwareWidthProfile({
+        availableHeight,
+        fontSize,
+        height,
+        lines,
+        shape,
+        shapeInsets,
+        spacingLeft,
+        spacingRight,
+        spacingTop,
+        width,
+      });
+    const normalizedValue = decodeXmlEntities(attributes.value).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const textCellMetrics = {
+      estimatedWidth: lines.reduce((maxWidth, line) => Math.max(maxWidth, line.width), 0),
+      estimatedHeight: lines.reduce((total, line) => total + (line.fontSize * 1.25), 0),
+    };
+    const estimatedWidth = isTextCell
+      ? textCellMetrics.estimatedWidth
+      : (shapeAwareWidthProfile?.estimatedWidth ?? wrappedMetrics.estimatedWidth);
+    const estimatedHeight = isTextCell
+      ? textCellMetrics.estimatedHeight
+      : wrappedMetrics.estimatedHeight;
+    const measuredAvailableWidth = shapeAwareWidthProfile?.availableWidth ?? availableWidth;
+    const contentWidth = Math.min(estimatedWidth, availableWidth);
+    const contentHeight = Math.min(estimatedHeight, availableHeight);
 
-    blocks.push({
+    let contentX = x + spacingLeft + shapeInsets.left;
+    if (align === 'center') {
+      contentX = x + spacingLeft + shapeInsets.left + ((availableWidth - contentWidth) / 2);
+    } else if (align === 'right') {
+      contentX = x + width - spacingRight - shapeInsets.right - contentWidth;
+    }
+
+    let contentY = y + spacingTop + shapeInsets.top;
+    if (verticalAlign === 'middle') {
+      contentY = y + spacingTop + shapeInsets.top + ((availableHeight - contentHeight) / 2);
+    } else if (verticalAlign === 'bottom') {
+      contentY = y + height - spacingBottom - shapeInsets.bottom - contentHeight;
+    }
+
+    const paddedWidth = clamp(contentWidth + (LABEL_BOX_PADDING * 2), 0, width);
+    const paddedHeight = clamp(contentHeight + (LABEL_BOX_PADDING * 2), 0, height);
+    const labelBoxX = clamp(contentX - LABEL_BOX_PADDING, x, x + width - paddedWidth);
+    const labelBoxY = clamp(contentY - LABEL_BOX_PADDING, y, y + height - paddedHeight);
+
+    layouts.push({
       cellId: attributes.id ?? 'unknown-cell',
-      value: decodeXmlEntities(attributes.value).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
-      availableWidth: shapeAwareWidthProfile?.availableWidth ?? availableWidth,
+      value: normalizedValue,
+      isTextCell,
+      availableWidth: measuredAvailableWidth,
       availableHeight,
-      estimatedWidth: shapeAwareWidthProfile?.estimatedWidth ?? wrappedMetrics.estimatedWidth,
-      estimatedHeight: wrappedMetrics.estimatedHeight,
+      estimatedWidth,
+      estimatedHeight,
       overflowTolerance: shape === 'document' ? 1 : TEXT_OVERFLOW_TOLERANCE,
+      labelBox: {
+        cellId: attributes.id ?? 'unknown-cell',
+        x: labelBoxX,
+        y: labelBoxY,
+        width: paddedWidth,
+        height: paddedHeight,
+        label: normalizedValue,
+      },
     });
   }
 
-  return blocks;
+  return layouts;
 }
 
 function findTextOverflowIssues(textBlocks) {
@@ -819,6 +879,73 @@ function findTextOverflowIssues(textBlocks) {
         label: block.value,
       });
     }
+  }
+
+  return issues;
+}
+
+function findEdgeLabelCollisions(edges, labelBoxes) {
+  const issues = [];
+
+  for (const edge of edges) {
+    for (const label of labelBoxes) {
+      if (edge.cellId === label.cellId) {
+        continue;
+      }
+
+      const bounds = rectBounds(label);
+
+      for (const segment of edge.segments) {
+        if (!boundsOverlap(segmentBounds(segment), bounds)) {
+          continue;
+        }
+
+        const interiorLength = interiorLengthInsideRect(segment, label);
+
+        if (interiorLength > LABEL_INTERIOR_THRESHOLD) {
+          issues.push({
+            type: 'edge-label',
+            edgeCellId: edge.cellId,
+            labelCellId: label.cellId,
+            label: label.label,
+            length: interiorLength,
+          });
+        }
+      }
+    }
+  }
+
+  return issues;
+}
+
+function findShortTerminalSegments(edges) {
+  const issues = [];
+
+  for (const edge of edges) {
+    if (edge.segments.length === 0) {
+      continue;
+    }
+
+    const terminal = {
+      position: 'end',
+      segment: edge.segments[edge.segments.length - 1],
+    };
+    const length = segmentLength(terminal.segment);
+
+    if (length <= TERMINAL_SEGMENT_NOISE_TOLERANCE) {
+      continue;
+    }
+
+    if (length + EPSILON >= MIN_TERMINAL_SEGMENT_LENGTH) {
+      continue;
+    }
+
+    issues.push({
+      type: 'edge-terminal',
+      edgeCellId: edge.cellId,
+      position: terminal.position,
+      length,
+    });
   }
 
   return issues;
@@ -1392,6 +1519,47 @@ function summarizeIssues(issues) {
       continue;
     }
 
+    if (issue.type === 'edge-terminal') {
+      const key = `${issue.type}::${issue.edgeCellId}::${issue.position}`;
+
+      if (!summaries.has(key)) {
+        summaries.set(key, {
+          type: 'edge-terminal',
+          edgeCellId: issue.edgeCellId,
+          position: issue.position,
+          minLength: issue.length,
+          count: 1,
+        });
+        continue;
+      }
+
+      const summary = summaries.get(key);
+      summary.minLength = Math.min(summary.minLength, issue.length);
+      summary.count += 1;
+      continue;
+    }
+
+    if (issue.type === 'edge-label') {
+      const key = `${issue.type}::${issue.edgeCellId}::${issue.labelCellId}`;
+
+      if (!summaries.has(key)) {
+        summaries.set(key, {
+          type: 'edge-label',
+          edgeCellId: issue.edgeCellId,
+          labelCellId: issue.labelCellId,
+          label: issue.label,
+          maxLength: issue.length,
+          count: 1,
+        });
+        continue;
+      }
+
+      const summary = summaries.get(key);
+      summary.maxLength = Math.max(summary.maxLength, issue.length);
+      summary.count += 1;
+      continue;
+    }
+
     if (issue.type === 'edge-rect-border') {
       const key = `${issue.type}::${issue.edgeCellId}::${issue.rectCellId}`;
 
@@ -1471,6 +1639,14 @@ function formatIssue(issue) {
     return `- text-overflow(${issue.axis}): ${issue.cellId} requires ${issue.estimated.toFixed(1)}px but only ${issue.available.toFixed(1)}px is available [${issue.label}]`;
   }
 
+  if (issue.type === 'edge-terminal') {
+    return `- edge-terminal: ${issue.edgeCellId} has a too-short ${issue.position} segment (${issue.minLength.toFixed(1)}px across ${issue.count} segment(s)); keep at least ${MIN_TERMINAL_SEGMENT_LENGTH}px of straight run near arrowheads`;
+  }
+
+  if (issue.type === 'edge-label') {
+    return `- edge-label: ${issue.edgeCellId} crosses label text in ${issue.labelCellId} (max interior ${issue.maxLength.toFixed(1)}px across ${issue.count} segment(s)) [${issue.label}]`;
+  }
+
   if (issue.type === 'edge-rect-border') {
     const details = [...issue.details].sort();
     return `- edge-rect-border: ${issue.edgeCellId} -> ${issue.rectCellId} (${details.length} contact(s): ${details.join('; ')})`;
@@ -1513,16 +1689,24 @@ async function main() {
   const edgeIssues = findEdgeOverlaps(edges);
   const rectIssues = findEdgeRectCollisions(edges, rects);
   const rectBorderIssues = findEdgeRectBorderOverlaps(edges, rects);
+  const terminalIssues = findShortTerminalSegments(edges);
   const edgeShapeBorderIssues = findEdgeShapeBorderOverlaps(edges, shapeBorders);
   const rectShapeBorderIssues = findRectShapeBorderOverlaps(rects, shapeBorders);
-  const textBlocks = companionDrawio ? parseDrawioTextBlocks(companionDrawio.text) : [];
+  const textLayouts = companionDrawio ? parseDrawioTextLayouts(companionDrawio.text) : [];
+  const textBlocks = textLayouts;
+  const labelBoxes = textLayouts
+    .filter((layout) => layout.isTextCell && layout.labelBox.width > 0 && layout.labelBox.height > 0)
+    .map((layout) => layout.labelBox);
   const textIssues = findTextOverflowIssues(textBlocks);
+  const labelIssues = findEdgeLabelCollisions(edges, labelBoxes);
   const issues = summarizeIssues([
     ...edgeIssues,
     ...rectIssues,
     ...rectBorderIssues,
+    ...terminalIssues,
     ...edgeShapeBorderIssues,
     ...rectShapeBorderIssues,
+    ...labelIssues,
     ...textIssues,
   ]);
 
@@ -1530,11 +1714,11 @@ async function main() {
   console.log(`[diagram:check] parsed ${cells.size} cells, ${edges.length} edges, ${rects.length} lint rects, ${shapeBorders.length} shape borders`);
 
   if (companionDrawio) {
-    console.log(`[diagram:check] parsed ${textBlocks.length} text block(s) from ${path.relative(process.cwd(), companionDrawio.path)}`);
+    console.log(`[diagram:check] parsed ${textBlocks.length} text block(s) and ${labelBoxes.length} label box(es) from ${path.relative(process.cwd(), companionDrawio.path)}`);
   }
 
   if (issues.length === 0) {
-    console.log('[diagram:check] OK: no overlaps or text overflows detected by the current heuristics');
+    console.log('[diagram:check] OK: no overlaps, border rides, short arrow runs, label intrusions, or text overflows detected by the current heuristics');
     return;
   }
 

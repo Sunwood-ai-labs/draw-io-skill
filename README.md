@@ -26,7 +26,7 @@
 
 - native `.drawio` editing for assistant-driven diagram generation
 - export helpers for `png`, `svg`, `pdf`, and `jpg`
-- SVG linting for crossings, box or frame border overlap, supported non-rect shape border overlap, box penetration, short arrowhead terminal runs, label intrusions, and text overflow
+- SVG linting for crossings, box or frame border overlap, supported non-rect shape border overlap, box penetration, short arrowhead terminal runs, label intrusions, label-box collisions, and text overflow
 
 It is meant to be practical in a real repository: editable source stays in `.drawio`, exports stay reproducible, and routing defects can be caught before a diagram lands in docs or a PR.
 
@@ -112,11 +112,12 @@ The linter checks:
 - `edge-rect`
 - `edge-terminal` for final arrow runs that become too short after the last bend
 - `edge-label` for routed lines that cross label text boxes
+- `label-rect` for label text boxes that collide with another box or card
 - `rect-shape-border` for box or frame borders that run along those supported non-rect shape borders
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs. `edge-terminal` and `edge-label` are additional heuristics aimed at the common "tiny arrow tail" and "line through label" failures that often need a second pass after export.
+The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs. `edge-terminal`, `edge-label`, and `label-rect` are additional heuristics aimed at the common "tiny arrow tail", "line through label", and "note card covering a label" failures that often need a second pass after export.
 
 For a repository-local lint and visual review sample, use
 `assets/draw-io-skill-structure-shapes.drawio`,

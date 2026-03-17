@@ -46,11 +46,12 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-b
 - `edge-rect`
 - `edge-terminal` 最後の曲がり角から矢印先端までの直線が短すぎるケース
 - `edge-label` 配線がラベル文字の領域を突っ切るケース
+- `label-rect` ラベル文字の領域に別の箱やカードが食い込むケース
 - `rect-shape-border` 箱やフレームの枠線が、対応する非矩形 shape の枠線に沿う、または重なるケース
 - `text-overflow(width)`
 - `text-overflow(height)`
 
-`fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、shape-aware な文字はみ出しをそれぞれ回帰テストできます。`edge-terminal` と `edge-label` は、export 後に起きやすい「矢印先端のちょい線」と「ラベル文字の突っ切り」を拾うための追加ヒューリスティクスです。
+`fixtures/border-overlap/...`、`fixtures/large-frame-border-overlap/...`、`fixtures/shape-border-overlap/...`、`fixtures/label-rect-overlap/...`、`fixtures/shape-text-overflow/...` を使い分けることで、細い箱枠、大きいセクション枠、対応する非矩形 shape 枠線、label-box 重なり、shape-aware な文字はみ出しをそれぞれ回帰テストできます。`edge-terminal`、`edge-label`、`label-rect` は、export 後に起きやすい「矢印先端のちょい線」「ラベル文字の突っ切り」「注釈 box がラベルにかぶさる」を拾うための追加ヒューリスティクスです。
 
 ## lint 確認用サンプル
 
@@ -71,3 +72,5 @@ lint は有効ですが、目視確認の代わりにはなりません。ルー
 swimlane や外枠フレームを使う図では、意図したケースを除き `edge-rect-border`、`edge-shape-border`、`rect-shape-border` を配線バグとして扱うのがおすすめです。
 
 `edge-terminal` が出たら、最後の曲がり角をターゲットから離すか、矢印先端の手前に 20px 以上の直線区間を確保するのがおすすめです。`edge-label` が出たら、配線を逃がすか、ラベル位置をずらして文字の余白を確保してください。
+
+`label-rect` が出たら、レイヤー順でごまかさず、注釈 box 側かラベル側を動かして重なりを解消するのがおすすめです。

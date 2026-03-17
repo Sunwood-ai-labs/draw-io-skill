@@ -1,0 +1,25 @@
+<mxfile host="app.diagrams.net" modified="2026-03-17T00:00:00.000Z" agent="Codex GPT-5" version="27.0.5">
+  <diagram id="label-rect-overlap" name="Label Rect Overlap">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="600" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="frame" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="520" height="240" as="geometry"/>
+        </mxCell>
+        <mxCell id="repo-icon" value="" style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.codecommit;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="180" width="64" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="repo-label" value="Company repo&lt;br&gt;docs + memory" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=top;fontSize=12;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#17202A;" vertex="1" parent="1">
+          <mxGeometry x="164" y="252" width="176" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="note-box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#cbd5e1;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="258" width="250" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="note-text" value="Nested repos are allowed." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;fontSize=10;fontFamily=Noto Sans JP;fontColor=#64748b;" vertex="1" parent="1">
+          <mxGeometry x="182" y="270" width="206" height="20" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

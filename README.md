@@ -26,7 +26,7 @@
 
 - native `.drawio` editing for assistant-driven diagram generation
 - export helpers for `png`, `svg`, `pdf`, and `jpg`
-- SVG linting for crossings, box or frame border overlap, supported non-rect shape border overlap, box penetration, short arrowhead terminal runs, label intrusions, label-box collisions, and text overflow
+- SVG linting for crossings, box or frame border overlap, supported non-rect shape border overlap, box penetration, short arrowhead terminal runs, label intrusions, label-box collisions, weak text contrast, dark-card text hierarchy, and text overflow
 
 It is meant to be practical in a real repository: editable source stays in `.drawio`, exports stay reproducible, and routing defects can be caught before a diagram lands in docs or a PR.
 
@@ -42,7 +42,7 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 uv run python scripts/find_aws_icon.py lambda
 ```
 
-`npm run verify` runs the syntax checks, every bundled lint regression fixture, and the docs build, so it is the fastest way to confirm that `edge-terminal`, `edge-label`, `label-rect`, and text-overflow coverage still works end to end.
+`npm run verify` runs the syntax checks, every bundled lint regression fixture, and the docs build, so it is the fastest way to confirm that `edge-terminal`, `edge-label`, `label-rect`, `text-contrast`, `text-emphasis`, and text-overflow coverage still works end to end.
 
 If you only want to rebuild the documentation site:
 
@@ -112,6 +112,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/l
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
 node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-contrast/text-contrast.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-emphasis/text-emphasis.drawio
 ```
 
 The linter checks:
@@ -124,12 +126,14 @@ The linter checks:
 - `edge-label` for routed lines that cross label text boxes
 - `label-rect` for label text boxes that collide with another box or card
 - `rect-shape-border` for box or frame borders that run along those supported non-rect shape borders
+- `text-contrast` for text whose explicit font color is too close to its fill color
+- `text-emphasis` for compact dark cards whose title and body copy are still flattened into one dense block
 - `text-overflow(width)`
 - `text-overflow(height)`
 
 The checker accepts either `.drawio` or `.drawio.svg` input. When you point it at a `.drawio` source, it reads the companion draw.io geometry as well, which keeps `label-rect` and text-fit checks aligned with the editable source instead of relying only on exported SVG bounds.
 
-The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs. `edge-terminal`, `edge-label`, and `label-rect` are additional heuristics aimed at the common "tiny arrow tail", "line through label", and "note card covering a label" failures that often need a second pass after export.
+The repository includes dedicated regression fixtures for simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, low-contrast copy, dark-card hierarchy, and shape-aware text overflow so routing regressions can be caught in CI before a diagram lands in docs. `edge-terminal`, `edge-label`, `label-rect`, and `text-emphasis` are additional heuristics aimed at the common "tiny arrow tail", "line through label", "note card covering a label", and "dark card title/body blending together" failures that often need a second pass after export.
 
 For a repository-local lint and visual review sample, use
 `assets/draw-io-skill-structure-shapes.drawio`,

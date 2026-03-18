@@ -14,6 +14,13 @@ const TERMINAL_SEGMENT_NOISE_TOLERANCE = 1;
 const LABEL_INTERIOR_THRESHOLD = 1;
 const LABEL_BOX_PADDING = 2;
 const LABEL_RECT_OVERLAP_AREA_THRESHOLD = 24;
+const MIN_TEXT_CONTRAST_RATIO = 4.5;
+const LARGE_TEXT_CONTRAST_RATIO = 3;
+const EMPHASIS_DARK_CARD_MAX_WIDTH = 320;
+const EMPHASIS_DARK_CARD_MAX_HEIGHT = 120;
+const EMPHASIS_DARK_CARD_MIN_LINES = 3;
+const EMPHASIS_DARK_CARD_MAX_FONT_SIZE = 15;
+const EMPHASIS_DARK_CARD_WIDTH_RATIO_THRESHOLD = 0.6;
 const FRAME_CELL_ID_PATTERN = /(?:^|[-_])frame(?:[-_]|$)/i;
 const SUPPORTED_NON_RECT_BORDER_SHAPES = new Set(['document', 'hexagon', 'parallelogram', 'trapezoid']);
 
@@ -86,6 +93,80 @@ function getPresentationValue(attributes, name) {
 
 function isNone(value) {
   return value === undefined || value === null || value === '' || value === 'none';
+}
+
+function normalizePaint(value) {
+  return String(value ?? '').trim().toLowerCase();
+}
+
+function parseHexColor(value) {
+  const normalized = normalizePaint(value);
+
+  if (!normalized.startsWith('#')) {
+    return null;
+  }
+
+  if (normalized.length === 4) {
+    return {
+      r: Number.parseInt(normalized.slice(1, 2).repeat(2), 16),
+      g: Number.parseInt(normalized.slice(2, 3).repeat(2), 16),
+      b: Number.parseInt(normalized.slice(3, 4).repeat(2), 16),
+    };
+  }
+
+  if (normalized.length === 7) {
+    return {
+      r: Number.parseInt(normalized.slice(1, 3), 16),
+      g: Number.parseInt(normalized.slice(3, 5), 16),
+      b: Number.parseInt(normalized.slice(5, 7), 16),
+    };
+  }
+
+  return null;
+}
+
+function relativeLuminance(value) {
+  const color = parseHexColor(value);
+
+  if (!color) {
+    return null;
+  }
+
+  const toLinear = (channel) => {
+    const normalized = channel / 255;
+    return normalized <= 0.04045
+      ? normalized / 12.92
+      : ((normalized + 0.055) / 1.055) ** 2.4;
+  };
+
+  return (
+    (0.2126 * toLinear(color.r))
+    + (0.7152 * toLinear(color.g))
+    + (0.0722 * toLinear(color.b))
+  );
+}
+
+function contrastRatio(foreground, background) {
+  const foregroundLuminance = relativeLuminance(foreground);
+  const backgroundLuminance = relativeLuminance(background);
+
+  if (foregroundLuminance === null || backgroundLuminance === null) {
+    return null;
+  }
+
+  const lighter = Math.max(foregroundLuminance, backgroundLuminance);
+  const darker = Math.min(foregroundLuminance, backgroundLuminance);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+function isDarkPaint(value) {
+  const luminance = relativeLuminance(value);
+
+  if (luminance === null) {
+    return false;
+  }
+
+  return luminance <= 0.2;
 }
 
 function parseTranslate(transformText = '') {
@@ -802,6 +883,7 @@ function parseDrawioTextLayouts(drawioText) {
 
     const style = parseStyle(rawStyle);
     const shape = String(style.shape ?? '').toLowerCase();
+    const decodedValue = decodeXmlEntities(attributes.value);
     const fontSize = parseStyleNumber(style, 'fontSize', 17);
     const spacingDefault = isTextCell ? 0 : DEFAULT_TEXT_PADDING;
     const spacing = parseStyleNumber(style, 'spacing', spacingDefault);
@@ -832,7 +914,7 @@ function parseDrawioTextLayouts(drawioText) {
         spacingTop,
         width,
       });
-    const normalizedValue = decodeXmlEntities(attributes.value).replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+    const normalizedValue = decodedValue.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
     const textCellMetrics = {
       estimatedWidth: lines.reduce((maxWidth, line) => Math.max(maxWidth, line.width), 0),
       estimatedHeight: lines.reduce((total, line) => total + (line.fontSize * 1.25), 0),
@@ -865,16 +947,38 @@ function parseDrawioTextLayouts(drawioText) {
     const paddedHeight = clamp(contentHeight + (LABEL_BOX_PADDING * 2), 0, height);
     const labelBoxX = clamp(contentX - LABEL_BOX_PADDING, x, x + width - paddedWidth);
     const labelBoxY = clamp(contentY - LABEL_BOX_PADDING, y, y + height - paddedHeight);
+    const topInset = Math.max(0, contentY - y);
+    const leftInset = Math.max(0, contentX - x);
+    const rightInset = Math.max(0, (x + width) - (contentX + contentWidth));
+    const bottomInset = Math.max(0, (y + height) - (contentY + contentHeight));
 
     layouts.push({
       cellId: attributes.id ?? 'unknown-cell',
+      rawValue: decodedValue,
       value: normalizedValue,
       isTextCell,
+      fillColor: style.fillColor,
+      fontColor: style.fontColor,
+      fontSize,
+      lineCount: lines.length,
+      width,
+      height,
+      startsWithBoldLine: /^\s*<b\b/i.test(decodedValue),
+      hasInlineFontMarkup: /<font\b/i.test(decodedValue),
+      hasInlineColorMarkup: /<font\b[^>]*(?:color=|style=\"[^\"]*color\s*:)/i.test(decodedValue),
       availableWidth: measuredAvailableWidth,
       availableHeight,
       estimatedWidth,
       estimatedHeight,
       overflowTolerance: shape === 'document' ? 1 : TEXT_OVERFLOW_TOLERANCE,
+      contentX,
+      contentY,
+      contentWidth,
+      contentHeight,
+      topInset,
+      leftInset,
+      rightInset,
+      bottomInset,
       labelBox: {
         cellId: attributes.id ?? 'unknown-cell',
         x: labelBoxX,
@@ -976,6 +1080,74 @@ function findTextOverflowIssues(textBlocks) {
         label: block.value,
       });
     }
+  }
+
+  return issues;
+}
+
+function findTextContrastIssues(textBlocks) {
+  const issues = [];
+
+  for (const block of textBlocks) {
+    const ratio = contrastRatio(block.fontColor, block.fillColor);
+
+    if (ratio === null) {
+      continue;
+    }
+
+    const threshold = block.fontSize >= 18 ? LARGE_TEXT_CONTRAST_RATIO : MIN_TEXT_CONTRAST_RATIO;
+    if (ratio + EPSILON >= threshold) {
+      continue;
+    }
+
+    issues.push({
+      type: 'text-contrast',
+      cellId: block.cellId,
+      label: block.value,
+      contrastRatio: ratio,
+      threshold,
+      fontColor: block.fontColor,
+      fillColor: block.fillColor,
+    });
+  }
+
+  return issues;
+}
+
+function findTextEmphasisIssues(textBlocks) {
+  const issues = [];
+
+  for (const block of textBlocks) {
+    if (
+      block.isTextCell
+      || !isDarkPaint(block.fillColor)
+      || block.lineCount < EMPHASIS_DARK_CARD_MIN_LINES
+      || block.fontSize > EMPHASIS_DARK_CARD_MAX_FONT_SIZE
+      || block.width > EMPHASIS_DARK_CARD_MAX_WIDTH
+      || block.height > EMPHASIS_DARK_CARD_MAX_HEIGHT
+      || !block.startsWithBoldLine
+      || block.hasInlineFontMarkup
+      || block.hasInlineColorMarkup
+    ) {
+      continue;
+    }
+
+    const widthRatio = block.availableWidth > 0 ? block.estimatedWidth / block.availableWidth : Infinity;
+    if (widthRatio + EPSILON < EMPHASIS_DARK_CARD_WIDTH_RATIO_THRESHOLD) {
+      continue;
+    }
+
+    issues.push({
+      type: 'text-emphasis',
+      cellId: block.cellId,
+      label: block.value,
+      lineCount: block.lineCount,
+      fontSize: block.fontSize,
+      widthRatio,
+      topInset: block.topInset,
+      fillColor: block.fillColor,
+      fontColor: block.fontColor,
+    });
   }
 
   return issues;
@@ -1627,6 +1799,44 @@ function summarizeIssues(issues) {
   const summaries = new Map();
 
   for (const issue of issues) {
+    if (issue.type === 'text-contrast') {
+      const key = `${issue.type}::${issue.cellId}`;
+
+      if (!summaries.has(key)) {
+        summaries.set(key, {
+          type: 'text-contrast',
+          cellId: issue.cellId,
+          label: issue.label,
+          contrastRatio: issue.contrastRatio,
+          threshold: issue.threshold,
+          fontColor: issue.fontColor,
+          fillColor: issue.fillColor,
+        });
+      }
+
+      continue;
+    }
+
+    if (issue.type === 'text-emphasis') {
+      const key = `${issue.type}::${issue.cellId}`;
+
+      if (!summaries.has(key)) {
+        summaries.set(key, {
+          type: 'text-emphasis',
+          cellId: issue.cellId,
+          label: issue.label,
+          lineCount: issue.lineCount,
+          fontSize: issue.fontSize,
+          widthRatio: issue.widthRatio,
+          topInset: issue.topInset,
+          fillColor: issue.fillColor,
+          fontColor: issue.fontColor,
+        });
+      }
+
+      continue;
+    }
+
     if (issue.type === 'edge-edge') {
       const key = `${issue.firstCellId}::${issue.secondCellId}`;
 
@@ -1805,6 +2015,14 @@ function formatIssue(issue) {
     return `- edge-edge: ${issue.firstCellId} <-> ${issue.secondCellId} (${details.length} contact(s): ${details.join('; ')})`;
   }
 
+  if (issue.type === 'text-contrast') {
+    return `- text-contrast: ${issue.cellId} has only ${issue.contrastRatio.toFixed(2)}:1 contrast against ${issue.fillColor} with ${issue.fontColor}; target at least ${issue.threshold.toFixed(1)}:1 [${issue.label}]`;
+  }
+
+  if (issue.type === 'text-emphasis') {
+    return `- text-emphasis: ${issue.cellId} is a dense dark card with flat title/body treatment (${issue.lineCount} lines, width fill ${(issue.widthRatio * 100).toFixed(0)}%) [${issue.label}]`;
+  }
+
   if (issue.type === 'text-overflow') {
     return `- text-overflow(${issue.axis}): ${issue.cellId} requires ${issue.estimated.toFixed(1)}px but only ${issue.available.toFixed(1)}px is available [${issue.label}]`;
   }
@@ -1872,6 +2090,8 @@ async function main() {
     .filter((layout) => layout.isTextCell && layout.labelBox.width > 0 && layout.labelBox.height > 0)
     .map((layout) => layout.labelBox);
   const textIssues = findTextOverflowIssues(textBlocks);
+  const textContrastIssues = findTextContrastIssues(textBlocks);
+  const textEmphasisIssues = findTextEmphasisIssues(textBlocks);
   const labelIssues = findEdgeLabelCollisions(edges, labelBoxes);
   const drawioRects = companionDrawio ? parseDrawioRectLayouts(companionDrawio.text) : [];
   const labelRectIssues = findLabelRectOverlaps(labelBoxes, drawioRects);
@@ -1885,6 +2105,8 @@ async function main() {
     ...labelIssues,
     ...labelRectIssues,
     ...textIssues,
+    ...textContrastIssues,
+    ...textEmphasisIssues,
   ]);
 
   console.log(`[diagram:check] ${path.relative(process.cwd(), targetPath)}`);
@@ -1895,7 +2117,7 @@ async function main() {
   }
 
   if (issues.length === 0) {
-    console.log('[diagram:check] OK: no overlaps, border rides, short arrow runs, label intrusions, label-box collisions, or text overflows detected by the current heuristics');
+    console.log('[diagram:check] OK: no overlaps, border rides, short arrow runs, label intrusions, label-box collisions, text contrast problems, text emphasis problems, or text overflows detected by the current heuristics');
     return;
   }
 

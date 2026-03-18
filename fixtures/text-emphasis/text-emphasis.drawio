@@ -1,0 +1,16 @@
+<mxfile host="app.diagrams.net" modified="2026-03-19T00:00:00.000Z" agent="Codex GPT-5" version="27.0.5">
+  <diagram id="text-emphasis" name="Text Emphasis">
+    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="600" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="review-frame" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="420" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="dark-flat-card" value="&lt;b&gt;CEO review / automation&lt;/b&gt;&lt;br&gt;Direction fix, guardrails,&lt;br&gt;next step" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#0f1f3a;strokeColor=#ffcc4f;strokeWidth=2;fontSize=14;fontFamily=Noto Sans JP;fontColor=#ffffff;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="205" y="163" width="250" height="94" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

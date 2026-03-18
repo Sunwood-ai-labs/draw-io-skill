@@ -1,6 +1,6 @@
 ---
 name: draw-io
-description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap, border-overlap, label-intrusion, label-rect, short-terminal, and text-overflow linting, layout adjustment, and AWS icon usage.
+description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap, border-overlap, label-intrusion, label-rect, short-terminal, text-contrast, text-emphasis, and text-overflow linting, layout adjustment, and AWS icon usage.
 ---
 
 # draw.io Diagram Skill
@@ -12,7 +12,7 @@ Use this skill when an agent needs to:
 - create a new draw.io diagram as native `.drawio` XML
 - edit or refactor an existing `.drawio` file
 - export diagrams to `png`, `svg`, `pdf`, or `jpg`
-- check routed edges, box- or frame-border overlap, supported non-rect shape border overlap, box penetration, short arrowhead tails, label collisions, or text overflow
+- check routed edges, box- or frame-border overlap, supported non-rect shape border overlap, box penetration, short arrowhead tails, label collisions, weak text contrast, flat dark-card text treatment, or text overflow
 - build architecture diagrams with AWS icons
 
 This skill intentionally combines:
@@ -34,7 +34,7 @@ The repository also ships:
 - a shape-focused lint review sample under `assets/draw-io-skill-structure-shapes.drawio` with exports at `assets/draw-io-skill-structure-shapes.drawio.png` and `assets/draw-io-skill-structure-shapes.drawio.svg`
 - a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
 - public showcase pages under `docs/guide/showcase.md` and `docs/ja/guide/showcase.md`
-- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, `fixtures/label-rect-overlap`, `fixtures/text-cell-overflow`, and `fixtures/shape-text-overflow`
+- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, `fixtures/label-rect-overlap`, `fixtures/text-cell-overflow`, `fixtures/text-contrast`, `fixtures/text-emphasis`, and `fixtures/shape-text-overflow`
 
 ### 1.2 Repository-local commands
 
@@ -186,6 +186,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/l
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
 node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-contrast/text-contrast.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-emphasis/text-emphasis.drawio
 ```
 
 The lint script currently checks:
@@ -198,6 +200,8 @@ The lint script currently checks:
 - `edge-label`: routed lines crossing label text boxes
 - `label-rect`: label text boxes colliding with another box or card
 - `rect-shape-border`: box or frame borders that run along those supported non-rect shape borders
+- `text-contrast`: text whose font color is too close to its fill color for the current font size
+- `text-emphasis`: compact dark cards whose title/body copy is still flattened into a single dense text block
 - `text-overflow(width)`: text likely too wide for its box
 - `text-overflow(height)`: text likely too tall for its box
 
@@ -205,9 +209,10 @@ Notes:
 
 - input may be either `.drawio` or `.drawio.svg`
 - when the input is `.drawio`, the checker also reads the companion draw.io geometry so `label-rect` and text-fit checks stay aligned with the editable source
+- `text-contrast` currently requires explicit hex `fillColor` and `fontColor`
 - text overflow detection is heuristic, not pixel-perfect
-- bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, and shape-aware text overflow
-- `edge-terminal`, `edge-label`, and `label-rect` are heuristic checks intended to catch the common "tiny arrowhead tail", "line through label", and "note card covering a label" draw.io failures seen in repository diagrams
+- bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, low-contrast text, dense dark-card copy, and shape-aware text overflow
+- `edge-terminal`, `edge-label`, `label-rect`, and `text-emphasis` are heuristic checks intended to catch the common "tiny arrowhead tail", "line through label", "note card covering a label", and "dark card text visually blending together" draw.io failures seen in repository diagrams
 - lint passing does not replace visual verification
 
 When investigating findings:
@@ -216,6 +221,8 @@ When investigating findings:
 - if `edge-terminal` fires, add a longer straight segment before the arrowhead or move the last bend farther away from the target
 - if `edge-label` fires, reroute the edge or move the label so the text keeps clean breathing room
 - if `label-rect` fires, move the note/card/box or shift the label so they no longer partially overlap
+- if `text-contrast` fires, increase foreground/background contrast instead of relying on opacity, texture, or stroke
+- if `text-emphasis` fires, split the title from the body with a chip, separate text cell, stronger hierarchy, or more breathing room
 - if `text-overflow` looks like a false positive, first try widening the box, shortening the label, adding an intentional line break, or setting explicit fonts
 
 ## 7. XML And Layout Rules
@@ -357,6 +364,8 @@ uv run python scripts/find_aws_icon.py lambda
 - [ ] no `edge-label` or `label-rect` findings remain
 - [ ] no `edge-rect-border` findings remain unless a box or frame border overlap is intentionally accepted
 - [ ] no `edge-shape-border` or `rect-shape-border` findings remain unless a supported non-rect border contact is intentionally accepted
+- [ ] no `text-contrast` findings remain
+- [ ] no `text-emphasis` findings remain on compact dark cards unless the treatment is intentionally accepted after visual review
 - [ ] no `text-overflow(width)` or `text-overflow(height)` findings remain
 - [ ] final PNG/SVG/PDF was visually checked
 

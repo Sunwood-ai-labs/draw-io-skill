@@ -38,6 +38,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/l
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
 node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-contrast/text-contrast.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-emphasis/text-emphasis.drawio
 ```
 
 Current checks:
@@ -50,12 +52,14 @@ Current checks:
 - `edge-label` for routed lines that cross label text boxes
 - `label-rect` for label text boxes that collide with another box or card
 - `rect-shape-border` for box or frame borders that run along those supported non-rect shape borders
+- `text-contrast` for low-contrast text on explicit fill colors
+- `text-emphasis` for compact dark cards whose title and body still read like one dense block
 - `text-overflow(width)`
 - `text-overflow(height)`
 
 The checker accepts either `.drawio` or `.drawio.svg` input. When the input is a `.drawio` source, it also reads the companion draw.io geometry so `label-rect` and text-fit checks stay aligned with the editable source instead of depending only on exported SVG bounds.
 
-The repository includes `fixtures/border-overlap/...`, `fixtures/large-frame-border-overlap/...`, `fixtures/shape-border-overlap/...`, `fixtures/label-rect-overlap/...`, `fixtures/text-cell-overflow/...`, and `fixtures/shape-text-overflow/...` so you can regression-test box borders, large section frames, supported non-rect shape borders, label-box collisions, text-cell overflow, and shape-aware text fit separately. `edge-terminal`, `edge-label`, and `label-rect` are heuristic checks for the common exported-diagram failures where an arrowhead gets only a tiny final run, a route slices through label text, or a note card drifts up into a label.
+The repository includes `fixtures/border-overlap/...`, `fixtures/large-frame-border-overlap/...`, `fixtures/shape-border-overlap/...`, `fixtures/label-rect-overlap/...`, `fixtures/text-cell-overflow/...`, `fixtures/text-contrast/...`, `fixtures/text-emphasis/...`, and `fixtures/shape-text-overflow/...` so you can regression-test box borders, large section frames, supported non-rect shape borders, label-box collisions, text-cell overflow, low-contrast copy, dark-card hierarchy, and shape-aware text fit separately. `edge-terminal`, `edge-label`, `label-rect`, and `text-emphasis` are heuristic checks for the common exported-diagram failures where an arrowhead gets only a tiny final run, a route slices through label text, a note card drifts up into a label, or a compact dark card visually melts its title and body together.
 
 `npm run verify` in the repository root exercises those fixtures and then builds the docs site, so it is the recommended full signoff before release or repository updates.
 
@@ -80,3 +84,7 @@ If your diagram uses swimlanes, outer rounded sections, or other large frames, t
 When `edge-terminal` fires, move the last bend farther away from the target or add a longer straight run before the arrowhead. When `edge-label` fires, reroute the edge or move the label so the text keeps visible breathing room.
 
 When `label-rect` fires, treat it as a layout collision: move the note/card/box or move the label so the overlap disappears instead of relying on layering.
+
+When `text-contrast` fires, increase the actual foreground/background delta. Texture, noise, or glow may help the look, but they do not replace readable contrast.
+
+When `text-emphasis` fires, split the dark card into clearer hierarchy. A title chip, a separate body text cell, or more spacing is usually better than leaving everything in one dense block.

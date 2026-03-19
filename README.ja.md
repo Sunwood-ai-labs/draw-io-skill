@@ -26,7 +26,7 @@
 
 - native `.drawio` を直接編集するワークフロー
 - `png` / `svg` / `pdf` / `jpg` への export helper
-- 線の交差、枠線重なり、非矩形 shape の枠線重なり、箱貫通、文字はみ出しを検知する SVG lint
+- 線の交差、枠線重なり、非矩形 shape の枠線重なり、箱貫通、低コントラスト文字、暗色カード内の弱い文字階層、文字はみ出しを検知する SVG lint
 
 作る、整える、書き出す、崩れを見つける、までをリポジトリの中で一続きに扱えるようにしています。
 
@@ -42,7 +42,7 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/basic/basic.drawio.svg
 uv run python scripts/find_aws_icon.py lambda
 ```
 
-`npm run verify` は、構文チェック、同梱されている lint 回帰 fixture 一式、docs build までまとめて実行します。`edge-terminal`、`edge-label`、`label-rect`、`text-overflow` まで含めて一気に確認したいときの最短ルートです。
+`npm run verify` は、構文チェック、同梱されている lint 回帰 fixture 一式、docs build までまとめて実行します。`edge-terminal`、`edge-label`、`label-rect`、`text-contrast`、`text-emphasis`、`text-overflow` まで含めて一気に確認したいときの最短ルートです。
 
 ドキュメントサイトだけを build したい場合:
 
@@ -84,6 +84,12 @@ npm run docs:build
 - [`onizuka-game-agi-aws-architecture.drawio`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio) は編集用ソース
 - [`onizuka-game-agi-aws-architecture.drawio.svg`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio.svg) は docs 掲載向けの SVG 例
 
+### 短い prompt
+
+```text
+AWS reference-style icon view のテイストで native draw.io 図を作って。ライトテーマ、濃紺タイトルバー、シアンのアクセント、白いカード、公式 AWS アイコン、Noto Sans JP、orthogonal routing、そして AWS は local/GitHub/workflow を見せるための視覚比喩だと注記を入れて。
+```
+
 ガイド付きの紹介は [`docs/ja/guide/showcase.md`](./docs/ja/guide/showcase.md) にまとめています。
 
 ## 🛠️ 含まれるもの
@@ -113,6 +119,8 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/large-frame-border-overlap/l
 node scripts/check-drawio-svg-overlaps.mjs fixtures/shape-border-overlap/shape-border-overlap.drawio.svg
 node scripts/check-drawio-svg-overlaps.mjs fixtures/label-rect-overlap/label-rect-overlap.drawio
 node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell-overflow.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-contrast/text-contrast.drawio
+node scripts/check-drawio-svg-overlaps.mjs fixtures/text-emphasis/text-emphasis.drawio
 ```
 
 検知対象:
@@ -125,12 +133,14 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell
 - `edge-label` 配線がラベル文字の領域を突っ切るケース
 - `label-rect` ラベル文字の領域に別の箱やカードが食い込むケース
 - `rect-shape-border` 箱やフレームの枠線が、対応する非矩形 shape の枠線に沿う、または重なるケース
+- `text-contrast` 明示された文字色と背景色の差が小さすぎるケース
+- `text-emphasis` 暗色のコンパクトなカードで、見出しと本文が 1 つの密な塊に潰れて見えるケース
 - `text-overflow(width)`
 - `text-overflow(height)`
 
 checker は `.drawio` と `.drawio.svg` の両方を受け付けます。`.drawio` を直接渡した場合は companion の draw.io geometry も使うので、`label-rect` や文字フィット判定が編集ソースと揃いやすくなります。
 
-リポジトリには、通常の箱枠重なり用 `fixtures/border-overlap/...`、大きいセクション枠用 `fixtures/large-frame-border-overlap/...`、非矩形 shape 枠線用 `fixtures/shape-border-overlap/...`、label-box 重なり用 `fixtures/label-rect-overlap/...`、text cell の文字はみ出し用 `fixtures/text-cell-overflow/...`、shape-aware な文字はみ出し用 `fixtures/shape-text-overflow/...` の回帰 fixture が含まれています。CI で配線崩れを拾いたいときに使えます。`edge-terminal`、`edge-label`、`label-rect` は、export 後に起きやすい「矢印先端のちょい線」「ラベル文字の突っ切り」「注釈 box がラベルにかぶさる」を拾うための追加ヒューリスティクスです。
+リポジトリには、通常の箱枠重なり用 `fixtures/border-overlap/...`、大きいセクション枠用 `fixtures/large-frame-border-overlap/...`、非矩形 shape 枠線用 `fixtures/shape-border-overlap/...`、label-box 重なり用 `fixtures/label-rect-overlap/...`、text cell の文字はみ出し用 `fixtures/text-cell-overflow/...`、低コントラスト文字用 `fixtures/text-contrast/...`、暗色カードの文字階層用 `fixtures/text-emphasis/...`、shape-aware な文字はみ出し用 `fixtures/shape-text-overflow/...` の回帰 fixture が含まれています。CI で配線崩れを拾いたいときに使えます。`edge-terminal`、`edge-label`、`label-rect`、`text-emphasis` は、export 後に起きやすい「矢印先端のちょい線」「ラベル文字の突っ切り」「注釈 box がラベルにかぶさる」「暗色カードで見出しと本文が溶ける」を拾うための追加ヒューリスティクスです。
 
 リポジトリ内で lint や目視確認のサンプルとして使う場合は
 `assets/draw-io-skill-structure-shapes.drawio`、
@@ -143,6 +153,10 @@ checker は `.drawio` と `.drawio.svg` の両方を受け付けます。`.drawi
 `assets/draw-io-skill-structure-icons.drawio.png`、
 `assets/draw-io-skill-structure-icons.drawio.svg`
 も利用できます。
+
+`text-contrast` が出たら、背景と文字の実コントラストを上げます。質感やノイズで誤魔化さず、まず色差を広げます。
+
+`text-emphasis` が出たら、見出し chip を分ける、本文を別 text cell にする、余白を増やす、などで階層を強めるのがおすすめです。
 
 ## 📦 インストール
 

@@ -62,3 +62,9 @@ If you want a public repository example that already ships both the editable sou
 - [`onizuka-game-agi-aws-architecture.drawio.svg`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio.svg)
 
 It is a good real-world reference when you want to compare an editable AWS architecture source with the published SVG that lands in docs.
+
+### Short Prompt
+
+```text
+Create a native draw.io diagram in an AWS reference-style icon view: light theme, dark navy title bar, cyan accents, white cards, official AWS icons, Noto Sans JP, orthogonal routing, and a note that AWS icons are visual references only for local/GitHub/workflow concepts.
+```

@@ -83,6 +83,12 @@ For a public AWS architecture example from another repository, see `onizuka-game
 - [`onizuka-game-agi-aws-architecture.drawio`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio) for the editable source
 - [`onizuka-game-agi-aws-architecture.drawio.svg`](https://github.com/onizuka-agi-co/onizuka-game-agi-co/blob/main/docs/onizuka-game-agi-aws-architecture.drawio.svg) for the published SVG example
 
+### Short Prompt
+
+```text
+Create a native draw.io diagram in an AWS reference-style icon view: light theme, dark navy title bar, cyan accents, white cards, official AWS icons, Noto Sans JP, orthogonal routing, and a note that AWS icons are visual references only for local/GitHub/workflow concepts.
+```
+
 The guided walkthrough lives in [`docs/guide/showcase.md`](./docs/guide/showcase.md).
 
 ## 🛠️ What You Get
@@ -144,6 +150,10 @@ For a more presentation-oriented sample, use
 `assets/draw-io-skill-structure-icons.drawio`,
 `assets/draw-io-skill-structure-icons.drawio.png`,
 and `assets/draw-io-skill-structure-icons.drawio.svg`.
+
+When `text-contrast` fires, treat it like a legibility bug: increase the actual foreground/background delta instead of relying on texture, glow, or outlines.
+
+When `text-emphasis` fires, treat it like a hierarchy bug: split the title from the body with a chip, independent text cell, stronger spacing, or a clearer surface split.
 
 ## 📦 Installation
 

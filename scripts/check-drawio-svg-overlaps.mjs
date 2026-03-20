@@ -384,9 +384,88 @@ function rectContainsRect(outer, inner, epsilon = EPSILON) {
   );
 }
 
+function rectArea(rect) {
+  return rect.width * rect.height;
+}
+
 function isOwnedTextRectPair(labelCellId, rectCellId) {
   const normalizedLabelId = String(labelCellId).replace(/(?:-text|_text)$/i, '');
   return normalizedLabelId === rectCellId;
+}
+
+function collectAncestorCellIds(cellId, drawioCells = new Map()) {
+  const ancestors = new Set();
+  let currentId = drawioCells.get(cellId)?.parent;
+
+  while (currentId && !ancestors.has(currentId)) {
+    ancestors.add(currentId);
+    currentId = drawioCells.get(currentId)?.parent;
+  }
+
+  return ancestors;
+}
+
+function resolveTextBlockBackground(block, surfaceRects, drawioCells = new Map()) {
+  const directFill = normalizePaint(block.fillColor);
+  if (parseHexColor(directFill)) {
+    return {
+      fillColor: directFill,
+      sourceCellId: block.cellId,
+      sourceKind: 'self',
+    };
+  }
+
+  const ancestorIds = collectAncestorCellIds(block.cellId, drawioCells);
+  const candidates = surfaceRects
+    .filter((rect) => {
+      if (rect.cellId === block.cellId) {
+        return false;
+      }
+
+      if (!parseHexColor(rect.fill)) {
+        return false;
+      }
+
+      return rectContainsRect(rect, block.labelBox);
+    })
+    .sort((first, second) => {
+      const firstRank = isOwnedTextRectPair(block.cellId, first.cellId)
+        ? 0
+        : ancestorIds.has(first.cellId)
+          ? 1
+          : 2;
+      const secondRank = isOwnedTextRectPair(block.cellId, second.cellId)
+        ? 0
+        : ancestorIds.has(second.cellId)
+          ? 1
+          : 2;
+
+      if (firstRank !== secondRank) {
+        return firstRank - secondRank;
+      }
+
+      const areaDelta = rectArea(first) - rectArea(second);
+      if (Math.abs(areaDelta) > EPSILON) {
+        return areaDelta;
+      }
+
+      return first.cellId.localeCompare(second.cellId);
+    });
+
+  if (candidates.length === 0) {
+    return null;
+  }
+
+  const match = candidates[0];
+  return {
+    fillColor: normalizePaint(match.fill),
+    sourceCellId: match.cellId,
+    sourceKind: isOwnedTextRectPair(block.cellId, match.cellId)
+      ? 'owned-rect'
+      : ancestorIds.has(match.cellId)
+        ? 'ancestor'
+        : 'container',
+  };
 }
 
 function expandBounds(bounds, padding) {
@@ -993,7 +1072,8 @@ function parseDrawioTextLayouts(drawioText) {
   return layouts;
 }
 
-function parseDrawioRectLayouts(drawioText) {
+function parseDrawioRectLayouts(drawioText, options = {}) {
+  const { includeIgnored = false } = options;
   const rects = [];
   const cellRegex = /<mxCell\b([^>]*?)(?:\/>|>([\s\S]*?)<\/mxCell>)/g;
 
@@ -1036,11 +1116,12 @@ function parseDrawioRectLayouts(drawioText) {
       y: toNumber(geometryAttributes.y),
       width,
       height,
+      fill: style.fillColor,
       stroke: style.strokeColor,
     };
     const lintRole = classifyRectLintRole(rect);
 
-    if (lintRole === 'ignore') {
+    if (lintRole === 'ignore' && !includeIgnored) {
       continue;
     }
 
@@ -1085,11 +1166,16 @@ function findTextOverflowIssues(textBlocks) {
   return issues;
 }
 
-function findTextContrastIssues(textBlocks) {
+function findTextContrastIssues(textBlocks, surfaceRects = [], drawioCells = new Map()) {
   const issues = [];
 
   for (const block of textBlocks) {
-    const ratio = contrastRatio(block.fontColor, block.fillColor);
+    const background = resolveTextBlockBackground(block, surfaceRects, drawioCells);
+    if (!background) {
+      continue;
+    }
+
+    const ratio = contrastRatio(block.fontColor, background.fillColor);
 
     if (ratio === null) {
       continue;
@@ -1107,7 +1193,9 @@ function findTextContrastIssues(textBlocks) {
       contrastRatio: ratio,
       threshold,
       fontColor: block.fontColor,
-      fillColor: block.fillColor,
+      fillColor: background.fillColor,
+      backgroundCellId: background.sourceCellId,
+      backgroundSource: background.sourceKind,
     });
   }
 
@@ -1328,6 +1416,7 @@ function parseDrawioCellMetadata(drawioText) {
     cells.set(cellId, {
       cellId,
       edge: attributes.edge === '1',
+      parent: attributes.parent ?? null,
       style: parseStyle(attributes.style ?? ''),
       vertex: attributes.vertex === '1',
       geometry: geometryMatch ? parseAttributes(geometryMatch[1]) : {},
@@ -1811,6 +1900,8 @@ function summarizeIssues(issues) {
           threshold: issue.threshold,
           fontColor: issue.fontColor,
           fillColor: issue.fillColor,
+          backgroundCellId: issue.backgroundCellId,
+          backgroundSource: issue.backgroundSource,
         });
       }
 
@@ -2016,7 +2107,10 @@ function formatIssue(issue) {
   }
 
   if (issue.type === 'text-contrast') {
-    return `- text-contrast: ${issue.cellId} has only ${issue.contrastRatio.toFixed(2)}:1 contrast against ${issue.fillColor} with ${issue.fontColor}; target at least ${issue.threshold.toFixed(1)}:1 [${issue.label}]`;
+    const backgroundDetail = issue.backgroundCellId && issue.backgroundCellId !== issue.cellId
+      ? ` from ${issue.backgroundCellId}`
+      : '';
+    return `- text-contrast: ${issue.cellId} has only ${issue.contrastRatio.toFixed(2)}:1 contrast against ${issue.fillColor}${backgroundDetail} with ${issue.fontColor}; target at least ${issue.threshold.toFixed(1)}:1 [${issue.label}]`;
   }
 
   if (issue.type === 'text-emphasis') {
@@ -2090,7 +2184,8 @@ async function main() {
     .filter((layout) => layout.isTextCell && layout.labelBox.width > 0 && layout.labelBox.height > 0)
     .map((layout) => layout.labelBox);
   const textIssues = findTextOverflowIssues(textBlocks);
-  const textContrastIssues = findTextContrastIssues(textBlocks);
+  const textContrastSurfaces = companionDrawio ? parseDrawioRectLayouts(companionDrawio.text, { includeIgnored: true }) : [];
+  const textContrastIssues = findTextContrastIssues(textBlocks, textContrastSurfaces, drawioCellMetadata);
   const textEmphasisIssues = findTextEmphasisIssues(textBlocks);
   const labelIssues = findEdgeLabelCollisions(edges, labelBoxes);
   const drawioRects = companionDrawio ? parseDrawioRectLayouts(companionDrawio.text) : [];
@@ -2114,6 +2209,8 @@ async function main() {
 
   if (companionDrawio) {
     console.log(`[diagram:check] parsed ${textBlocks.length} text block(s) and ${labelBoxes.length} label box(es) from ${path.relative(process.cwd(), companionDrawio.path)}`);
+  } else {
+    console.warn('[diagram:check] no companion .drawio found; text-overflow, text-contrast, text-emphasis, and label-rect checks are skipped');
   }
 
   if (issues.length === 0) {

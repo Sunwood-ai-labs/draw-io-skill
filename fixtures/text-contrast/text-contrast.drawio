@@ -1,14 +1,29 @@
-<mxfile host="app.diagrams.net" modified="2026-03-19T00:00:00.000Z" agent="Codex GPT-5" version="27.0.5">
+<mxfile host="app.diagrams.net" modified="2026-03-20T00:00:00.000Z" agent="Codex GPT-5" version="27.0.5">
   <diagram id="text-contrast" name="Text Contrast">
-    <mxGraphModel dx="1000" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="800" pageHeight="600" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
+    <mxGraphModel dx="1200" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="760" math="0" shadow="0" background="none" defaultFontFamily="Noto Sans JP">
       <root>
         <mxCell id="0"/>
         <mxCell id="1" parent="0"/>
         <mxCell id="review-frame" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#cbd5e1;strokeWidth=1.5;" vertex="1" parent="1">
-          <mxGeometry x="120" y="120" width="380" height="180" as="geometry"/>
+          <mxGeometry x="80" y="80" width="920" height="560" as="geometry"/>
         </mxCell>
         <mxCell id="low-contrast-card" value="Muted status note&lt;br&gt;still too hard to read" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#475569;strokeColor=#64748b;strokeWidth=1.5;fontSize=14;fontFamily=Noto Sans JP;fontColor=#94a3b8;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
-          <mxGeometry x="190" y="165" width="240" height="90" as="geometry"/>
+          <mxGeometry x="130" y="130" width="240" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="small-text-threshold-card" value="Small text threshold&lt;br&gt;must still fail" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6b7280;strokeColor=#4b5563;strokeWidth=1.5;fontSize=14;fontFamily=Noto Sans JP;fontColor=#d1d5db;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="410" y="130" width="240" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="large-text-threshold-card" value="Large text threshold&lt;br&gt;may pass" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6b7280;strokeColor=#4b5563;strokeWidth=1.5;fontSize=20;fontFamily=Noto Sans JP;fontColor=#d1d5db;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="690" y="130" width="240" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="inherited-low-contrast-surface" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#475569;strokeColor=#64748b;strokeWidth=1.5;" vertex="1" parent="1">
+          <mxGeometry x="130" y="280" width="240" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="inherited-low-contrast-label-text" value="Detached label&lt;br&gt;should resolve surface" style="text;html=1;fontSize=14;fontFamily=Noto Sans JP;fontColor=#94a3b8;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="130" y="280" width="240" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="readable-card" value="Readable status&lt;br&gt;should not fire" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#475569;strokeColor=#64748b;strokeWidth=1.5;fontSize=14;fontFamily=Noto Sans JP;fontColor=#e2e8f0;align=center;verticalAlign=middle;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="410" y="280" width="240" height="90" as="geometry"/>
         </mxCell>
       </root>
     </mxGraphModel>

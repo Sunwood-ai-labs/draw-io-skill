@@ -1,6 +1,6 @@
 ---
 name: draw-io
-description: Create, edit, export, and review draw.io diagrams. Use for native .drawio XML generation, PNG/SVG/PDF export, SVG overlap, border-overlap, label-intrusion, label-rect, short-terminal, and text-overflow linting, layout adjustment, and AWS icon usage.
+description: Create, edit, export, and review draw.io diagrams. Use when creating flowcharts, architecture diagrams, network diagrams, sequence diagrams, AWS infrastructure diagrams, or any visual diagram as native .drawio XML. Handles PNG/SVG/PDF export and visual quality linting (overlap, label, border, and text-overflow checks), layout adjustment, and AWS icon usage.
 ---
 
 # draw.io Diagram Skill
@@ -9,68 +9,11 @@ description: Create, edit, export, and review draw.io diagrams. Use for native .
 
 Use this skill when an agent needs to:
 
-- create a new draw.io diagram as native `.drawio` XML
+- create a new draw.io diagram as native `.drawio` XML (flowcharts, architecture diagrams, network diagrams, sequence diagrams)
 - edit or refactor an existing `.drawio` file
 - export diagrams to `png`, `svg`, `pdf`, or `jpg`
 - check routed edges, box- or frame-border overlap, supported non-rect shape border overlap, box penetration, short arrowhead tails, label collisions, or text overflow
 - build architecture diagrams with AWS icons
-
-This skill intentionally combines:
-
-- the native draw.io assistant workflow used by Claude Code style tools
-- practical XML editing and layout rules from repository use
-- repository-ready SVG linting that catches issues draw.io does not flag
-
-### 1.1 Repository structure
-
-The repository layout and bundled workflow pieces are summarized in the diagram below.
-
-![draw-io-skill structure](./assets/draw-io-skill-structure.drawio.png)
-
-The repository also ships:
-
-- an English structure source and exports under `assets/draw-io-skill-structure.drawio*`
-- an icon block showcase under `assets/draw-io-skill-structure-icons.drawio*` plus a Japanese-localized companion under `assets/draw-io-skill-structure-icons.ja.drawio*`
-- a shape-focused lint review sample under `assets/draw-io-skill-structure-shapes.drawio` with exports at `assets/draw-io-skill-structure-shapes.drawio.png` and `assets/draw-io-skill-structure-shapes.drawio.svg`
-- a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
-- public showcase pages under `docs/guide/showcase.md` and `docs/ja/guide/showcase.md`
-- fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, `fixtures/label-rect-overlap`, `fixtures/text-cell-overflow`, and `fixtures/shape-text-overflow`
-
-### 1.2 Repository-local commands
-
-When working inside this repository, these are the main maintenance commands:
-
-```sh
-npm install
-npm run check
-npm run verify
-npm ci
-npm run docs:build
-npm run docs:dev
-uv run python -m py_compile scripts/find_aws_icon.py
-```
-
-Use them this way:
-
-- `npm run check`: script syntax plus fixture-based lint verification
-- `npm run verify`: full repository signoff, including docs build
-- `npm run docs:build`: one-shot docs build
-- `npm run docs:dev`: interactive docs preview
-
-If you need to attach the repo as a skill in a local assistant environment, the repository docs use these conventions:
-
-- Codex on Windows: junction `C:\Users\YOUR_NAME\.codex\skills\draw-io -> D:\Prj\draw-io-skill`
-- Claude Code: clone under `~/.claude/skills/drawio`
-
-### 1.3 Repository QA model
-
-The repository uses three QA layers:
-
-1. syntax checks for the JavaScript tools
-2. fixture-based lint verification
-3. documentation build validation for the public-facing docs
-
-That keeps the technical tooling and the user-facing docs aligned in CI.
 
 ## 2. Default Workflow
 
@@ -190,33 +133,23 @@ node scripts/check-drawio-svg-overlaps.mjs fixtures/text-cell-overflow/text-cell
 
 The lint script currently checks:
 
-- `edge-edge`: edge crossings and collinear overlaps
-- `edge-rect-border`: lines that run along or visibly overlap a box or large frame border
-- `edge-shape-border`: lines that run along supported non-rect shape borders such as `document`, `hexagon`, `parallelogram`, and `trapezoid`
-- `edge-rect`: lines penetrating boxes
-- `edge-terminal`: final arrow runs that are too short after the last bend
-- `edge-label`: routed lines crossing label text boxes
-- `label-rect`: label text boxes colliding with another box or card
-- `rect-shape-border`: box or frame borders that run along those supported non-rect shape borders
-- `text-overflow(width)`: text likely too wide for its box
-- `text-overflow(height)`: text likely too tall for its box
+| Check | What it catches | Fix |
+|-------|-----------------|-----|
+| `edge-edge` | Edge crossings and collinear overlaps | Reroute edges or add waypoints |
+| `edge-rect-border` | Lines running along a box or frame border | Move routing into gutter; document if intentional |
+| `edge-shape-border` | Lines along non-rect shape borders (`document`, `hexagon`, etc.) | Reroute edge around shape |
+| `edge-rect` | Lines penetrating boxes | Reroute or add explicit waypoints |
+| `edge-terminal` | Arrowhead tail too short after last bend | Add longer straight segment before arrowhead |
+| `edge-label` | Routed lines crossing label text boxes | Reroute edge or move label |
+| `label-rect` | Label text box colliding with another box or card | Move note/card/box or shift label |
+| `rect-shape-border` | Box borders running along non-rect shape borders | Reroute or space shapes apart |
+| `text-overflow(width)` | Text likely too wide for its box | Widen box, shorten label, or add line break |
+| `text-overflow(height)` | Text likely too tall for its box | Increase box height or reduce font size |
 
 Notes:
-
-- input may be either `.drawio` or `.drawio.svg`
-- when the input is `.drawio`, the checker also reads the companion draw.io geometry so `label-rect` and text-fit checks stay aligned with the editable source
-- text overflow detection is heuristic, not pixel-perfect
-- bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, and shape-aware text overflow
-- `edge-terminal`, `edge-label`, and `label-rect` are heuristic checks intended to catch the common "tiny arrowhead tail", "line through label", and "note card covering a label" draw.io failures seen in repository diagrams
-- lint passing does not replace visual verification
-
-When investigating findings:
-
-- if `edge-rect-border`, `edge-shape-border`, or `rect-shape-border` is intentional, keep the routing obvious, visually review the output, and document the exception in the surrounding workflow
-- if `edge-terminal` fires, add a longer straight segment before the arrowhead or move the last bend farther away from the target
-- if `edge-label` fires, reroute the edge or move the label so the text keeps clean breathing room
-- if `label-rect` fires, move the note/card/box or shift the label so they no longer partially overlap
-- if `text-overflow` looks like a false positive, first try widening the box, shortening the label, adding an intentional line break, or setting explicit fonts
+- Input may be either `.drawio` or `.drawio.svg`
+- Text overflow detection is heuristic, not pixel-perfect
+- Lint passing does not replace visual verification
 
 ## 7. XML And Layout Rules
 
@@ -360,39 +293,10 @@ uv run python scripts/find_aws_icon.py lambda
 - [ ] no `text-overflow(width)` or `text-overflow(height)` findings remain
 - [ ] final PNG/SVG/PDF was visually checked
 
-## 10. Repository Docs
+## 10. Further Reading
 
-For repo-facing documentation and onboarding:
-
-- [README.md](./README.md)
-- [README.ja.md](./README.ja.md)
 - [docs/guide/getting-started.md](./docs/guide/getting-started.md)
 - [docs/guide/workflow.md](./docs/guide/workflow.md)
-- [docs/guide/architecture.md](./docs/guide/architecture.md)
 - [docs/guide/troubleshooting.md](./docs/guide/troubleshooting.md)
-- [docs/ja/guide/getting-started.md](./docs/ja/guide/getting-started.md)
-- [docs/ja/guide/workflow.md](./docs/ja/guide/workflow.md)
-- [docs/ja/guide/architecture.md](./docs/ja/guide/architecture.md)
-- [docs/ja/guide/troubleshooting.md](./docs/ja/guide/troubleshooting.md)
 - [references/layout-guidelines.en.md](./references/layout-guidelines.en.md)
 - [references/aws-icons.en.md](./references/aws-icons.en.md)
-
-Docs-specific repo note:
-
-- if GitHub Pages styling breaks after a repo rename, verify the VitePress base still matches `/draw-io-skill/`
-
-## 11. References And Credits
-
-This local version is intentionally a blended skill:
-
-- editing and layout guidance inspired by `softaworks/agent-toolkit`
-- native assistant workflow and export conventions inspired by `jgraph/drawio-mcp`
-- SVG linting and repository-ready QA extensions added in this repository
-
-Referenced repositories and sources:
-
-- [softaworks/agent-toolkit - skills/draw-io/README.md](https://github.com/softaworks/agent-toolkit/blob/main/skills/draw-io/README.md)
-- [jgraph/drawio-mcp - skill-cli/README.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/README.md)
-- [jgraph/drawio-mcp - skill-cli/drawio/SKILL.md](https://github.com/jgraph/drawio-mcp/blob/main/skill-cli/drawio/SKILL.md)
-- [draw.io Style Reference](https://www.drawio.com/doc/faq/drawio-style-reference.html)
-- [draw.io mxfile XSD](https://www.drawio.com/assets/mxfile.xsd)

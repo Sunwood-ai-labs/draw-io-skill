@@ -79,9 +79,10 @@ Follow this order unless the user asks for something narrower:
 1. Create or update the native `.drawio` file first.
 2. Keep `.drawio` as the editable source of truth for repository work.
 3. If the user asked for an exported artifact, export to `.drawio.png`, `.drawio.svg`, `.drawio.pdf`, or `.drawio.jpg`.
-4. If edge routing or label density matters, export SVG and run the lint script.
-5. Open or surface the final artifact requested by the user.
-6. Even when lint passes, visually verify the result.
+4. Before showing, attaching, or claiming a diagram is ready, export an SVG and run the lint script.
+5. If the draw.io CLI is unavailable, do not silently skip linting. Create or locate the expected companion `*.drawio.svg` if possible, run the lint script, and explicitly report any reduced coverage such as `parsed 0 edges`; then run a manual or scripted geometry sanity check for arrows, labels, and box intrusions before surfacing the image.
+6. Open or surface the final artifact requested by the user only after linting and visual verification.
+7. Even when lint passes, visually verify the result.
 
 If the user only asks for a diagram and does not request a format, stop at the `.drawio` file.
 
@@ -177,6 +178,8 @@ bash scripts/convert-drawio-to-png.sh architecture.drawio
 
 ## 6. SVG Linting
 
+Linting is a required preflight before presenting a diagram to the user or embedding it in docs/articles. Do not wait for the user to ask whether lint was run.
+
 After exporting SVG, run the bundled lint:
 
 ```sh
@@ -209,6 +212,9 @@ Notes:
 
 - input may be either `.drawio` or `.drawio.svg`
 - when the input is `.drawio`, the checker also reads the companion draw.io geometry so `label-rect` and text-fit checks stay aligned with the editable source
+- when the input is `.drawio`, a companion `same-name.drawio.svg` is expected for routed-edge checks; if it is missing, export it first instead of treating the failure as non-actionable
+- if the checker reports `parsed 0 edges`, the SVG did not provide usable edge geometry; report that limitation and supplement with visual inspection or a small coordinate/geometry check for arrow-label overlap, arrow-box intrusion, and text overflow
+- never claim a diagram is final based only on visual review when the lint script was skipped or failed to inspect edges
 - `text-contrast` currently requires explicit hex `fillColor` and `fontColor`
 - text overflow detection is heuristic, not pixel-perfect
 - bundled fixtures cover simple box-border overlap, large frame-border overlap, supported non-rect shape border overlap, label-box collisions, text-cell overflow, low-contrast text, dense dark-card copy, and shape-aware text overflow

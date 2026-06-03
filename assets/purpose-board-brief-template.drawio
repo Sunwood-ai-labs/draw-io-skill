@@ -1,0 +1,97 @@
+<mxfile host="app.diagrams.net" modified="2026-06-03T00:00:00.000Z" agent="Codex GPT-5" version="30.0.4">
+  <diagram id="purpose-board-brief" name="Board Brief">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" background="#FBFAF6" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="Board Brief" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=32;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;" vertex="1" parent="1">
+          <mxGeometry x="70" y="46" width="420" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Purpose: a one-page decision premise for executives, PMs, and review owners" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=0;fontFamily=Noto Sans JP;fontColor=#58677A;" vertex="1" parent="1">
+          <mxGeometry x="72" y="92" width="860" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="phase" value="Decision-ready" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F6F4EE;strokeColor=#AEB9C7;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="60" width="170" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="header-band" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#1F3A64;strokeColor=#1F3A64;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="140" width="1460" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="h1" value="What decision is needed?" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=22;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="100" y="158" width="360" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="h2" value="Choose the next investment, owner, and risk posture from the facts below." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=16;fontStyle=0;fontFamily=Noto Sans JP;fontColor=#E6EDF5;" vertex="1" parent="1">
+          <mxGeometry x="520" y="160" width="720" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="h3" value="Updated 2026-06-03" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7F6;strokeColor=#88D1CE;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#0C6F6A;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="162" width="190" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="left-col" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F6F4EE;strokeColor=#D8D2C2;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="255" width="420" height="500" as="geometry"/>
+        </mxCell>
+        <mxCell id="mid-col" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#D6E0EA;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="255" width="420" height="500" as="geometry"/>
+        </mxCell>
+        <mxCell id="right-col" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F6F4EE;strokeColor=#D8D2C2;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="255" width="420" height="500" as="geometry"/>
+        </mxCell>
+        <mxCell id="lt" value="Decision Premise" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;" vertex="1" parent="1">
+          <mxGeometry x="105" y="285" width="260" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="mt" value="Current Signal" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;" vertex="1" parent="1">
+          <mxGeometry x="565" y="285" width="260" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="rt" value="Action Contract" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;" vertex="1" parent="1">
+          <mxGeometry x="1025" y="285" width="260" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="purpose" value="Purpose&lt;br&gt;Reduce review latency without increasing operational risk." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#7C8CA2;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="105" y="350" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="success" value="Success Criteria&lt;br&gt;Approval path under 48h; rollback path documented." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#7C8CA2;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="105" y="465" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="constraints" value="Constraints&lt;br&gt;No new vendor; no data export outside existing policy." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#7C8CA2;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="105" y="580" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="state" value="Current State&lt;br&gt;Prototype is live for two internal teams." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#1FA7A3;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#0C6F6A;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="565" y="350" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="kpi" value="Primary KPI&lt;br&gt;Median review time: 31h, down from 57h." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#1FA7A3;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#0C6F6A;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="565" y="465" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="blocker" value="Bottleneck&lt;br&gt;Security exception wording needs owner approval." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF8E8;strokeColor=#D98A16;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#7A4B13;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="565" y="580" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="next24" value="Next 24h&lt;br&gt;Approve wording or reject the exception." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#1F3A64;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1025" y="350" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="next7" value="Next 7d&lt;br&gt;Pilot with support desk and collect proof." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#1F3A64;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1025" y="465" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="owner" value="Owner&lt;br&gt;PM: Arai / Security: Ito / Ops: Mori" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#1F3A64;strokeWidth=1;fontSize=15;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1025" y="580" width="330" height="86" as="geometry"/>
+        </mxCell>
+        <mxCell id="d1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#1FA7A3;" edge="1" parent="1" source="purpose" target="state">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="d2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#D98A16;dashed=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="blocker" target="next24">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="945" y="623"/>
+              <mxPoint x="945" y="393"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="footer" value="Deliberately excludes: implementation steps, raw logs, and detailed dependency maps. Use this template when the output must support a decision." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#D6E0EA;strokeWidth=1;fontSize=14;fontStyle=0;fontFamily=Noto Sans JP;fontColor=#58677A;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="815" width="1030" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend1" value="Decision premise" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F6F4EE;strokeColor=#D8D2C2;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1F3A64;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1130" y="825" width="160" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend2" value="Action owner" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF7F6;strokeColor=#88D1CE;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#0C6F6A;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1310" y="825" width="140" height="34" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

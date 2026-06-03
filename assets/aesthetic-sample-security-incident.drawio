@@ -1,0 +1,119 @@
+<mxfile host="app.diagrams.net" modified="2026-06-03T00:00:00.000Z" agent="Codex GPT-5" version="30.0.4">
+  <diagram id="security-incident-command" name="Security Incident Command">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" background="#F8FAFC" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="Security Incident Command" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=30;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#111827;" vertex="1" parent="1">
+          <mxGeometry x="70" y="48" width="680" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="A high-contrast response map for detection, containment, remediation, and executive proof" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=0;fontFamily=Noto Sans JP;fontColor=#5B6778;" vertex="1" parent="1">
+          <mxGeometry x="72" y="94" width="860" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip1" value="Incident-ready" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF2F2;strokeColor=#F9B4B4;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#B91C1C;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="62" width="170" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="detect" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F8FAFC;strokeColor=#CBD5E1;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="170" width="310" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="contain" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF7ED;strokeColor=#FAD6A5;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="170" width="350" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="restore" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F0FDF4;strokeColor=#CBEAD7;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="170" width="350" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="proof" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F5F3FF;strokeColor=#DDD6FE;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1210" y="170" width="310" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="detect-title" value="Detect" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#334155;" vertex="1" parent="1">
+          <mxGeometry x="120" y="205" width="220" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="contain-title" value="Contain" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#7C2D12;" vertex="1" parent="1">
+          <mxGeometry x="470" y="205" width="220" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="restore-title" value="Restore" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#14532D;" vertex="1" parent="1">
+          <mxGeometry x="860" y="205" width="220" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="proof-title" value="Proof" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#4C1D95;" vertex="1" parent="1">
+          <mxGeometry x="1250" y="205" width="220" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="sensor" value="Sensor Grid&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;endpoint, cloud, identity&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="125" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="triage" value="Triage Room&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;severity and owner&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#64748B;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="125" y="515" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="scope" value="Scope Blast Radius&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;accounts and assets&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#F2994A;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="475" y="300" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="containment" value="Containment&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;tokens, hosts, routes&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#DC2626;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="475" y="515" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="repair" value="Remediation&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;patch and rotate&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#16A34A;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="865" y="300" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="validate" value="Validation&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;clean scans and access&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#16A34A;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="865" y="515" width="230" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="timeline" value="Timeline&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;human-readable record&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#8B5CF6;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1255" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="exec" value="Executive Brief&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;impact and next steps&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#8B5CF6;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1255" y="515" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="legal" value="Decision Log&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;approvals and holds&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#00A6A6;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="675" y="690" width="260" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#64748B;" edge="1" parent="1" source="sensor" target="scope">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#F2994A;" edge="1" parent="1" source="scope" target="repair">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#16A34A;" edge="1" parent="1" source="repair" target="timeline">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#DC2626;" edge="1" parent="1" source="triage" target="containment">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#DC2626;" edge="1" parent="1" source="containment" target="validate">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#16A34A;" edge="1" parent="1" source="validate" target="exec">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#00A6A6;dashed=1;" edge="1" parent="1" source="containment" target="legal">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#00A6A6;dashed=1;" edge="1" parent="1" source="legal" target="exec">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="935" y="730"/>
+              <mxPoint x="1360" y="730"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#8B5CF6;" edge="1" parent="1" source="timeline" target="exec">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend1" value="Containment path" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEF2F2;strokeColor=#F9B4B4;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#B91C1C;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="955" y="830" width="170" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend2" value="Recovery path" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ECFDF5;strokeColor=#B7E4CF;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#047857;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="830" width="150" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend3" value="Governance" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EDE9FE;strokeColor=#C4B5FD;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#5B21B6;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1315" y="830" width="130" height="34" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

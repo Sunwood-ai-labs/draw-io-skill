@@ -75,6 +75,43 @@ If you want the repository to read more like a showcase, these bundled samples a
 - `assets/draw-io-skill-structure.drawio*` for repository structure onboarding
 - `assets/draw-io-skill-structure-shapes.drawio*` for lint and visual review of non-rect shapes
 - `assets/draw-io-skill-structure-icons.drawio*` for icon-rich presentation blocks that pair well with the AWS icon guide and `uv run python scripts/find_aws_icon.py`
+- `assets/aesthetic-template-sample.drawio*` for the default polished technical template baseline
+- `assets/aesthetic-sample-executive-dashboard.drawio*` for executive KPI storytelling
+- `assets/aesthetic-sample-ai-pipeline.drawio*` for AI workflow and model pipeline explanations
+- `assets/aesthetic-sample-security-incident.drawio*` for security response storytelling
+- `assets/purpose-board-brief-template.drawio*` for one-page decision briefs
+- `assets/purpose-dependency-orbit-template.drawio*` for dependency radius and impact boundaries
+- `assets/purpose-incident-timeline-template.drawio*` for fact-based incident reconstruction
+- `assets/purpose-hypothesis-helix-template.drawio*` for experiment design and evidence loops
+- `assets/purpose-feature-value-matrix-template.drawio*` for feature prioritization by impact, effort, and risk
+- `assets/purpose-value-conversion-sheet-template.drawio*` for connecting user pain to measurable value
+
+### Purpose-Driven Template Gallery
+
+These templates are deliberately separated by job, not just color palette:
+
+| Template | Purpose | Excludes |
+| --- | --- | --- |
+| Board Brief | Share decision premises on one page | implementation steps, dependency maps |
+| Dependency Orbit Map | Show direct and indirect dependency radius | timelines, progress reporting |
+| Incident Timeline | Reconstruct observed facts, impact, and response | speculative root causes, architecture maps |
+| Hypothesis Helix | Turn uncertain ideas into experiments and decisions | implementation architecture, calendar timelines |
+| Feature Value Matrix | Prioritize feature candidates by impact, effort, and risk | delivery schedules, dependency routes |
+| Value Conversion Sheet | Convert user pain into touchpoints, interventions, and measurable value | dependency maps, incident chronology |
+
+![Board Brief template](./assets/purpose-board-brief-template.drawio.png)
+![Dependency Orbit Map template](./assets/purpose-dependency-orbit-template.drawio.png)
+![Incident Timeline template](./assets/purpose-incident-timeline-template.drawio.png)
+![Hypothesis Helix template](./assets/purpose-hypothesis-helix-template.drawio.png)
+![Feature Value Matrix template](./assets/purpose-feature-value-matrix-template.drawio.png)
+![Value Conversion Sheet template](./assets/purpose-value-conversion-sheet-template.drawio.png)
+
+### Aesthetic Sample Gallery
+
+![Polished technical template sample](./assets/aesthetic-template-sample.drawio.png)
+![Executive dashboard sample](./assets/aesthetic-sample-executive-dashboard.drawio.png)
+![AI pipeline sample](./assets/aesthetic-sample-ai-pipeline.drawio.png)
+![Security incident sample](./assets/aesthetic-sample-security-incident.drawio.png)
 
 ### External Example Links
 
@@ -193,6 +230,18 @@ draw-io-skill/
 ├── SKILL.md
 ├── LICENSE
 ├── assets/
+│   ├── aesthetic-sample-ai-pipeline.drawio
+│   ├── aesthetic-sample-ai-pipeline.drawio.png
+│   ├── aesthetic-sample-ai-pipeline.drawio.svg
+│   ├── aesthetic-sample-executive-dashboard.drawio
+│   ├── aesthetic-sample-executive-dashboard.drawio.png
+│   ├── aesthetic-sample-executive-dashboard.drawio.svg
+│   ├── aesthetic-sample-security-incident.drawio
+│   ├── aesthetic-sample-security-incident.drawio.png
+│   ├── aesthetic-sample-security-incident.drawio.svg
+│   ├── aesthetic-template-sample.drawio
+│   ├── aesthetic-template-sample.drawio.png
+│   ├── aesthetic-template-sample.drawio.svg
 │   ├── draw-io-skill-hero.svg
 │   ├── draw-io-skill-icon.svg
 │   ├── draw-io-skill-penpen-header.webp
@@ -210,7 +259,25 @@ draw-io-skill/
 │   ├── draw-io-skill-structure-shapes.drawio.svg
 │   ├── draw-io-skill-structure.ja.drawio
 │   ├── draw-io-skill-structure.ja.drawio.png
-│   └── draw-io-skill-structure.ja.drawio.svg
+│   ├── draw-io-skill-structure.ja.drawio.svg
+│   ├── purpose-board-brief-template.drawio
+│   ├── purpose-board-brief-template.drawio.png
+│   ├── purpose-board-brief-template.drawio.svg
+│   ├── purpose-dependency-orbit-template.drawio
+│   ├── purpose-dependency-orbit-template.drawio.png
+│   ├── purpose-dependency-orbit-template.drawio.svg
+│   ├── purpose-feature-value-matrix-template.drawio
+│   ├── purpose-feature-value-matrix-template.drawio.png
+│   ├── purpose-feature-value-matrix-template.drawio.svg
+│   ├── purpose-hypothesis-helix-template.drawio
+│   ├── purpose-hypothesis-helix-template.drawio.png
+│   ├── purpose-hypothesis-helix-template.drawio.svg
+│   ├── purpose-incident-timeline-template.drawio
+│   ├── purpose-incident-timeline-template.drawio.png
+│   ├── purpose-incident-timeline-template.drawio.svg
+│   ├── purpose-value-conversion-sheet-template.drawio
+│   ├── purpose-value-conversion-sheet-template.drawio.png
+│   └── purpose-value-conversion-sheet-template.drawio.svg
 ├── docs/
 │   ├── .vitepress/
 │   ├── guide/

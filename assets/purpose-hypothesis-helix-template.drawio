@@ -1,0 +1,111 @@
+<mxfile host="app.diagrams.net" modified="2026-06-03T00:00:00.000Z" agent="Codex GPT-5" version="30.0.4">
+  <diagram id="purpose-hypothesis-helix" name="Hypothesis Helix">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" background="#0B1B2B" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="Hypothesis Helix" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=32;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#F8FAFC;" vertex="1" parent="1">
+          <mxGeometry x="70" y="46" width="560" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Purpose: turn uncertain ideas into experiment, evidence, and go/no-go decisions" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=0;fontFamily=Noto Sans JP;fontColor=#B8C7D9;" vertex="1" parent="1">
+          <mxGeometry x="72" y="92" width="860" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="tag" value="Experiment design" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#102A43;strokeColor=#5DADE2;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#D9F0FF;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1230" y="60" width="190" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="h-lane" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#102A43;strokeColor=#5DADE2;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="70" y="175" width="300" height="610" as="geometry"/>
+        </mxCell>
+        <mxCell id="e-lane" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#3B2A12;strokeColor=#F5B041;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="175" width="300" height="610" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-lane" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#123524;strokeColor=#58D68D;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="790" y="175" width="300" height="610" as="geometry"/>
+        </mxCell>
+        <mxCell id="j-lane" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#3A1717;strokeColor=#E74C3C;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="1150" y="175" width="300" height="610" as="geometry"/>
+        </mxCell>
+        <mxCell id="ht" value="Hypothesis" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#D9F0FF;" vertex="1" parent="1">
+          <mxGeometry x="105" y="210" width="210" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="et" value="Experiment" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFE8B8;" vertex="1" parent="1">
+          <mxGeometry x="465" y="210" width="210" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="dt" value="Evidence" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#CFF6DF;" vertex="1" parent="1">
+          <mxGeometry x="825" y="210" width="210" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="jt" value="Decision" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFD4D4;" vertex="1" parent="1">
+          <mxGeometry x="1185" y="210" width="210" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="h1" value="If onboarding asks one focused question,&lt;br&gt;activation will increase." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0B1B2B;strokeColor=#5DADE2;strokeWidth=1;fontSize=14;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#D9F0FF;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="115" y="320" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="h2" value="If evidence is shown near approval,&lt;br&gt;reviewers will decide faster." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0B1B2B;strokeColor=#5DADE2;strokeWidth=1;fontSize=14;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#D9F0FF;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="115" y="545" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="expA" value="A/B Test&lt;br&gt;single prompt vs current flow" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2A1F10;strokeColor=#F5B041;strokeWidth=1;fontSize=14;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFE8B8;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="475" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="expB" value="Shadow Review&lt;br&gt;new proof panel only" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2A1F10;strokeColor=#F5B041;strokeWidth=1;fontSize=14;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFE8B8;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="475" y="545" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="dataA" value="Result&lt;br&gt;+9% activation&lt;br&gt;sample: 1,240" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#10291C;strokeColor=#58D68D;strokeWidth=1;fontSize=14;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#CFF6DF;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="835" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="dataB" value="Result&lt;br&gt;-18h median review&lt;br&gt;sample: 86" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#10291C;strokeColor=#58D68D;strokeWidth=1;fontSize=14;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#CFF6DF;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="835" y="545" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="go" value="GO&lt;br&gt;ship narrow variant" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2A1111;strokeColor=#58D68D;strokeWidth=1;fontSize=16;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#DDFBE8;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="hold" value="ITERATE&lt;br&gt;copy needs one more pass" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#2A1111;strokeColor=#E74C3C;strokeWidth=1;fontSize=16;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFD4D4;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="545" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="x1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#5DADE2;" edge="1" parent="1" source="h1" target="expA">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#F5B041;" edge="1" parent="1" source="expA" target="dataA">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#58D68D;" edge="1" parent="1" source="dataA" target="go">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#5DADE2;" edge="1" parent="1" source="h2" target="expB">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#F5B041;" edge="1" parent="1" source="expB" target="dataB">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#E74C3C;" edge="1" parent="1" source="dataB" target="hold">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="x7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#E74C3C;dashed=1;exitX=0.5;exitY=1;entryX=0.5;entryY=1;" edge="1" parent="1" source="hold" target="h2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1120" y="735"/>
+              <mxPoint x="250" y="735"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="rule" value="Deliberately excludes implementation architecture and calendar timelines. Use this when the question is: what should we test next?" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#0B1B2B;strokeColor=#31485E;strokeWidth=1;fontSize=14;fontStyle=0;fontFamily=Noto Sans JP;fontColor=#B8C7D9;align=left;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="70" y="830" width="980" height="58" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg1" value="Hypothesis" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#102A43;strokeColor=#5DADE2;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#D9F0FF;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1090" y="840" width="135" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg2" value="Experiment" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#3B2A12;strokeColor=#F5B041;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFE8B8;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1245" y="840" width="135" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="leg3" value="Decision" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#3A1717;strokeColor=#E74C3C;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#FFD4D4;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="840" width="115" height="34" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

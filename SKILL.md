@@ -33,6 +33,11 @@ The repository also ships:
 - an icon block showcase under `assets/draw-io-skill-structure-icons.drawio*` plus a Japanese-localized companion under `assets/draw-io-skill-structure-icons.ja.drawio*`
 - a shape-focused lint review sample under `assets/draw-io-skill-structure-shapes.drawio` with exports at `assets/draw-io-skill-structure-shapes.drawio.png` and `assets/draw-io-skill-structure-shapes.drawio.svg`
 - a Japanese-localized companion source and exports under `assets/draw-io-skill-structure.ja.drawio*`
+- default visual templates and style tokens under `references/aesthetic-templates.md`
+- an editable polished visual template sample under `assets/aesthetic-template-sample.drawio`
+- three professional-grade sample templates under `assets/aesthetic-sample-executive-dashboard.drawio`, `assets/aesthetic-sample-ai-pipeline.drawio`, and `assets/aesthetic-sample-security-incident.drawio`
+- three purpose-driven templates with distinct existence reasons under `assets/purpose-board-brief-template.drawio`, `assets/purpose-dependency-orbit-template.drawio`, and `assets/purpose-incident-timeline-template.drawio`
+- three additional purpose-driven templates under `assets/purpose-hypothesis-helix-template.drawio`, `assets/purpose-feature-value-matrix-template.drawio`, and `assets/purpose-value-conversion-sheet-template.drawio`
 - public showcase pages under `docs/guide/showcase.md` and `docs/ja/guide/showcase.md`
 - fixture-based lint coverage under `fixtures/basic`, `fixtures/border-overlap`, `fixtures/large-frame-border-overlap`, `fixtures/shape-border-overlap`, `fixtures/label-rect-overlap`, `fixtures/text-cell-overflow`, `fixtures/text-contrast`, `fixtures/text-emphasis`, and `fixtures/shape-text-overflow`
 
@@ -77,12 +82,14 @@ That keeps the technical tooling and the user-facing docs aligned in CI.
 Follow this order unless the user asks for something narrower:
 
 1. Create or update the native `.drawio` file first.
-2. Keep `.drawio` as the editable source of truth for repository work.
-3. If the user asked for an exported artifact, export to `.drawio.png`, `.drawio.svg`, `.drawio.pdf`, or `.drawio.jpg`.
-4. Before showing, attaching, or claiming a diagram is ready, export an SVG and run the lint script.
-5. If the draw.io CLI is unavailable, do not silently skip linting. Create or locate the expected companion `*.drawio.svg` if possible, run the lint script, and explicitly report any reduced coverage such as `parsed 0 edges`; then run a manual or scripted geometry sanity check for arrows, labels, and box intrusions before surfacing the image.
-6. Open or surface the final artifact requested by the user only after linting and visual verification.
-7. Even when lint passes, visually verify the result.
+2. When creating a diagram from scratch and the user did not specify a visual style, start from `references/aesthetic-templates.md`; default to the polished technical light template instead of draw.io's plain box defaults.
+3. Keep `.drawio` as the editable source of truth for repository work.
+4. If the user asked for an exported artifact, export to `.drawio.png`, `.drawio.svg`, `.drawio.pdf`, or `.drawio.jpg`.
+5. Before showing, attaching, or claiming a diagram is ready, export an SVG and run the lint script.
+6. If the draw.io CLI is unavailable, do not silently skip linting. Create or locate the expected companion `*.drawio.svg` if possible, run the lint script, and explicitly report any reduced coverage such as `parsed 0 edges`; then run a manual or scripted geometry sanity check for arrows, labels, and box intrusions before surfacing the image.
+7. Open or surface the final artifact requested by the user only after linting and visual verification.
+8. Even when lint passes, visually verify the result.
+9. If the lint output reports reduced coverage such as `parsed 0 edges`, inspect the exported PNG/SVG image itself before finalizing. Do not claim the diagram is clean while visible rendered text, line labels, arrows, or routes overlap; fix the rendered artifact and rerun the lint plus visual inspection.
 
 If the user only asks for a diagram and does not request a format, stop at the `.drawio` file.
 
@@ -233,6 +240,21 @@ When investigating findings:
 
 ## 7. XML And Layout Rules
 
+### 7.0 Visual template selection
+
+For new diagrams, choose a visual template before writing the XML. If the user gives no style direction, use the polished technical light template from `references/aesthetic-templates.md`.
+
+Minimum visual baseline:
+
+- explicit `fontFamily=Noto Sans JP` for Japanese or mixed Japanese/English diagrams
+- explicit fill, stroke, and font colors; avoid default gray draw.io styling
+- rounded cards with restrained borders and enough internal padding
+- clear title/body hierarchy instead of one dense text block
+- one or two accent colors only, with adequate contrast
+- orthogonal routed connectors with enough terminal room near arrowheads
+
+If a diagram passes lint but still looks visually plain, revise hierarchy, spacing, and palette before presenting it.
+
 ### 7.1 Required XML structure
 
 Every diagram must use native mxGraphModel XML:
@@ -359,6 +381,7 @@ uv run python scripts/find_aws_icon.py lambda
 ## 9. Checklist
 
 - [ ] diagram source is a valid `.drawio` file
+- [ ] a visual template was chosen for new diagrams, defaulting to `references/aesthetic-templates.md` when unspecified
 - [ ] export filenames use `.drawio.<format>` when exported
 - [ ] edge cells contain `<mxGeometry relative="1" as="geometry"/>`
 - [ ] fonts are explicit when Japanese text is involved

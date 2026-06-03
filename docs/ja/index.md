@@ -45,6 +45,8 @@ features:
 - [リポジトリ構成の全体図](/ja/guide/showcase#repository-structure-overview)
 - [lint レビュー用の shape サンプル](/ja/guide/showcase#lint-review-sample)
 - [アイコン中心のブロック例](/ja/guide/showcase#icon-block-sample)
+- [aesthetic テンプレートサンプル](/ja/guide/showcase#aesthetic-テンプレートサンプル)
+- [用途別テンプレート](/ja/guide/showcase#用途別テンプレート)
 - [AWS 向けレイアウトの例](/ja/guide/showcase#aws-ready-layout-pattern)
 
 ## 主なリンク

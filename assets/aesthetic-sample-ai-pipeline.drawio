@@ -1,0 +1,109 @@
+<mxfile host="app.diagrams.net" modified="2026-06-03T00:00:00.000Z" agent="Codex GPT-5" version="30.0.4">
+  <diagram id="ai-pipeline-studio" name="AI Pipeline Studio">
+    <mxGraphModel dx="1800" dy="1100" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" background="#FAFBFF" defaultFontFamily="Noto Sans JP">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="AI Pipeline Studio" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=30;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#101828;" vertex="1" parent="1">
+          <mxGeometry x="70" y="48" width="580" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="A modular model workflow layout for data, evaluation, deployment, and feedback" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=15;fontStyle=0;fontFamily=Noto Sans JP;fontColor=#5B6778;" vertex="1" parent="1">
+          <mxGeometry x="72" y="94" width="760" height="28" as="geometry"/>
+        </mxCell>
+        <mxCell id="chip1" value="ML system map" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ECFDF5;strokeColor=#B7E4CF;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#047857;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1260" y="62" width="160" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="data-lane" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F0FDF4;strokeColor=#CBEAD7;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="80" y="170" width="310" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="model-lane" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#F4F7FF;strokeColor=#D7E1FF;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="170" width="500" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="delivery-lane" value="" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFF7ED;strokeColor=#FAD6A5;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="990" y="170" width="430" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="data-title" value="Data Foundation" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#14532D;" vertex="1" parent="1">
+          <mxGeometry x="120" y="205" width="230" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="model-title" value="Model Factory" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1E3A8A;" vertex="1" parent="1">
+          <mxGeometry x="480" y="205" width="230" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="delivery-title" value="Delivery and Feedback" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;fontSize=20;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#7C2D12;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="205" width="280" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="sources" value="Source Streams&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;logs, docs, events&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#10B981;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="125" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="curation" value="Curation&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;dedupe and labeling&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#10B981;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="125" y="510" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="features" value="Feature Set&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;versioned contracts&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="500" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="train" value="Training Run&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;tracked parameters&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#2563EB;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="300" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="eval" value="Evaluation&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;benchmarks and gates&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#8B5CF6;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="760" y="510" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="registry" value="Model Registry&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;approved artifacts&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#F2994A;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="300" width="220" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="serve" value="Serving Layer&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;API, batch, edge&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#F2994A;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="620" width="220" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="feedback" value="Feedback Review&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;quality and drift&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#DC2626;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="1300" y="620" width="210" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="audit" value="Audit Trail&lt;br&gt;&lt;font style=&quot;font-size: 12px; color: #56657A;&quot;&gt;datasets and evidence&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FFFFFF;strokeColor=#00A6A6;strokeWidth=2;fontSize=17;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#172033;align=center;verticalAlign=middle;spacing=10;" vertex="1" parent="1">
+          <mxGeometry x="715" y="700" width="260" height="82" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#10B981;" edge="1" parent="1" source="sources" target="features">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#10B981;dashed=1;" edge="1" parent="1" source="sources" target="curation">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#2563EB;" edge="1" parent="1" source="features" target="train">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#8B5CF6;" edge="1" parent="1" source="train" target="eval">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#F2994A;rounded=0;exitX=1;exitY=0.35;entryX=0;entryY=0.5;" edge="1" parent="1" source="eval" target="registry">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1000" y="542"/>
+              <mxPoint x="1000" y="345"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#F2994A;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="registry" target="serve">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#DC2626;" edge="1" parent="1" source="serve" target="feedback">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=1;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;strokeColor=#00A6A6;dashed=1;" edge="1" parent="1" source="eval" target="audit">
+          <mxGeometry relative="1" as="geometry">
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend1" value="Training path" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#EAF3FF;strokeColor=#BBD7FF;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#1D4ED8;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="980" y="830" width="145" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend2" value="Governance" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#E6FBFB;strokeColor=#B8ECEC;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#007A7A;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1145" y="830" width="130" height="34" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend3" value="Feedback loop" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#FEECEC;strokeColor=#F7B4B4;strokeWidth=1;fontSize=13;fontStyle=1;fontFamily=Noto Sans JP;fontColor=#B91C1C;align=center;verticalAlign=middle;" vertex="1" parent="1">
+          <mxGeometry x="1295" y="830" width="140" height="34" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

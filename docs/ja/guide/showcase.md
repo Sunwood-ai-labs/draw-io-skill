@@ -44,6 +44,118 @@ SVG export 後に、線の混み具合、文字の収まり、非矩形 shape �
 - `assets/draw-io-skill-structure-icons.ja.drawio.png`
 - `assets/draw-io-skill-structure-icons.ja.drawio.svg`
 
+## aesthetic テンプレートサンプル
+
+単発の作業図ではなく、最初から見せる品質で作りたいときの標準サンプルです。
+
+### Polished Technical Template
+
+![Polished technical template sample](../../../assets/aesthetic-template-sample.drawio.png)
+
+- `assets/aesthetic-template-sample.drawio`
+- `assets/aesthetic-template-sample.drawio.png`
+- `assets/aesthetic-template-sample.drawio.svg`
+
+### Executive Dashboard
+
+![Executive dashboard sample](../../../assets/aesthetic-sample-executive-dashboard.drawio.png)
+
+- `assets/aesthetic-sample-executive-dashboard.drawio`
+- `assets/aesthetic-sample-executive-dashboard.drawio.png`
+- `assets/aesthetic-sample-executive-dashboard.drawio.svg`
+
+### AI Pipeline
+
+![AI pipeline sample](../../../assets/aesthetic-sample-ai-pipeline.drawio.png)
+
+- `assets/aesthetic-sample-ai-pipeline.drawio`
+- `assets/aesthetic-sample-ai-pipeline.drawio.png`
+- `assets/aesthetic-sample-ai-pipeline.drawio.svg`
+
+### Security Incident
+
+![Security incident sample](../../../assets/aesthetic-sample-security-incident.drawio.png)
+
+- `assets/aesthetic-sample-security-incident.drawio`
+- `assets/aesthetic-sample-security-incident.drawio.png`
+- `assets/aesthetic-sample-security-incident.drawio.svg`
+
+## 用途別テンプレート
+
+このセクションのテンプレートは、色違いではなく「何を判断・説明するための図か」を分けています。
+
+### Board Brief
+
+![Board Brief template](../../../assets/purpose-board-brief-template.drawio.png)
+
+使う問い: 何を、どの前提で、誰が判断するのか。
+
+- 読ませるもの: 目的、現状シグナル、リスク、次アクション、担当
+- 除外するもの: 実装手順、詳細ログ、依存関係マップ
+- `assets/purpose-board-brief-template.drawio`
+- `assets/purpose-board-brief-template.drawio.png`
+- `assets/purpose-board-brief-template.drawio.svg`
+
+### Dependency Orbit Map
+
+![Dependency Orbit Map template](../../../assets/purpose-dependency-orbit-template.drawio.png)
+
+使う問い: 中心オブジェクトに何が依存していて、影響境界はどこまでか。
+
+- 読ませるもの: コア、直接依存、間接シグナル、外部接続
+- 除外するもの: 時系列、日報、工数計画
+- `assets/purpose-dependency-orbit-template.drawio`
+- `assets/purpose-dependency-orbit-template.drawio.png`
+- `assets/purpose-dependency-orbit-template.drawio.svg`
+
+### Incident Timeline
+
+![Incident Timeline template](../../../assets/purpose-incident-timeline-template.drawio.png)
+
+使う問い: 何が観測され、何に影響し、どう対応したのか。
+
+- 読ませるもの: 時刻、観測事実、影響、対応、証拠 ID
+- 除外するもの: 推測、未検証の原因、構成図だけの説明
+- `assets/purpose-incident-timeline-template.drawio`
+- `assets/purpose-incident-timeline-template.drawio.png`
+- `assets/purpose-incident-timeline-template.drawio.svg`
+
+### Hypothesis Helix
+
+![Hypothesis Helix template](../../../assets/purpose-hypothesis-helix-template.drawio.png)
+
+使う問い: 次に何を検証すべきか。
+
+- 読ませるもの: 仮説、実験、証拠、Go/No-Go 判断、反復
+- 除外するもの: 実装アーキテクチャ、カレンダー計画
+- `assets/purpose-hypothesis-helix-template.drawio`
+- `assets/purpose-hypothesis-helix-template.drawio.png`
+- `assets/purpose-hypothesis-helix-template.drawio.svg`
+
+### Feature Value Matrix
+
+![Feature Value Matrix template](../../../assets/purpose-feature-value-matrix-template.drawio.png)
+
+使う問い: どの機能から作るべきか。
+
+- 読ませるもの: impact、effort、delivery risk、priority weight
+- 除外するもの: project schedule、dependency route
+- `assets/purpose-feature-value-matrix-template.drawio`
+- `assets/purpose-feature-value-matrix-template.drawio.png`
+- `assets/purpose-feature-value-matrix-template.drawio.svg`
+
+### Value Conversion Sheet
+
+![Value Conversion Sheet template](../../../assets/purpose-value-conversion-sheet-template.drawio.png)
+
+使う問い: 作業はどうユーザー価値へ変換されるのか。
+
+- 読ませるもの: user pain、touchpoint、value delivered、metric、gap
+- 除外するもの: dependency map、incident chronology
+- `assets/purpose-value-conversion-sheet-template.drawio`
+- `assets/purpose-value-conversion-sheet-template.drawio.png`
+- `assets/purpose-value-conversion-sheet-template.drawio.svg`
+
 ## AWS 構成図へ広げるときの土台
 
 このリポジトリには、固定の AWS 構成図を 1 枚だけ置いているわけではありませんが、AWS 図へ広げやすい材料はそろっています。

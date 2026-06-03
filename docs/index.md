@@ -45,6 +45,8 @@ features:
 - [Repository structure overview](/guide/showcase#repository-structure-overview)
 - [Shape-aware lint review sample](/guide/showcase#lint-review-sample)
 - [Icon block showcase sample](/guide/showcase#icon-block-sample)
+- [Aesthetic template samples](/guide/showcase#aesthetic-template-samples)
+- [Purpose-driven templates](/guide/showcase#purpose-driven-templates)
 - [AWS-ready layout pattern](/guide/showcase#aws-ready-layout-pattern)
 
 ## Useful links

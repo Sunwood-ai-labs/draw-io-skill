@@ -44,6 +44,118 @@ This sample rebuilds the same flow with role icons embedded inside each block. I
 - `assets/draw-io-skill-structure-icons.ja.drawio.png`
 - `assets/draw-io-skill-structure-icons.ja.drawio.svg`
 
+## Aesthetic Template Samples
+
+These samples show the default visual direction for diagrams that need to look polished without turning into one-off artwork.
+
+### Polished Technical Template
+
+![Polished technical template sample](../../assets/aesthetic-template-sample.drawio.png)
+
+- `assets/aesthetic-template-sample.drawio`
+- `assets/aesthetic-template-sample.drawio.png`
+- `assets/aesthetic-template-sample.drawio.svg`
+
+### Executive Dashboard
+
+![Executive dashboard sample](../../assets/aesthetic-sample-executive-dashboard.drawio.png)
+
+- `assets/aesthetic-sample-executive-dashboard.drawio`
+- `assets/aesthetic-sample-executive-dashboard.drawio.png`
+- `assets/aesthetic-sample-executive-dashboard.drawio.svg`
+
+### AI Pipeline
+
+![AI pipeline sample](../../assets/aesthetic-sample-ai-pipeline.drawio.png)
+
+- `assets/aesthetic-sample-ai-pipeline.drawio`
+- `assets/aesthetic-sample-ai-pipeline.drawio.png`
+- `assets/aesthetic-sample-ai-pipeline.drawio.svg`
+
+### Security Incident
+
+![Security incident sample](../../assets/aesthetic-sample-security-incident.drawio.png)
+
+- `assets/aesthetic-sample-security-incident.drawio`
+- `assets/aesthetic-sample-security-incident.drawio.png`
+- `assets/aesthetic-sample-security-incident.drawio.svg`
+
+## Purpose-Driven Templates
+
+These templates are separated by purpose, not just by palette.
+
+### Board Brief
+
+![Board Brief template](../../assets/purpose-board-brief-template.drawio.png)
+
+Use this when the question is: what decision needs to be made, from which premises, by whom?
+
+- Includes: objective, current signals, risks, next actions, accountable owners
+- Excludes: implementation steps, detailed logs, dependency maps
+- `assets/purpose-board-brief-template.drawio`
+- `assets/purpose-board-brief-template.drawio.png`
+- `assets/purpose-board-brief-template.drawio.svg`
+
+### Dependency Orbit Map
+
+![Dependency Orbit Map template](../../assets/purpose-dependency-orbit-template.drawio.png)
+
+Use this when the question is: what depends on the core object, and where is the impact boundary?
+
+- Includes: core, direct dependencies, indirect signals, external edges
+- Excludes: timelines, daily progress, effort plans
+- `assets/purpose-dependency-orbit-template.drawio`
+- `assets/purpose-dependency-orbit-template.drawio.png`
+- `assets/purpose-dependency-orbit-template.drawio.svg`
+
+### Incident Timeline
+
+![Incident Timeline template](../../assets/purpose-incident-timeline-template.drawio.png)
+
+Use this when the question is: what was observed, what was affected, and how did the response unfold?
+
+- Includes: timestamps, observed facts, impact, response, evidence IDs
+- Excludes: speculation, unverified causes, architecture-only views
+- `assets/purpose-incident-timeline-template.drawio`
+- `assets/purpose-incident-timeline-template.drawio.png`
+- `assets/purpose-incident-timeline-template.drawio.svg`
+
+### Hypothesis Helix
+
+![Hypothesis Helix template](../../assets/purpose-hypothesis-helix-template.drawio.png)
+
+Use this when the question is: what should we test next?
+
+- Includes: hypothesis, experiment, evidence, go/no-go decision, iteration loop
+- Excludes: implementation architecture, calendar timelines
+- `assets/purpose-hypothesis-helix-template.drawio`
+- `assets/purpose-hypothesis-helix-template.drawio.png`
+- `assets/purpose-hypothesis-helix-template.drawio.svg`
+
+### Feature Value Matrix
+
+![Feature Value Matrix template](../../assets/purpose-feature-value-matrix-template.drawio.png)
+
+Use this when the question is: what should we build first?
+
+- Includes: impact, effort, delivery risk, priority weight
+- Excludes: project schedules, dependency routes
+- `assets/purpose-feature-value-matrix-template.drawio`
+- `assets/purpose-feature-value-matrix-template.drawio.png`
+- `assets/purpose-feature-value-matrix-template.drawio.svg`
+
+### Value Conversion Sheet
+
+![Value Conversion Sheet template](../../assets/purpose-value-conversion-sheet-template.drawio.png)
+
+Use this when the question is: how does work become user value?
+
+- Includes: user pain, touchpoint, value delivered, metric, gap
+- Excludes: dependency maps, incident chronology
+- `assets/purpose-value-conversion-sheet-template.drawio`
+- `assets/purpose-value-conversion-sheet-template.drawio.png`
+- `assets/purpose-value-conversion-sheet-template.drawio.svg`
+
 ## AWS-Ready Layout Pattern
 
 The repository does not ship a single fixed AWS topology, but it does include the parts you need to build one quickly:

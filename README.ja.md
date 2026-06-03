@@ -76,6 +76,43 @@ npm run docs:build
 - `assets/draw-io-skill-structure.drawio*` はリポジトリ構成の導入向け
 - `assets/draw-io-skill-structure-shapes.drawio*` は非矩形 shape を含む lint / 目視確認向け
 - `assets/draw-io-skill-structure-icons.drawio*` は AWS アイコンガイドや `uv run python scripts/find_aws_icon.py` と相性のよい、見せ方重視のアイコン付きブロック例
+- `assets/aesthetic-template-sample.drawio*` は標準の polished technical template
+- `assets/aesthetic-sample-executive-dashboard.drawio*` は経営・意思決定向け KPI 表現
+- `assets/aesthetic-sample-ai-pipeline.drawio*` は AI workflow / model pipeline の説明向け
+- `assets/aesthetic-sample-security-incident.drawio*` は security response の説明向け
+- `assets/purpose-board-brief-template.drawio*` は 1 枚で意思決定前提を共有する brief 向け
+- `assets/purpose-dependency-orbit-template.drawio*` は dependency radius と影響境界を見せる用途向け
+- `assets/purpose-incident-timeline-template.drawio*` は観測事実・影響・対応を時系列で再構成する用途向け
+- `assets/purpose-hypothesis-helix-template.drawio*` は仮説を実験・証拠・判断へ変換する用途向け
+- `assets/purpose-feature-value-matrix-template.drawio*` は impact / effort / risk で機能候補を優先順位付けする用途向け
+- `assets/purpose-value-conversion-sheet-template.drawio*` は user pain を touchpoint / value / metric へ変換する用途向け
+
+### 用途別テンプレートギャラリー
+
+これらは色違いではなく、存在意義を分けたテンプレートです。
+
+| テンプレート | 目的 | 除外するもの |
+| --- | --- | --- |
+| Board Brief | 意思決定前提を 1 枚で共有する | 実装手順、依存関係マップ |
+| Dependency Orbit Map | 直接・間接依存の半径と影響境界を示す | 時系列、進捗報告 |
+| Incident Timeline | 観測事実、影響、対応を時系列で再構成する | 推測原因、構成図 |
+| Hypothesis Helix | 不確かな案を実験、証拠、Go/No-Go 判断に変換する | 実装アーキテクチャ、カレンダー計画 |
+| Feature Value Matrix | 機能候補を impact / effort / risk で優先順位付けする | delivery schedule、dependency route |
+| Value Conversion Sheet | user pain を touchpoint、介入、測定可能な価値に変換する | dependency map、incident chronology |
+
+![Board Brief template](./assets/purpose-board-brief-template.drawio.png)
+![Dependency Orbit Map template](./assets/purpose-dependency-orbit-template.drawio.png)
+![Incident Timeline template](./assets/purpose-incident-timeline-template.drawio.png)
+![Hypothesis Helix template](./assets/purpose-hypothesis-helix-template.drawio.png)
+![Feature Value Matrix template](./assets/purpose-feature-value-matrix-template.drawio.png)
+![Value Conversion Sheet template](./assets/purpose-value-conversion-sheet-template.drawio.png)
+
+### aesthetic サンプルギャラリー
+
+![Polished technical template sample](./assets/aesthetic-template-sample.drawio.png)
+![Executive dashboard sample](./assets/aesthetic-sample-executive-dashboard.drawio.png)
+![AI pipeline sample](./assets/aesthetic-sample-ai-pipeline.drawio.png)
+![Security incident sample](./assets/aesthetic-sample-security-incident.drawio.png)
 
 ### 外部例のリンク
 
@@ -196,6 +233,18 @@ draw-io-skill/
 ├── SKILL.md
 ├── LICENSE
 ├── assets/
+│   ├── aesthetic-sample-ai-pipeline.drawio
+│   ├── aesthetic-sample-ai-pipeline.drawio.png
+│   ├── aesthetic-sample-ai-pipeline.drawio.svg
+│   ├── aesthetic-sample-executive-dashboard.drawio
+│   ├── aesthetic-sample-executive-dashboard.drawio.png
+│   ├── aesthetic-sample-executive-dashboard.drawio.svg
+│   ├── aesthetic-sample-security-incident.drawio
+│   ├── aesthetic-sample-security-incident.drawio.png
+│   ├── aesthetic-sample-security-incident.drawio.svg
+│   ├── aesthetic-template-sample.drawio
+│   ├── aesthetic-template-sample.drawio.png
+│   ├── aesthetic-template-sample.drawio.svg
 │   ├── draw-io-skill-hero.svg
 │   ├── draw-io-skill-icon.svg
 │   ├── draw-io-skill-penpen-header.webp
@@ -213,7 +262,25 @@ draw-io-skill/
 │   ├── draw-io-skill-structure-shapes.drawio.svg
 │   ├── draw-io-skill-structure.ja.drawio
 │   ├── draw-io-skill-structure.ja.drawio.png
-│   └── draw-io-skill-structure.ja.drawio.svg
+│   ├── draw-io-skill-structure.ja.drawio.svg
+│   ├── purpose-board-brief-template.drawio
+│   ├── purpose-board-brief-template.drawio.png
+│   ├── purpose-board-brief-template.drawio.svg
+│   ├── purpose-dependency-orbit-template.drawio
+│   ├── purpose-dependency-orbit-template.drawio.png
+│   ├── purpose-dependency-orbit-template.drawio.svg
+│   ├── purpose-feature-value-matrix-template.drawio
+│   ├── purpose-feature-value-matrix-template.drawio.png
+│   ├── purpose-feature-value-matrix-template.drawio.svg
+│   ├── purpose-hypothesis-helix-template.drawio
+│   ├── purpose-hypothesis-helix-template.drawio.png
+│   ├── purpose-hypothesis-helix-template.drawio.svg
+│   ├── purpose-incident-timeline-template.drawio
+│   ├── purpose-incident-timeline-template.drawio.png
+│   ├── purpose-incident-timeline-template.drawio.svg
+│   ├── purpose-value-conversion-sheet-template.drawio
+│   ├── purpose-value-conversion-sheet-template.drawio.png
+│   └── purpose-value-conversion-sheet-template.drawio.svg
 ├── docs/
 │   ├── .vitepress/
 │   ├── guide/
